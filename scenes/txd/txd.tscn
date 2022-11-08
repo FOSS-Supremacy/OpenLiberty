@@ -59,3 +59,5 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_y7lf0")
 stretch_mode = 4
+
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_load_image"]

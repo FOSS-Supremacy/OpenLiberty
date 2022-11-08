@@ -2,6 +2,22 @@ class_name RWRaster
 extends RWChunk
 
 
+enum {
+	FORMAT_DEFAULT         = 0x0000,
+	FORMAT_1555            = 0x0100,
+	FORMAT_565             = 0x0200,
+	FORMAT_4444            = 0x0300,
+	FORMAT_LUM8            = 0x0400,
+	FORMAT_8888            = 0x0500,
+	FORMAT_888             = 0x0600,
+	FORMAT_555             = 0x0A00,
+
+	FORMAT_EXT_AUTO_MIPMAP = 0x1000,
+	FORMAT_EXT_PAL8        = 0x2000,
+	FORMAT_EXT_PAL4        = 0x4000,
+	FORMAT_EXT_MIPMAP      = 0x8000
+}
+
 var platform_id: int
 var filter_mode: int
 var u_addressing: int
@@ -17,6 +33,8 @@ var depth: int
 var num_levels: int
 var raster_type: int
 var compression: int
+
+var image: Image
 
 
 func _init(file: FileAccess):
@@ -43,4 +61,28 @@ func _init(file: FileAccess):
 	raster_type = file.get_8()
 	compression = file.get_8()
 	
-	breakpoint
+	# Image loading starts here
+	var ifmt: Image.Format
+	
+	match (raster_format >> 8) & 0xf:
+		0x5:
+			ifmt = Image.FORMAT_RGBA8
+		0x6:
+			ifmt = Image.FORMAT_RGB8
+		_:
+			assert(false, "unknown raster format")
+	
+	if raster_format == FORMAT_EXT_PAL8 | FORMAT_8888 or raster_format == FORMAT_EXT_PAL8 | FORMAT_888:
+		image = Image.create(width, height, true, ifmt)
+		file.seek(_start + size)
+		
+#		if raster_format & FORMAT_EXT_PAL8 > 0:
+#			var palette := Image.create_from_data(256, 1, false, ifmt, file.get_buffer(256 * 4))
+#			var raster_size := file.get_32()
+#			for i in raster_size:
+#				var x := int(i & width + 1)
+#				var y := int(i / width + 1)
+#				image.set_pixel(x, y, palette.get_pixel(file.get_8() + 1, 1))
+#		else:
+#			assert(false, "implement")
+	file.seek(_start + size)
