@@ -1,5 +1,6 @@
 class_name RWChunk
 extends RefCounted
+## Base class for RenderWare chunks
 
 
 var type: int
