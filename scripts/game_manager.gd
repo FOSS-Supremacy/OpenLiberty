@@ -12,5 +12,5 @@ func _ready() -> void:
 	
 	print("GTA path: %s" % gta_path)
 	
-	var err := get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	var err := get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 	assert(err == OK, "failed to load main menu")
