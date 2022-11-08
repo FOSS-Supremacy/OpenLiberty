@@ -63,26 +63,33 @@ func _init(file: FileAccess):
 	
 	# Image loading starts here
 	var ifmt: Image.Format
+	var bpc: int
 	
 	match (raster_format >> 8) & 0xf:
 		0x5:
 			ifmt = Image.FORMAT_RGBA8
+			bpc = 4
 		0x6:
 			ifmt = Image.FORMAT_RGB8
+			bpc = 3
 		_:
 			assert(false, "unknown raster format")
 	
-	if raster_format == FORMAT_EXT_PAL8 | FORMAT_8888 or raster_format == FORMAT_EXT_PAL8 | FORMAT_888:
-		image = Image.create(width, height, true, ifmt)
-		file.seek(_start + size)
+	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
+		image = Image.create(width, height, false, ifmt)
+		image.fill(Color.PURPLE)
 		
-#		if raster_format & FORMAT_EXT_PAL8 > 0:
-#			var palette := Image.create_from_data(256, 1, false, ifmt, file.get_buffer(256 * 4))
-#			var raster_size := file.get_32()
-#			for i in raster_size:
-#				var x := int(i & width + 1)
-#				var y := int(i / width + 1)
-#				image.set_pixel(x, y, palette.get_pixel(file.get_8() + 1, 1))
-#		else:
-#			assert(false, "implement")
+		if raster_format & FORMAT_EXT_PAL8 > 0:
+			var palette := Image.create_from_data(256, 1, false, ifmt, file.get_buffer(256 * bpc))
+			for i in width * height:
+				var x := int(i % width)
+				var y := int(i / width)
+				var col := palette.get_pixel(file.get_8(), 0)
+				image.set_pixel(x, y, col)
+		else:
+			assert(false, "implement")
+	elif raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4) == 0:
+		var raster_size := file.get_32()
+		image = Image.create_from_data(width, height, false, ifmt, file.get_buffer((width * height) * bpc))
+#	
 	file.seek(_start + size)
