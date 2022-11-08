@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "RefCounted",
+"class": &"RWChunk",
+"language": &"GDScript",
+"path": "res://scripts/renderware/rw_chunk.gd"
+}]
+_global_script_class_icons={
+"RWChunk": ""
+}
+
 [application]
 
 config/name="GTA 3 Godot"
