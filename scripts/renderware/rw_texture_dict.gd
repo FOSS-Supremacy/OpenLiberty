@@ -19,3 +19,5 @@ func _init(file: FileAccess):
 	for i in texture_count:
 		var raster := RWRaster.new(file)
 		textures.append(raster)
+	
+	file.seek(_start + size)
