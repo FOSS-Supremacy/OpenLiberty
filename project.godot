@@ -15,6 +15,11 @@ _global_script_classes=[{
 "path": "res://scripts/renderware/rw_chunk.gd"
 }, {
 "base": "RWChunk",
+"class": &"RWClump",
+"language": &"GDScript",
+"path": "res://scripts/renderware/rw_clump.gd"
+}, {
+"base": "RWChunk",
 "class": &"RWRaster",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_raster.gd"
@@ -26,6 +31,7 @@ _global_script_classes=[{
 }]
 _global_script_class_icons={
 "RWChunk": "",
+"RWClump": "",
 "RWRaster": "",
 "RWTextureDict": ""
 }
