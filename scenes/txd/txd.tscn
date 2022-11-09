@@ -41,23 +41,37 @@ offset_right = 658.0
 offset_bottom = 28.0
 text = "TXD test"
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-offset_left = 569.0
 offset_top = 35.0
-offset_right = 583.0
-offset_bottom = 55.0
+offset_right = 1152.0
+offset_bottom = 66.0
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 525.0
+offset_right = 608.0
+offset_bottom = 31.0
+text = "Select file"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 612.0
+offset_right = 626.0
+offset_bottom = 31.0
 size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
 offset_left = 512.0
-offset_top = 59.0
+offset_top = 70.0
 offset_right = 640.0
-offset_bottom = 187.0
+offset_bottom = 198.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_y7lf0")
 stretch_mode = 4
 
-[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_load_image"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_select_file"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/OptionButton" to="." method="_load_image"]
