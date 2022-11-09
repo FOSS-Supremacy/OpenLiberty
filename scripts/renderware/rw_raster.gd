@@ -63,7 +63,7 @@ func _init(file: FileAccess):
 	
 	# Image loading starts here
 	image = Image.create(width, height, false, Image.FORMAT_RGBA8)
-	image.fill(Color(1.0, 0.0, 1.0,0.0)) # Dummy image
+	image.fill(Color(1.0, 0.0, 1.0, 1.0)) # Dummy image
 	
 	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
 		if raster_format & FORMAT_EXT_PAL8:
