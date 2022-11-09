@@ -89,8 +89,14 @@ func _init(file: FileAccess):
 				image.set_pixel(x, y, color)
 	else:
 		# Honestly, idk wtf is going on. I thought the non-paletted format
-		# depends on the raster format but nope. Apparently they all use RGBA8.
+		# depends on the raster format but nope. Apparently they all use BGRA8.
 		var raster_size := file.get_32()
 		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, file.get_buffer(raster_size))
+		# Perform color conversion
+		for i in width * height:
+				var x := int(i % width)
+				var y := int(i / width)
+				var old := image.get_pixel(x, y)
+				image.set_pixel(x, y, Color(old.b, old.g, old.r, old.a))
 	
 	skip(file)
