@@ -66,21 +66,10 @@ func _init(file: FileAccess):
 	image.fill(Color(1.0, 0.0, 1.0)) # Dummy image
 	
 	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
-		var format: int
-		var bpc: int
-		match raster_format & 0x0f00:
-			FORMAT_8888:
-				format = Image.FORMAT_RGBA8
-				bpc = 4
-			FORMAT_888:
-				format = Image.FORMAT_RGB8
-				bpc = 3
-			_:
-				assert(false, "unknown raster format")
-		image = Image.create(width, height, false, format)
+		image = Image.create(width, height, false, Image.FORMAT_RGBA8)
 		
 		if raster_format & FORMAT_EXT_PAL8:
-			var palette := Image.create_from_data(256, 1, false, format, file.get_buffer(256 * bpc))
+			var palette := Image.create_from_data(256, 1, false, Image.FORMAT_RGBA8, file.get_buffer(256 * 4))
 			var raster_size := file.get_32()
 			for i in raster_size:
 				var x := int(i % width)
