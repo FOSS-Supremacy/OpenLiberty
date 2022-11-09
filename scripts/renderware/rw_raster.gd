@@ -78,7 +78,7 @@ func _init(file: FileAccess):
 		var raster_size := file.get_32()
 		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, file.get_buffer(raster_size))
 		# Perform color conversion
-		for i in width * height:
+		for i in raster_size / 4:
 				var x := int(i % width)
 				var y := int(i / width)
 				var old := image.get_pixel(x, y)
