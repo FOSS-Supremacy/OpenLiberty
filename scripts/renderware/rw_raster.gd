@@ -62,27 +62,22 @@ func _init(file: FileAccess):
 	compression = file.get_8()
 	
 	# Image loading starts here
-	var format: int
-	var bpc: int
-	match (raster_format >> 8) & 0xf:
-		0x5:
-			format = Image.FORMAT_RGBA8
-			bpc = 4
-		0x6:
-			format = Image.FORMAT_RGB8
-			bpc = 3
-		_:
-			assert(false, "unknown raster format")
-	
-	image = Image.create(width, height, false, format)
+	image = Image.create(width, height, false, Image.FORMAT_RGB8)
 	image.fill(Color(1.0, 0.0, 1.0)) # Dummy image
 	
-	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4) > 0:
-#		var bpc := (
-#			4 if raster_format & FORMAT_8888
-#			else 3 if raster_format & FORMAT_888
-#			else 0
-#		)
+	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
+		var format: int
+		var bpc: int
+		match raster_format & 0x0f00:
+			FORMAT_8888:
+				format = Image.FORMAT_RGBA8
+				bpc = 4
+			FORMAT_888:
+				format = Image.FORMAT_RGB8
+				bpc = 3
+			_:
+				assert(false, "unknown raster format")
+		image = Image.create(width, height, false, format)
 		
 		if raster_format & FORMAT_EXT_PAL8:
 			var palette := Image.create_from_data(256, 1, false, format, file.get_buffer(256 * bpc))
@@ -93,7 +88,9 @@ func _init(file: FileAccess):
 				var color := palette.get_pixel(file.get_8(), 0)
 				image.set_pixel(x, y, color)
 	else:
+		# Honestly, idk wtf is going on. I thought the non-paletted format
+		# depends on the raster format but nope. Apparently they all use RGBA8.
 		var raster_size := file.get_32()
-		image = Image.create_from_data(width, height, false, format, file.get_buffer(raster_size))
+		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, file.get_buffer(raster_size))
 	
-	file.seek(_start + size)
+	skip(file)

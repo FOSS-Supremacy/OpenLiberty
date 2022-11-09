@@ -16,3 +16,7 @@ func _init(file: FileAccess):
 	library_id = file.get_32()
 	assert(library_id == 0x0c02ffff) # TODO: Other versions
 	_start = file.get_position()
+
+
+func skip(file: FileAccess) -> void:
+	file.seek(_start + size)
