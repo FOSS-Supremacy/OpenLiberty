@@ -86,9 +86,6 @@ offset_bottom = 31.0
 transform = Transform3D(0.818589, 0.497428, -0.287189, -3.52742e-08, 0.499998, 0.866026, 0.574379, -0.70892, 0.409293, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.732543, -0.200159, 0.650628, 0, 0.955793, 0.29404, -0.680721, -0.215397, 0.700159, 2.72529, 2.25548, 2.93297)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3567p")
 
@@ -98,11 +95,18 @@ visible = false
 mesh = SubResource("CapsuleMesh_mlknp")
 
 [node name="floor" type="MeshInstance3D" parent="."]
+visible = false
 material_override = ExtResource("2_gok33")
 mesh = SubResource("PlaneMesh_jjs8n")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_1c5hl")
+
+[node name="Camera rig" type="Node3D" parent="."]
+transform = Transform3D(0.646191, -0.249372, 0.721284, 0, 0.945109, 0.326756, -0.763176, -0.211147, 0.61072, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camera rig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
 [connection signal="value_changed" from="GUI/VBoxContainer/HBoxContainer/SpinBox" to="." method="_ld_model"]
