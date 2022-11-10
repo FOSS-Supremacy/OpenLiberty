@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://duvu85h044tvc"]
+[gd_scene load_steps=9 format=3 uid="uid://duvu85h044tvc"]
 
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_7rgiv"]
+[ext_resource type="Script" path="res://scenes/modeltest/modeltest.gd" id="1_fud8n"]
 [ext_resource type="Material" uid="uid://c3cptegacudr8" path="res://materials/worldgrid/worldgrid.tres" id="2_gok33"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yy30q"]
@@ -18,6 +19,7 @@ sky = SubResource("Sky_6vasj")
 size = Vector2(10, 10)
 
 [node name="modeltest" type="Node3D"]
+script = ExtResource("1_fud8n")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -95,3 +97,5 @@ mesh = SubResource("CapsuleMesh_mlknp")
 [node name="floor" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_gok33")
 mesh = SubResource("PlaneMesh_jjs8n")
+
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
