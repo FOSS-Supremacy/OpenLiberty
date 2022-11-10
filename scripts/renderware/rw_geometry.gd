@@ -46,7 +46,14 @@ func _init(file: FileAccess):
 	if format & rpGEOMETRYNATIVE == 0:
 		assert(format & rpGEOMETRYPRELIT == 0, "implement")
 		
-		for i in (format & 0x00ff0000) >> 16:
+		var uv_count := (format & 0x00ff0000) >> 16
+		if uv_count == 0:
+			if format & rpGEOMETRYTEXTURED2:
+				uv_count = 2
+			else:
+				uv_count = 1
+		
+		for i in uv_count:
 			var coords := PackedVector2Array()
 			for j in vert_count:
 				var u := file.get_float()
