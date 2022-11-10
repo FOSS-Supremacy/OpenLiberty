@@ -34,19 +34,4 @@ func _ld_dff() -> void:
 
 func _ld_model(value: float) -> void:
 	var geometry := dff.geometry_list.geometries[int(value)]
-	var morph_t := geometry.morph_targets[0]
-	if geometry.morph_targets[0].has_vertices == false:
-		return
-	
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	
-	for tri in geometry.tris:
-		for i in [3,2,1]:
-			if morph_t.has_normals:
-				st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
-			st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
-	
-	if geometry.format & RWGeometry.rpGEOMETRYTRISTRIP == 0:
-		st.generate_normals()
-	meshinstance.mesh = st.commit()
+	meshinstance.mesh = geometry.mesh

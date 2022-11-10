@@ -29,6 +29,25 @@ var uvs: Array[PackedVector2Array]
 var tris: Array[Triangle]
 var morph_targets: Array[MorphTarget]
 
+var mesh: ArrayMesh:
+	get:
+		if morph_targets[0].has_vertices == false:
+			return ArrayMesh.new()
+		var morph_t := morph_targets[0]
+		var st := SurfaceTool.new()
+		
+		st.begin(Mesh.PRIMITIVE_TRIANGLES)
+		for tri in tris:
+			for i in [3,2,1]:
+				if morph_t.has_normals:
+					st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
+				st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
+		
+		if format & rpGEOMETRYTRISTRIP == 0 and morph_t.has_normals == false:
+			st.generate_normals()
+			st.generate_tangents()
+		return st.commit()
+
 
 func _init(file: FileAccess):
 	super(file)
