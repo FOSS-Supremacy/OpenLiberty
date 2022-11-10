@@ -40,21 +40,13 @@ func _ld_model(value: float) -> void:
 	
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for tri in geometry.tris:
-		var v1 := morph_t.vertices[tri.vertex_1]
-		var v2 := morph_t.vertices[tri.vertex_2]
-		var v3 := morph_t.vertices[tri.vertex_3]
-		
-		if morph_t.has_normals:
-			st.set_normal(morph_t.normals[tri.vertex_3])
-		st.add_vertex(v3)
-		if morph_t.has_normals:
-			st.set_normal(morph_t.normals[tri.vertex_2])
-		st.add_vertex(v2)
-		if morph_t.has_normals:
-			st.set_normal(morph_t.normals[tri.vertex_1])
-		st.add_vertex(v1)
 	
-	st.generate_normals()
-	st.generate_tangents()
+	for tri in geometry.tris:
+		for i in [3,2,1]:
+			if morph_t.has_normals:
+				st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
+			st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
+	
+	if geometry.format & RWGeometry.rpGEOMETRYTRISTRIP == 0:
+		st.generate_normals()
 	meshinstance.mesh = st.commit()
