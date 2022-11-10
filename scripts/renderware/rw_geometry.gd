@@ -51,7 +51,7 @@ func _init(file: FileAccess):
 		if uv_count == 0:
 			if format & rpGEOMETRYTEXTURED2:
 				uv_count = 2
-			else:
+			elif format & rpGEOMETRYTEXTURED:
 				uv_count = 1
 		
 		for i in uv_count:
