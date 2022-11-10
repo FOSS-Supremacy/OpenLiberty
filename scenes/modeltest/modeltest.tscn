@@ -26,59 +26,60 @@ script = ExtResource("1_fud8n")
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_right = 93.0
+offset_bottom = 66.0
 grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/VBoxContainer"]
 layout_mode = 2
-offset_right = 1152.0
+offset_right = 186.0
 offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="top_bar" type="HBoxContainer" parent="GUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-offset_right = 1152.0
+offset_right = 186.0
 offset_bottom = 31.0
 alignment = 1
 
 [node name="to_menu" parent="GUI/VBoxContainer/VBoxContainer/top_bar" instance=ExtResource("1_7rgiv")]
 layout_mode = 2
-offset_left = 483.0
-offset_right = 579.0
+offset_right = 96.0
 offset_bottom = 31.0
 
 [node name="Label" type="Label" parent="GUI/VBoxContainer/VBoxContainer/top_bar"]
 layout_mode = 2
-offset_left = 583.0
+offset_left = 100.0
 offset_top = 2.0
-offset_right = 669.0
+offset_right = 186.0
 offset_bottom = 28.0
 text = "DFF Viewer"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/VBoxContainer"]
 layout_mode = 2
 offset_top = 35.0
-offset_right = 1152.0
+offset_right = 186.0
 offset_bottom = 66.0
 alignment = 1
 
 [node name="Button" type="Button" parent="GUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-offset_left = 491.0
-offset_right = 574.0
+offset_left = 8.0
+offset_right = 91.0
 offset_bottom = 31.0
 text = "Select file"
 
 [node name="SpinBox" type="SpinBox" parent="GUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-offset_left = 578.0
-offset_right = 661.0
+offset_left = 95.0
+offset_right = 178.0
 offset_bottom = 31.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
