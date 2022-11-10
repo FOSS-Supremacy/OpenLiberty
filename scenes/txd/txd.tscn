@@ -29,17 +29,17 @@ alignment = 1
 
 [node name="to_menu" parent="VBoxContainer/top_bar" instance=ExtResource("1_xoe8g")]
 layout_mode = 2
-offset_left = 493.0
-offset_right = 589.0
+offset_left = 468.0
+offset_right = 564.0
 offset_bottom = 31.0
 
 [node name="Label" type="Label" parent="VBoxContainer/top_bar"]
 layout_mode = 2
-offset_left = 593.0
+offset_left = 568.0
 offset_top = 2.0
-offset_right = 658.0
+offset_right = 684.0
 offset_bottom = 28.0
-text = "TXD test"
+text = "Texture viewer"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
