@@ -34,7 +34,9 @@ var num_levels: int
 var raster_type: int
 var compression: int
 
-var image: Image
+var _file: FileAccess
+var _image_start: int
+var image: Image: get = _load_image
 
 
 func _init(file: FileAccess):
@@ -61,22 +63,29 @@ func _init(file: FileAccess):
 	raster_type = file.get_8()
 	compression = file.get_8()
 	
-	# Image loading starts here
+	_file = file
+	_image_start = file.get_position()
+	skip(file)
+
+func _load_image():
+	if image != null:
+		return image
+	
+	_file.seek(_image_start)
 	image = Image.create(width, height, false, Image.FORMAT_RGBA8)
-	image.fill(Color(1.0, 0.0, 1.0, 1.0)) # Dummy image
 	
 	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
 		if raster_format & FORMAT_EXT_PAL8:
-			var palette := Image.create_from_data(256, 1, false, Image.FORMAT_RGBA8, file.get_buffer(256 * 4))
-			var raster_size := file.get_32()
+			var palette := Image.create_from_data(256, 1, false, Image.FORMAT_RGBA8, _file.get_buffer(256 * 4))
+			_file.get_32()
 			for i in width * height:
 				var x := int(i % width)
 				var y := int(i / width)
-				var color := palette.get_pixel(file.get_8(), 0)
+				var color := palette.get_pixel(_file.get_8(), 0)
 				image.set_pixel(x, y, color)
 	else:
-		var raster_size := file.get_32()
-		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, file.get_buffer(raster_size))
+		var raster_size := _file.get_32()
+		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, _file.get_buffer(raster_size))
 		# Perform color conversion
 		for i in width * height:
 				var x := int(i % width)
@@ -84,4 +93,4 @@ func _init(file: FileAccess):
 				var old := image.get_pixel(x, y)
 				image.set_pixel(x, y, Color(old.b, old.g, old.r, old.a))
 	
-	skip(file)
+	return image
