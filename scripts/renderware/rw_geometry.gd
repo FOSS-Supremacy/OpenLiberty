@@ -24,6 +24,7 @@ var ambient: float
 var specular: float
 var diffuse: float
 
+var uv_count: int
 var uvs: Array[PackedVector2Array]
 var tris: Array[Triangle]
 var morph_targets: Array[MorphTarget]
@@ -46,7 +47,7 @@ func _init(file: FileAccess):
 	if format & rpGEOMETRYNATIVE == 0:
 		assert(format & rpGEOMETRYPRELIT == 0, "implement")
 		
-		var uv_count := (format & 0x00ff0000) >> 16
+		uv_count = (format & 0x00ff0000) >> 16
 		if uv_count == 0:
 			if format & rpGEOMETRYTEXTURED2:
 				uv_count = 2
