@@ -7,7 +7,7 @@ extends Control
 const scenes := {
 	"Texture viewer": "res://scenes/txd/txd.tscn",
 	"Flycam test": "res://scenes/flycam/flycam.tscn",
-	"DFF Test": "res://scenes/dfftest/dfftest.tscn"
+	"DFF Test": "res://scenes/modeltest/modeltest.tscn"
 }
 
 

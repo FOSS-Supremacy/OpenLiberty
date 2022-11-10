@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://duvu85h044tvc"]
+
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_7rgiv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yy30q"]
+
+[sub_resource type="Sky" id="Sky_6vasj"]
+sky_material = SubResource("ProceduralSkyMaterial_yy30q")
+
+[sub_resource type="Environment" id="Environment_3567p"]
+background_mode = 2
+sky = SubResource("Sky_6vasj")
+
+[node name="modeltest" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.793366, -0.527189, 0.304371, -1.49013e-08, 0.499998, 0.866027, -0.608745, -0.687076, 0.396682, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.732543, -0.331059, 0.594795, 0, 0.873772, 0.486335, -0.680721, -0.356262, 0.640076, 2.72529, 2.25548, 2.93297)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top_bar" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="to_menu" parent="CanvasLayer/VBoxContainer/top_bar" instance=ExtResource("1_7rgiv")]
+layout_mode = 2
+offset_left = 483.0
+offset_right = 579.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/top_bar"]
+layout_mode = 2
+offset_left = 583.0
+offset_top = 2.0
+offset_right = 669.0
+offset_bottom = 28.0
+text = "DFF Viewer"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3567p")
