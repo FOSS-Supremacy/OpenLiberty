@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://duvu85h044tvc"]
+[gd_scene load_steps=10 format=3 uid="uid://duvu85h044tvc"]
 
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_7rgiv"]
 [ext_resource type="Script" path="res://scenes/modeltest/modeltest.gd" id="1_fud8n"]
@@ -17,6 +17,8 @@ sky = SubResource("Sky_6vasj")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jjs8n"]
 size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1c5hl"]
 
 [node name="modeltest" type="Node3D"]
 script = ExtResource("1_fud8n")
@@ -98,4 +100,8 @@ mesh = SubResource("CapsuleMesh_mlknp")
 material_override = ExtResource("2_gok33")
 mesh = SubResource("PlaneMesh_jjs8n")
 
+[node name="mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_1c5hl")
+
 [connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
+[connection signal="value_changed" from="GUI/VBoxContainer/HBoxContainer/SpinBox" to="." method="_ld_model"]

@@ -20,6 +20,11 @@ _global_script_classes=[{
 "path": "res://scripts/renderware/rw_clump.gd"
 }, {
 "base": "RWChunk",
+"class": &"RWGeometry",
+"language": &"GDScript",
+"path": "res://scripts/renderware/rw_geometry.gd"
+}, {
+"base": "RWChunk",
 "class": &"RWGeometryList",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_geometry_list.gd"
@@ -37,6 +42,7 @@ _global_script_classes=[{
 _global_script_class_icons={
 "RWChunk": "",
 "RWClump": "",
+"RWGeometry": "",
 "RWGeometryList": "",
 "RWRaster": "",
 "RWTextureDict": ""
