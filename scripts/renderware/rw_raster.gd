@@ -69,7 +69,7 @@ func _init(file: FileAccess):
 		if raster_format & FORMAT_EXT_PAL8:
 			var palette := Image.create_from_data(256, 1, false, Image.FORMAT_RGBA8, file.get_buffer(256 * 4))
 			var raster_size := file.get_32()
-			for i in raster_size:
+			for i in width * height:
 				var x := int(i % width)
 				var y := int(i / width)
 				var color := palette.get_pixel(file.get_8(), 0)
@@ -78,7 +78,7 @@ func _init(file: FileAccess):
 		var raster_size := file.get_32()
 		image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, file.get_buffer(raster_size))
 		# Perform color conversion
-		for i in raster_size / 4:
+		for i in width * height:
 				var x := int(i % width)
 				var y := int(i / width)
 				var old := image.get_pixel(x, y)
