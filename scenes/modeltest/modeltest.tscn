@@ -106,7 +106,7 @@ material_override = SubResource("StandardMaterial3D_1c5hl")
 transform = Transform3D(0.646191, -0.249372, 0.721284, 0, 0.945109, 0.326756, -0.763176, -0.211147, 0.61072, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Camera rig"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
 [connection signal="value_changed" from="GUI/VBoxContainer/HBoxContainer/SpinBox" to="." method="_ld_model"]
