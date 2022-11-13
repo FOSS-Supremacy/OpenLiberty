@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://5qhmx25cwv21"]
+
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_64heu"]
+
+[node name="flycam" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top_bar" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="to_menu" parent="CanvasLayer/VBoxContainer/top_bar" instance=ExtResource("1_64heu")]
+layout_mode = 2
+offset_left = 482.0
+offset_right = 578.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/top_bar"]
+layout_mode = 2
+offset_left = 582.0
+offset_top = 2.0
+offset_right = 670.0
+offset_bottom = 28.0
+text = "Flycam test"
