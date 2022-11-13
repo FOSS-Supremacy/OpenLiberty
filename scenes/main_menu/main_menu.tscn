@@ -28,14 +28,3 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Main menu"
-
-[node name="Button" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-offset_left = 514.0
-offset_top = 30.0
-offset_right = 638.0
-offset_bottom = 61.0
-size_flags_horizontal = 4
-text = "Texture viewer"
-
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_ld_txd_test"]
