@@ -17,14 +17,14 @@ func _ready() -> void:
 	
 	print("GTA path: %s" % gta_path)
 	_read_gta3_img()
-	_gta3_img = open_file("models/gta3.img", FileAccess.READ)
+	_gta3_img = _open_file("models/gta3.img", FileAccess.READ)
 	
 	var err := get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 	assert(err == OK, "failed to load main menu")
 
 
 func _read_gta3_img() -> void:
-	var file := open_file("models/gta3.dir", FileAccess.READ)
+	var file := _open_file("models/gta3.dir", FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	while not file.eof_reached():
@@ -35,7 +35,7 @@ func _read_gta3_img() -> void:
 
 
 ## Open a file with case-insensitive path
-func open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
+func _open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
 	var diraccess := DirAccess.open(gta_path)
 	var parts := path.split("/")
 	
@@ -66,14 +66,14 @@ func load_map_data() -> void:
 			if tokens.size() > 0:
 				match tokens[0]:
 					"IDE":
-						read_map_data(tokens[1], read_ide_line)
+						read_map_data(tokens[1], _read_ide_line)
 					"IPL":
-						read_map_data(tokens[1], read_ipl_line)
+						read_map_data(tokens[1], _read_ipl_line)
 					_:
 						push_warning("implement %s" % tokens[0])
 
 
-func read_ide_line(section: String, tokens: Array[String]):
+func _read_ide_line(section: String, tokens: Array[String]):
 	match section:
 		"objs", "tobj":
 			var id := tokens[0].to_int()
@@ -83,7 +83,7 @@ func read_ide_line(section: String, tokens: Array[String]):
 			_objects[id] = odata
 
 
-func read_ipl_line(section: String, tokens: Array[String]):
+func _read_ipl_line(section: String, tokens: Array[String]):
 	match section:
 		"inst":
 			spawn(tokens[0].to_int(), tokens[1].to_lower(),
@@ -107,7 +107,7 @@ func read_ipl_line(section: String, tokens: Array[String]):
 
 
 func read_map_data(path: String, line_handler: Callable) -> void:
-	var file := open_file(path.replace("\\", "/"), FileAccess.READ)
+	var file := _open_file(path.replace("\\", "/"), FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	var section: String
