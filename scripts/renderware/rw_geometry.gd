@@ -45,7 +45,6 @@ var mesh: ArrayMesh:
 		
 		if format & rpGEOMETRYTRISTRIP == 0 and morph_t.has_normals == false:
 			st.generate_normals()
-			st.generate_tangents()
 		return st.commit()
 
 
@@ -64,7 +63,8 @@ func _init(file: FileAccess):
 		diffuse = file.get_float()
 	
 	if format & rpGEOMETRYNATIVE == 0:
-		assert(format & rpGEOMETRYPRELIT == 0, "implement")
+		if format & rpGEOMETRYPRELIT:
+			file.seek(file.get_position() + (vert_count * 4)) # Skip
 		
 		uv_count = (format & 0x00ff0000) >> 16
 		if uv_count == 0:
@@ -103,16 +103,16 @@ func _init(file: FileAccess):
 				for j in vert_count:
 					var vert := Vector3()
 					vert.x = file.get_float()
-					vert.z = -file.get_float()
 					vert.y = file.get_float()
+					vert.z = file.get_float()
 					morph_t.vertices.append(vert)
 			
 			if morph_t.has_normals:
 				for j in vert_count:
 					var normal := Vector3()
 					normal.x = file.get_float()
-					normal.z = -file.get_float()
 					normal.y = file.get_float()
+					normal.z = file.get_float()
 					morph_t.normals.append(normal)
 			
 			morph_targets.append(morph_t)
