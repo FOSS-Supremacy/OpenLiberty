@@ -103,16 +103,16 @@ func _init(file: FileAccess):
 				for j in vert_count:
 					var vert := Vector3()
 					vert.x = file.get_float()
+					vert.z = -file.get_float()
 					vert.y = file.get_float()
-					vert.z = file.get_float()
 					morph_t.vertices.append(vert)
 			
 			if morph_t.has_normals:
 				for j in vert_count:
 					var normal := Vector3()
 					normal.x = file.get_float()
+					normal.z = -file.get_float()
 					normal.y = file.get_float()
-					normal.z = file.get_float()
 					morph_t.normals.append(normal)
 			
 			morph_targets.append(morph_t)
