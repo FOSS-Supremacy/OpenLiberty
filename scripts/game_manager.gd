@@ -27,13 +27,13 @@ func load_map_data() -> void:
 			if tokens.size() > 0:
 				match tokens[0]:
 					"IDE":
-						load_itemdef(tokens[1].replace("\\", "/").to_lower())
+						load_itemdef(tokens[1].replace("\\", "/"))
 					_:
 						push_warning("implement %s" % tokens[0])
 
 
 func load_itemdef(path: String) -> void:
 	var file := FileAccess.open(gta_path + path, FileAccess.READ)
-	assert(file != null, "%d" % FileAccess.get_open_error())
-	
-	breakpoint
+	if file == null:
+		file = FileAccess.open(gta_path + path.to_lower(), FileAccess.READ)
+		assert(file != null, "%d" % FileAccess.get_open_error())
