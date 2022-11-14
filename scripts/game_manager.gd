@@ -2,7 +2,7 @@ extends Node
 
 
 var gta_path: String
-var world := Node3D.new()
+var world: Node3D
 
 var _objects: Dictionary
 
@@ -22,6 +22,7 @@ func _ready() -> void:
 func load_map_data() -> void:
 	var file := FileAccess.open(gta_path + "data/gta3.dat", FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
+	world = Node3D.new()
 	
 	while not file.eof_reached():
 		var line := file.get_line()
