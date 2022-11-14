@@ -37,5 +37,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			speed = clampf(speed - 1.0, 0.0, INF)
 	elif event is InputEventMouseMotion && _mouselook:
-		rotation.x = clampf(rotation.x - deg_to_rad(event.relative.y * sensitivity), -90.0, 90.0)
+		rotation.x = deg_to_rad(clampf(rad_to_deg(rotation.x) - (event.relative.y * sensitivity), -90.0, 90.0))
 		rotation.y -= deg_to_rad(event.relative.x * sensitivity)
