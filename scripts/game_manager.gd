@@ -2,6 +2,7 @@ extends Node
 
 
 var gta_path: String
+var world := Node3D.new()
 
 var _objects: Dictionary
 
@@ -28,7 +29,7 @@ func load_map_data() -> void:
 			var tokens := line.split(" ", false)
 			if tokens.size() > 0:
 				match tokens[0]:
-					"IDE":
+					"IDE", "IPL":
 						parse_map_data(tokens[1].replace("\\", "/"))
 					_:
 						push_warning("implement %s" % tokens[0])
@@ -68,11 +69,22 @@ func parse_map_data(path: String) -> void:
 				section = tokens[0]
 			elif tokens.size() > 1:
 				match section:
-					"objs":
+					"objs", "tobj":
 						var id := tokens[0].to_int()
 						var odata := ObjectData.new()
 						odata.model_name = tokens[1]
 						odata.txd_name = tokens[2]
 						_objects[id] = odata
-	
-	breakpoint
+					"inst":
+						var obj := _objects[tokens[0].to_int()] as ObjectData
+						var mesh := MeshInstance3D.new()
+						
+						mesh.mesh = BoxMesh.new()
+						mesh.mesh.size = Vector3(6.0, 6.0, 6.0)
+						mesh.position = Vector3(
+							tokens[2].to_int(),
+							-tokens[4].to_int(),
+							tokens[3].to_int()
+						)
+						
+						world.add_child(mesh)

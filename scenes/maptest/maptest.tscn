@@ -1,10 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://db2eg3psv01ra"]
+[gd_scene load_steps=7 format=3 uid="uid://db2eg3psv01ra"]
 
 [ext_resource type="Script" path="res://scenes/maptest/maptest.gd" id="1_b8hlh"]
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="2_butse"]
+[ext_resource type="PackedScene" uid="uid://bt041qrw0l2bm" path="res://prefabs/flycam/flycam.tscn" id="3_850h8"]
 
-[node name="itemdef" type="Node3D"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eihtl"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_njxv5"]
+sky_material = SubResource("ProceduralSkyMaterial_eihtl")
+
+[sub_resource type="Environment" id="Environment_7d6in"]
+background_mode = 2
+sky = SubResource("Sky_njxv5")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="maptest" type="Node3D"]
 script = ExtResource("1_b8hlh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7d6in")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -45,3 +66,5 @@ offset_top = 35.0
 offset_right = 118.0
 offset_bottom = 55.0
 size_flags_horizontal = 4
+
+[node name="flycam" parent="." instance=ExtResource("3_850h8")]
