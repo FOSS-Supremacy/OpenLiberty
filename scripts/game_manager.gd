@@ -93,37 +93,36 @@ func parse_map_data(path: String) -> void:
 						odata.txd_name = tokens[2]
 						_objects[id] = odata
 					"inst":
-						var obj := _objects[tokens[0].to_int()] as ObjectData
-						var instance := MeshInstance3D.new()
-						
-#						instance.mesh = BoxMesh.new()
-#						instance.mesh.size = Vector3(
-#							6.0, 6.0, 6.0
-#						)
-						
-						_gta3_img.seek(_gta3_dir[obj.model_name.to_lower() + ".dff"].offset)
-						var glist := RWClump.new(_gta3_img).geometry_list
+						spawn(tokens[0].to_int(), tokens[1].to_lower(),
+							Vector3(
+								tokens[2].to_float(),
+								tokens[3].to_float(),
+								tokens[4].to_float(),
+							),
+							Vector3(
+								tokens[5].to_float(),
+								tokens[6].to_float(),
+								tokens[7].to_float(),
+							),
+							Quaternion(
+								tokens[8].to_float(),
+								tokens[9].to_float(),
+								tokens[10].to_float(),
+								tokens[11].to_float(),
+							)
+						)
 
-						if glist.geometries.size() > 0:
-							instance.mesh = glist.geometries[0].mesh
-						
-						instance.position = Vector3(
-							tokens[2].to_float(),
-							tokens[3].to_float(),
-							tokens[4].to_float(),
-						)
-						
-						instance.scale = Vector3(
-							tokens[5].to_float(),
-							tokens[6].to_float(),
-							tokens[7].to_float(),
-						)
-						
-						instance.quaternion = Quaternion(
-							tokens[8].to_float(),
-							tokens[9].to_float(),
-							tokens[10].to_float(),
-							tokens[11].to_float(),
-						)
-						
-						world.add_child(instance)
+
+func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion):
+	_gta3_img.seek(_gta3_dir[model_name + ".dff"].offset)
+	var glist := RWClump.new(_gta3_img).geometry_list
+	
+	if glist.geometries.size() > 0:
+		var instance := MeshInstance3D.new()
+		instance.mesh = glist.geometries[0].mesh
+		
+		instance.position = position
+		instance.scale = scale
+		instance.quaternion = rotation
+		
+		world.add_child(instance)
