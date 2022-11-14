@@ -17,14 +17,14 @@ func _ready() -> void:
 	
 	print("GTA path: %s" % gta_path)
 	_read_gta3_dir()
-	_gta3_img = _open_file("models/gta3.img", FileAccess.READ)
+	_gta3_img = open_file("models/gta3.img", FileAccess.READ)
 	
 	var err := get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 	assert(err == OK, "failed to load main menu")
 
 
 func _read_gta3_dir() -> void:
-	var file := _open_file("models/gta3.dir", FileAccess.READ)
+	var file := open_file("models/gta3.dir", FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	while not file.eof_reached():
@@ -35,7 +35,7 @@ func _read_gta3_dir() -> void:
 
 
 ## Open a file with case-insensitive path
-func _open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
+func open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
 	var diraccess := DirAccess.open(gta_path)
 	var parts := path.split("/")
 	
@@ -107,7 +107,7 @@ func _read_ipl_line(section: String, tokens: Array[String]):
 
 
 func read_map_data(path: String, line_handler: Callable) -> void:
-	var file := _open_file(path.replace("\\", "/"), FileAccess.READ)
+	var file := open_file(path.replace("\\", "/"), FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	var section: String
