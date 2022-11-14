@@ -10,6 +10,7 @@ var _mouselook: bool
 func _process(delta: float) -> void:
 	if _mouselook:
 		var hvec := Input.get_vector("movement_left", "movement_right", "movement_backward", "movement_forward")
+		var vvec := Input.get_axis("movement_down", "movement_up")
 		var mmult := (
 			(delta * speed) * 2 if Input.is_key_pressed(KEY_SHIFT)
 			else delta * speed
@@ -17,6 +18,7 @@ func _process(delta: float) -> void:
 		
 		position += (
 			hvec.x * transform.basis.x +
+			vvec * transform.basis.y +
 			hvec.y * -transform.basis.z
 		) * mmult
 
