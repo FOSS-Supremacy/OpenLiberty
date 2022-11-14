@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd877xfalr1nb"]
+
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_17v33"]
+[ext_resource type="Script" path="res://scenes/itemdef/itemdef.gd" id="1_nvrj8"]
+
+[node name="itemdef" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nvrj8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_right = 93.0
+offset_bottom = 66.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="top_bar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+offset_right = 251.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="to_menu" parent="VBoxContainer/top_bar" instance=ExtResource("1_17v33")]
+layout_mode = 2
+offset_right = 96.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="VBoxContainer/top_bar"]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 2.0
+offset_right = 251.0
+offset_bottom = 28.0
+text = "Item Definition test"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+offset_left = 118.0
+offset_top = 35.0
+offset_right = 132.0
+offset_bottom = 55.0
+size_flags_horizontal = 4
