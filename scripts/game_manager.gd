@@ -34,24 +34,6 @@ func _read_gta3_img() -> void:
 		_gta3_dir[file.get_buffer(24).get_string_from_ascii().to_lower()] = entry
 
 
-func load_map_data() -> void:
-	var file := FileAccess.open(gta_path + "data/gta3.dat", FileAccess.READ)
-	assert(file != null, "%d" % FileAccess.get_open_error())
-	world = Node3D.new()
-	world.rotation.x = deg_to_rad(-90.0)
-	
-	while not file.eof_reached():
-		var line := file.get_line()
-		if not line.begins_with("#"):
-			var tokens := line.split(" ", false)
-			if tokens.size() > 0:
-				match tokens[0]:
-					"IDE", "IPL":
-						parse_map_data(tokens[1].replace("\\", "/"))
-					_:
-						push_warning("implement %s" % tokens[0])
-
-
 ## Open a file with case-insensitive path
 func open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
 	var diraccess := DirAccess.open(gta_path)
@@ -71,46 +53,74 @@ func open_file(path: String, mode: FileAccess.ModeFlags) -> FileAccess:
 	return null
 
 
-func parse_map_data(path: String) -> void:
-	var file := open_file(path, FileAccess.READ)
+func load_map_data() -> void:
+	var file := FileAccess.open(gta_path + "data/gta3.dat", FileAccess.READ)
+	assert(file != null, "%d" % FileAccess.get_open_error())
+	world = Node3D.new()
+	world.rotation.x = deg_to_rad(-90.0)
+	
+	while not file.eof_reached():
+		var line := file.get_line()
+		if not line.begins_with("#"):
+			var tokens := line.split(" ", false)
+			if tokens.size() > 0:
+				match tokens[0]:
+					"IDE":
+						read_map_data(tokens[1], read_ide_line)
+					"IPL":
+						read_map_data(tokens[1], read_ipl_line)
+					_:
+						push_warning("implement %s" % tokens[0])
+
+
+func read_ide_line(section: String, tokens: Array[String]):
+	match section:
+		"objs", "tobj":
+			var id := tokens[0].to_int()
+			var odata := ObjectData.new()
+			odata.model_name = tokens[1]
+			odata.txd_name = tokens[2]
+			_objects[id] = odata
+
+
+func read_ipl_line(section: String, tokens: Array[String]):
+	match section:
+		"inst":
+			spawn(tokens[0].to_int(), tokens[1].to_lower(),
+				Vector3(
+					tokens[2].to_float(),
+					tokens[3].to_float(),
+					tokens[4].to_float(),
+				),
+				Vector3(
+					tokens[5].to_float(),
+					tokens[6].to_float(),
+					tokens[7].to_float(),
+				),
+				Quaternion(
+					tokens[8].to_float(),
+					tokens[9].to_float(),
+					tokens[10].to_float(),
+					tokens[11].to_float(),
+				)
+			)
+
+
+func read_map_data(path: String, line_handler: Callable) -> void:
+	var file := open_file(path.replace("\\", "/"), FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	var section: String
 	while not file.eof_reached():
-		var tokens := file.get_line().replace(" ", "").split(",", false)
+		var line := file.get_line()
+		if line.length() == 0 or line.begins_with("#"):
+			continue
 		
-		if tokens.size() > 0:
-			if tokens[0].begins_with("#"):
-				continue
-			if tokens.size() == 1:
-				section = tokens[0]
-			elif tokens.size() > 1:
-				match section:
-					"objs", "tobj":
-						var id := tokens[0].to_int()
-						var odata := ObjectData.new()
-						odata.model_name = tokens[1]
-						odata.txd_name = tokens[2]
-						_objects[id] = odata
-					"inst":
-						spawn(tokens[0].to_int(), tokens[1].to_lower(),
-							Vector3(
-								tokens[2].to_float(),
-								tokens[3].to_float(),
-								tokens[4].to_float(),
-							),
-							Vector3(
-								tokens[5].to_float(),
-								tokens[6].to_float(),
-								tokens[7].to_float(),
-							),
-							Quaternion(
-								tokens[8].to_float(),
-								tokens[9].to_float(),
-								tokens[10].to_float(),
-								tokens[11].to_float(),
-							)
-						)
+		var tokens := line.replace(" ", "").split(",", false)
+		if tokens.size() == 1:
+			section = tokens[0]
+		else:
+			line_handler.call(section, tokens)
 
 
 func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion):
