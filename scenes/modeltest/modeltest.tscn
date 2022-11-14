@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://duvu85h044tvc"]
+[gd_scene load_steps=11 format=3 uid="uid://duvu85h044tvc"]
 
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_7rgiv"]
 [ext_resource type="Script" path="res://scenes/modeltest/modeltest.gd" id="1_fud8n"]
 [ext_resource type="Material" uid="uid://c3cptegacudr8" path="res://materials/worldgrid/worldgrid.tres" id="2_gok33"]
+[ext_resource type="PackedScene" uid="uid://bt041qrw0l2bm" path="res://prefabs/flycam/flycam.tscn" id="4_xmsg8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yy30q"]
 
@@ -81,6 +82,7 @@ layout_mode = 2
 offset_left = 95.0
 offset_right = 178.0
 offset_bottom = 31.0
+alignment = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.818589, 0.497428, -0.287189, -3.52742e-08, 0.499998, 0.866026, 0.574379, -0.70892, 0.409293, 0, 0, 0)
@@ -102,11 +104,8 @@ mesh = SubResource("PlaneMesh_jjs8n")
 [node name="mesh" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_1c5hl")
 
-[node name="Camera rig" type="Node3D" parent="."]
-transform = Transform3D(0.646191, -0.249372, 0.721284, 0, 0.945109, 0.326756, -0.763176, -0.211147, 0.61072, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Camera rig"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+[node name="flycam" parent="." instance=ExtResource("4_xmsg8")]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 1, 1, 1)
 
 [connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
 [connection signal="value_changed" from="GUI/VBoxContainer/HBoxContainer/SpinBox" to="." method="_ld_model"]
