@@ -82,9 +82,9 @@ func parse_map_data(path: String) -> void:
 						mesh.mesh = BoxMesh.new()
 						mesh.mesh.size = Vector3(6.0, 6.0, 6.0)
 						mesh.position = Vector3(
-							tokens[2].to_int(),
-							-tokens[4].to_int(),
-							tokens[3].to_int()
+							tokens[2].to_float(),
+							-tokens[4].to_float(),
+							tokens[3].to_float()
 						)
 						
 						world.add_child(mesh)
