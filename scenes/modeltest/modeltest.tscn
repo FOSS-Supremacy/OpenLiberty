@@ -1,0 +1,111 @@
+[gd_scene load_steps=11 format=3 uid="uid://duvu85h044tvc"]
+
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_7rgiv"]
+[ext_resource type="Script" path="res://scenes/modeltest/modeltest.gd" id="1_fud8n"]
+[ext_resource type="Material" uid="uid://c3cptegacudr8" path="res://materials/worldgrid/worldgrid.tres" id="2_gok33"]
+[ext_resource type="PackedScene" uid="uid://bt041qrw0l2bm" path="res://prefabs/flycam/flycam.tscn" id="4_xmsg8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yy30q"]
+
+[sub_resource type="Sky" id="Sky_6vasj"]
+sky_material = SubResource("ProceduralSkyMaterial_yy30q")
+
+[sub_resource type="Environment" id="Environment_3567p"]
+background_mode = 2
+sky = SubResource("Sky_6vasj")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mlknp"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jjs8n"]
+size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1c5hl"]
+
+[node name="modeltest" type="Node3D"]
+script = ExtResource("1_fud8n")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_right = 93.0
+offset_bottom = 66.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+offset_right = 186.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top_bar" type="HBoxContainer" parent="GUI/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+offset_right = 186.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="to_menu" parent="GUI/VBoxContainer/VBoxContainer/top_bar" instance=ExtResource("1_7rgiv")]
+layout_mode = 2
+offset_right = 96.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/VBoxContainer/top_bar"]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 2.0
+offset_right = 186.0
+offset_bottom = 28.0
+text = "DFF Viewer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+offset_top = 35.0
+offset_right = 186.0
+offset_bottom = 66.0
+alignment = 1
+
+[node name="Button" type="Button" parent="GUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 8.0
+offset_right = 91.0
+offset_bottom = 31.0
+text = "Select file"
+
+[node name="SpinBox" type="SpinBox" parent="GUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 95.0
+offset_right = 178.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.818589, 0.497428, -0.287189, -3.52742e-08, 0.499998, 0.866026, 0.574379, -0.70892, 0.409293, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3567p")
+
+[node name="reference" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_mlknp")
+
+[node name="floor" type="MeshInstance3D" parent="."]
+visible = false
+material_override = ExtResource("2_gok33")
+mesh = SubResource("PlaneMesh_jjs8n")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_1c5hl")
+
+[node name="flycam" parent="." instance=ExtResource("4_xmsg8")]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 1, 1, 1)
+
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/Button" to="." method="_ld_dff"]
+[connection signal="value_changed" from="GUI/VBoxContainer/HBoxContainer/SpinBox" to="." method="_ld_model"]
