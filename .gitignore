@@ -4,3 +4,4 @@
 # In-project GTA directory for testing
 gta/*
 !gta/.gdignore
+!gta/README.md
