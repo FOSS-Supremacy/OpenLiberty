@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cd877xfalr1nb"]
+[gd_scene load_steps=3 format=3 uid="uid://cd877xfalr1nb"]
 
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_17v33"]
+[ext_resource type="Script" path="res://scenes/itemdef/itemdef.gd" id="1_nvrj8"]
 
 [node name="itemdef" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nvrj8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
