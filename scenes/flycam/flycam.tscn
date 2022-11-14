@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://vwwfej2qopyt"]
+[gd_scene load_steps=4 format=3 uid="uid://vwwfej2qopyt"]
 
 [ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_64heu"]
 [ext_resource type="PackedScene" uid="uid://n7lxlim0ognj" path="res://prefabs/suzanne.glb" id="2_h51ko"]
+[ext_resource type="PackedScene" uid="uid://bt041qrw0l2bm" path="res://prefabs/flycam/flycam.tscn" id="3_brq2t"]
 
 [node name="flycam" type="Node3D"]
 
@@ -35,3 +36,5 @@ offset_bottom = 28.0
 text = "Flycam test"
 
 [node name="suzanne" parent="." instance=ExtResource("2_h51ko")]
+
+[node name="flycam" parent="." instance=ExtResource("3_brq2t")]
