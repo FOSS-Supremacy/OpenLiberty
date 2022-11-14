@@ -16,14 +16,14 @@ func _ready() -> void:
 		gta_path = OS.get_executable_path().get_base_dir() + "/"
 	
 	print("GTA path: %s" % gta_path)
-	_read_gta3_img()
+	_read_gta3_dir()
 	_gta3_img = _open_file("models/gta3.img", FileAccess.READ)
 	
 	var err := get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 	assert(err == OK, "failed to load main menu")
 
 
-func _read_gta3_img() -> void:
+func _read_gta3_dir() -> void:
 	var file := _open_file("models/gta3.dir", FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
