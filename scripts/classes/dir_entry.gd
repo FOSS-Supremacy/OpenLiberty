@@ -1,4 +1,4 @@
-class_name GTA3DirEntry
+class_name DirEntry
 extends RefCounted
 
 

@@ -10,14 +10,19 @@ config_version=5
 
 _global_script_classes=[{
 "base": "RefCounted",
-"class": &"GTA3DirEntry",
+"class": &"DirEntry",
 "language": &"GDScript",
-"path": "res://scripts/classes/gta3_dir_entry.gd"
+"path": "res://scripts/classes/dir_entry.gd"
 }, {
 "base": "RefCounted",
-"class": &"ObjectData",
+"class": &"IDEObject",
 "language": &"GDScript",
-"path": "res://scripts/classes/object_data.gd"
+"path": "res://scripts/classes/ide_object.gd"
+}, {
+"base": "RefCounted",
+"class": &"IPLInstance",
+"language": &"GDScript",
+"path": "res://scripts/classes/ipl_instance.gd"
 }, {
 "base": "RefCounted",
 "class": &"RWChunk",
@@ -50,8 +55,9 @@ _global_script_classes=[{
 "path": "res://scripts/renderware/rw_texture_dict.gd"
 }]
 _global_script_class_icons={
-"GTA3DirEntry": "",
-"ObjectData": "",
+"DirEntry": "",
+"IDEObject": "",
+"IPLInstance": "",
 "RWChunk": "",
 "RWClump": "",
 "RWGeometry": "",

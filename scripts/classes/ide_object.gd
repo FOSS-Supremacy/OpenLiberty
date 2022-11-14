@@ -1,4 +1,4 @@
-class_name ObjectData
+class_name IDEObject
 extends RefCounted
 
 
