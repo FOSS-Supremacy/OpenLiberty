@@ -10,6 +10,11 @@ config_version=5
 
 _global_script_classes=[{
 "base": "RefCounted",
+"class": &"ObjectData",
+"language": &"GDScript",
+"path": "res://scripts/classes/object_data.gd"
+}, {
+"base": "RefCounted",
 "class": &"RWChunk",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_chunk.gd"
@@ -40,6 +45,7 @@ _global_script_classes=[{
 "path": "res://scripts/renderware/rw_texture_dict.gd"
 }]
 _global_script_class_icons={
+"ObjectData": "",
 "RWChunk": "",
 "RWClump": "",
 "RWGeometry": "",
