@@ -14,7 +14,7 @@ func _ready() -> void:
 		MapBuilder.spawn_instance(inst)
 		count += 1
 		
-		if Time.get_ticks_msec() - start > (1.0 / 60.0) * 1000:
+		if Time.get_ticks_msec() - start > (1.0 / 30.0) * 1000:
 			start = Time.get_ticks_msec()
 			print("%f" % (float(count) / float(target)))
 			await get_tree().physics_frame
