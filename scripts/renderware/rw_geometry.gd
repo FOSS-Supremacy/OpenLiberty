@@ -28,6 +28,7 @@ var uv_count: int
 var uvs: Array[PackedVector2Array]
 var tris: Array[Triangle]
 var morph_targets: Array[MorphTarget]
+var material_list: RWMaterialList
 
 var mesh: ArrayMesh:
 	get:
@@ -91,34 +92,36 @@ func _init(file: FileAccess):
 			tri.material_id = file.get_16()
 			tri.vertex_3 = file.get_16()
 			tris.append(tri)
-			
-		for i in morph_target_count:
-			var morph_t := MorphTarget.new()
-			morph_t.bounding_sphere = Sphere.new()
-			morph_t.bounding_sphere.x = file.get_float()
-			morph_t.bounding_sphere.y = file.get_float()
-			morph_t.bounding_sphere.z = file.get_float()
-			morph_t.bounding_sphere.radius = file.get_float()
-			morph_t.has_vertices = file.get_32() != 0
-			morph_t.has_normals = file.get_32() != 0
-			
-			if morph_t.has_vertices:
-				for j in vert_count:
-					var vert := Vector3()
-					vert.x = file.get_float()
-					vert.y = file.get_float()
-					vert.z = file.get_float()
-					morph_t.vertices.append(vert)
-			
-			if morph_t.has_normals:
-				for j in vert_count:
-					var normal := Vector3()
-					normal.x = file.get_float()
-					normal.y = file.get_float()
-					normal.z = file.get_float()
-					morph_t.normals.append(normal)
-			
-			morph_targets.append(morph_t)
+	
+	for i in morph_target_count:
+		var morph_t := MorphTarget.new()
+		morph_t.bounding_sphere = Sphere.new()
+		morph_t.bounding_sphere.x = file.get_float()
+		morph_t.bounding_sphere.y = file.get_float()
+		morph_t.bounding_sphere.z = file.get_float()
+		morph_t.bounding_sphere.radius = file.get_float()
+		morph_t.has_vertices = file.get_32() != 0
+		morph_t.has_normals = file.get_32() != 0
+		
+		if morph_t.has_vertices:
+			for j in vert_count:
+				var vert := Vector3()
+				vert.x = file.get_float()
+				vert.y = file.get_float()
+				vert.z = file.get_float()
+				morph_t.vertices.append(vert)
+		
+		if morph_t.has_normals:
+			for j in vert_count:
+				var normal := Vector3()
+				normal.x = file.get_float()
+				normal.y = file.get_float()
+				normal.z = file.get_float()
+				morph_t.normals.append(normal)
+		
+		morph_targets.append(morph_t)
+	
+	material_list = RWMaterialList.new(file)
 	
 	skip(file)
 
