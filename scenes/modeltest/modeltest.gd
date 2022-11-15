@@ -11,6 +11,8 @@ func _ready() -> void:
 	spinbox.rounded = true
 	spinbox.max_value = 0
 	misc = RWTextureDict.new(GameManager.open_file("models/misc.txd", FileAccess.READ))
+	
+	meshinstance.rotation.x = deg_to_rad(-90.0)
 
 
 func _ld_dff() -> void:
