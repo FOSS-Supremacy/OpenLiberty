@@ -76,6 +76,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://scripts/game_manager.gd"
+MapBuilder="*res://scripts/map_builder.gd"
 
 [input]
 
