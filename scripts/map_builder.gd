@@ -5,8 +5,6 @@ var objects: Dictionary
 var instances: Array[IPLInstance]
 
 var map: Node3D
-var progress: float
-var mutex := Mutex.new()
 
 @onready var _assetfile := GameManager.get_asset_fileaccess() as FileAccess
 
@@ -96,17 +94,9 @@ func _read_map_data(path: String, line_handler: Callable) -> void:
 			line_handler.call(section, tokens)
 
 
-func build_map() -> void:
+func clear_map() -> void:
 	map = Node3D.new()
 	map.rotation.x = deg_to_rad(-90.0)
-	progress = 0.0
-	var step := 1.0 / float(instances.size())
-	
-	for inst in instances:
-		spawn_instance(inst)
-		mutex.lock()
-		progress += step
-		mutex.unlock()
 
 
 func spawn_instance(ipl_inst: IPLInstance):
