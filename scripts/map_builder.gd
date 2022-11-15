@@ -7,7 +7,6 @@ var instances: Array[IPLInstance]
 var map: Node3D
 
 @onready var _assetfile := GameManager.get_asset_fileaccess() as FileAccess
-@onready var textures := RWTextureDict.new(GameManager.open_file("models/generic.txd", FileAccess.READ))
 
 
 func load_map_data() -> void:
@@ -54,6 +53,7 @@ func _read_ipl_line(section: String, tokens: Array[String]):
 	match section:
 		"inst":
 			var instance := IPLInstance.new()
+			instance.id = tokens[0].to_int()
 			instance.model_name = tokens[1].to_lower()
 			
 			instance.position = Vector3(
@@ -101,17 +101,33 @@ func clear_map() -> void:
 
 
 func spawn_instance(ipl_inst: IPLInstance):
-	_assetfile.seek(GameManager.assets[ipl_inst.model_name + ".dff"].offset)
+	var obj := objects[ipl_inst.id] as IDEObject
+	_assetfile.seek(GameManager.assets[obj.model_name.to_lower() + ".dff"].offset)
 	var glist := RWClump.new(_assetfile).geometry_list
-	
 	
 	if glist.geometries.size() > 0:
 		var instance := MeshInstance3D.new()
-		instance.mesh = glist.geometries[0].mesh
+		var geometry := glist.geometries[0] as RWGeometry
+		
+		instance.mesh = geometry.mesh
 		instance.position = ipl_inst.position
 		instance.scale = ipl_inst.scale
 		instance.quaternion = ipl_inst.rotation
 		
-		instance.material_override = StandardMaterial3D.new()
+		var material := geometry.material_list.materials[0] as RWMaterial
+		instance.material_override = material.material
+		
+		if material.is_textured:
+			var txd: RWTextureDict
+			
+			if obj.txd_name == "generic":
+				txd = RWTextureDict.new(GameManager.open_file("models/generic.txd", FileAccess.READ))
+			else:
+				_assetfile.seek(GameManager.assets[obj.txd_name.to_lower() + ".txd"].offset)
+				txd = RWTextureDict.new(_assetfile)
+			
+			for raster in txd.textures:
+				if material.texture.texture_name.string.to_lower() == raster.name:
+					instance.material_override.albedo_texture = ImageTexture.create_from_image(raster.image)
 		
 		map.add_child(instance)
