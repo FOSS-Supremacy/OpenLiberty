@@ -89,11 +89,23 @@ func _load_map_data() -> void:
 
 func _read_ide_line(section: String, tokens: Array[String]):
 	match section:
-		"objs", "tobj":
+		"objs":
 			var id := tokens[0].to_int()
 			var obj := IDEObject.new()
+			
 			obj.model_name = tokens[1]
 			obj.txd_name = tokens[2]
+			obj.flags = tokens[tokens.size() - 1].to_int()
+			
+			_objects[id] = obj
+		"tobj":
+			# TODO: Timed objects
+			var id := tokens[0].to_int()
+			var obj := IDEObject.new()
+			
+			obj.model_name = tokens[1]
+			obj.txd_name = tokens[2]
+			
 			_objects[id] = obj
 
 
