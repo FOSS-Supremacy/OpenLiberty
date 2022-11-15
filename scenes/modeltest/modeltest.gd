@@ -4,11 +4,13 @@ extends Node
 @onready var spinbox: SpinBox = $GUI/VBoxContainer/HBoxContainer/SpinBox
 @onready var meshinstance: MeshInstance3D = $mesh
 var dff: RWClump
+var misc: RWTextureDict
 
 
 func _ready() -> void:
 	spinbox.rounded = true
 	spinbox.max_value = 0
+	misc = RWTextureDict.new(GameManager.open_file("models/misc.txd", FileAccess.READ))
 
 
 func _ld_dff() -> void:
@@ -35,3 +37,13 @@ func _ld_dff() -> void:
 func _ld_model(value: float) -> void:
 	var geometry := dff.geometry_list.geometries[int(value)]
 	meshinstance.mesh = geometry.mesh
+	
+	var material := geometry.material_list.materials[0] as RWMaterial
+	meshinstance.material_override = material.material
+	
+	if material.is_textured:
+		var texname := material.texture.texture_name.string
+		for raster in misc.textures:
+			if texname.to_lower() == raster.name:
+				meshinstance.material_override.albedo_texture = ImageTexture.create_from_image(raster.image)
+				break
