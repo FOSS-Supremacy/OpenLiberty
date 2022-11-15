@@ -5,6 +5,15 @@ extends RWChunk
 var color: Color
 var is_textured: bool
 var texture: RWTexture
+var material:
+	get:
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = color
+		
+		if version > 0x30400:
+			mat.roughness = 1.0 - specular
+		
+		return mat
 
 var ambient: float
 var specular: float
@@ -30,5 +39,6 @@ func _init(file: FileAccess):
 		specular = file.get_float()
 		diffuse = file.get_float()
 	
-	texture = RWTexture.new(file)
+	if is_textured:
+		texture = RWTexture.new(file)
 	skip(file)
