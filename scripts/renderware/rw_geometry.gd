@@ -41,6 +41,9 @@ var mesh: ArrayMesh:
 			for i in [3,2,1]:
 				if morph_t.has_normals:
 					st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
+				if uvs.size() > 0:
+					st.set_uv(uvs[0][tri["vertex_%d" % i]])
+				
 				st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
 		
 		if format & rpGEOMETRYTRISTRIP == 0 and morph_t.has_normals == false:
