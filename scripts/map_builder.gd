@@ -38,7 +38,7 @@ func _read_ide_line(section: String, tokens: Array[String]):
 			obj.txd_name = tokens[2]
 			obj.flags = tokens[tokens.size() - 1].to_int()
 			
-			MapBuilder.objects[id] = obj
+			objects[id] = obj
 		"tobj":
 			# TODO: Timed objects
 			var id := tokens[0].to_int()
@@ -47,7 +47,7 @@ func _read_ide_line(section: String, tokens: Array[String]):
 			obj.model_name = tokens[1]
 			obj.txd_name = tokens[2]
 			
-			MapBuilder.objects[id] = obj
+			objects[id] = obj
 
 
 func _read_ipl_line(section: String, tokens: Array[String]):
@@ -108,9 +108,10 @@ func spawn_instance(ipl_inst: IPLInstance):
 	if glist.geometries.size() > 0:
 		var instance := MeshInstance3D.new()
 		instance.mesh = glist.geometries[0].mesh
-		
 		instance.position = ipl_inst.position
 		instance.scale = ipl_inst.scale
 		instance.quaternion = ipl_inst.rotation
+		
+		instance.material_override = StandardMaterial3D.new()
 		
 		map.add_child(instance)
