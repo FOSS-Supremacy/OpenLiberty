@@ -7,6 +7,7 @@ var instances: Array[IPLInstance]
 var map: Node3D
 
 @onready var _assetfile := GameManager.get_asset_fileaccess() as FileAccess
+@onready var textures := RWTextureDict.new(GameManager.open_file("models/generic.txd", FileAccess.READ))
 
 
 func load_map_data() -> void:
