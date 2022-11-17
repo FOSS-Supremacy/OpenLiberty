@@ -3,7 +3,7 @@ extends MeshInstance3D
 
 
 var _idef: ItemDef
-var _loading := false
+var _thread := Thread.new()
 
 var _mesh_buf: Mesh
 
@@ -13,19 +13,14 @@ func _init(idef: ItemDef):
 
 
 func _process(delta: float) -> void:
-	if _loading == false:
+	if _thread.is_started() == false:
 		var dist := get_viewport().get_camera_3d().global_transform.origin.distance_to(global_transform.origin)
 		if dist < visibility_range_end and mesh == null:
-			_loading = true
-			
-			var thread := Thread.new()
-			thread.start(_load_mesh)
-			while thread.is_alive():
+			_thread.start(_load_mesh)
+			while _thread.is_alive():
 				await get_tree().process_frame
-			thread.wait_to_finish()
+			_thread.wait_to_finish()
 			mesh = _mesh_buf
-			
-			_loading = false
 		elif dist > visibility_range_end and mesh != null:
 			mesh = null
 
