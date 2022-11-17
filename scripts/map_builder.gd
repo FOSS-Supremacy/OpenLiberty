@@ -137,6 +137,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 					material.albedo_texture = ImageTexture.create_from_image(raster.image)
 					if raster.has_alpha:
 						material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+						material.cull_mode = BaseMaterial3D.CULL_DISABLED
 					break
 		
 		instance.material_override = material
