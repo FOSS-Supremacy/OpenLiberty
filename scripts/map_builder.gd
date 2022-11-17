@@ -7,9 +7,10 @@ var placements: Array[ItemPlacement]
 var map: Node3D
 
 @onready var _assetfile := AssetLoader.open_img()
+var _loaded := false
 
 
-func load_map_data() -> void:
+func _ready() -> void:
 	var file := FileAccess.open(GameManager.gta_path + "data/gta3.dat", FileAccess.READ)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
@@ -71,7 +72,7 @@ func _read_ipl_line(section: String, tokens: Array[String]):
 			
 			placement.rotation = Quaternion(
 				-tokens[8].to_float(),
-				tokens[9].to_float(),
+				-tokens[9].to_float(),
 				-tokens[10].to_float(),
 				tokens[11].to_float(),
 			)
