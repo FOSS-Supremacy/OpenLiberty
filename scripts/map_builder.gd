@@ -35,7 +35,7 @@ func _read_ide_line(section: String, tokens: Array[String]):
 			
 			item.model_name = tokens[1]
 			item.txd_name = tokens[2]
-			item.render_distance = tokens[3].to_float()
+			item.render_distance = tokens[4].to_float()
 			item.flags = tokens[tokens.size() - 1].to_int()
 			
 			items[id] = item
