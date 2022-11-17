@@ -5,7 +5,7 @@ extends RWChunk
 var color: Color
 var is_textured: bool
 var texture: RWTexture
-var material:
+var material: StandardMaterial3D:
 	get:
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = color

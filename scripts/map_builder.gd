@@ -120,10 +120,10 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		instance.scale = scale
 		instance.quaternion = rotation
 		
-		var material := geometry.material_list.materials[0] as RWMaterial
-		instance.material_override = material.material
+		var rwmat := geometry.material_list.materials[0] as RWMaterial
+		var material := rwmat.material
 		
-		if material.is_textured:
+		if rwmat.is_textured:
 			var txd: RWTextureDict
 			
 			if item.txd_name == "generic":
@@ -133,10 +133,13 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				txd = RWTextureDict.new(_assetfile)
 			
 			for raster in txd.textures:
-				if material.texture.texture_name.string.matchn(raster.name):
-					instance.material_override.albedo_texture = ImageTexture.create_from_image(raster.image)
+				if rwmat.texture.texture_name.string.matchn(raster.name):
+					material.albedo_texture = ImageTexture.create_from_image(raster.image)
+					if raster.has_alpha:
+						material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 					break
 		
+		instance.material_override = material
 		map.add_child(instance)
 
 
