@@ -36,20 +36,43 @@ var mesh: ArrayMesh:
 			return ArrayMesh.new()
 		var morph_t := morph_targets[0]
 		var st := SurfaceTool.new()
+		var surfaces: Dictionary
 		
-		st.begin(Mesh.PRIMITIVE_TRIANGLES)
+		# Split tris by their material ID
 		for tri in tris:
-			for i in [3,2,1]:
-				if morph_t.has_normals:
-					st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
-				if uvs.size() > 0:
-					st.set_uv(uvs[0][tri["vertex_%d" % i]])
-				
-				st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
+			var mat_id := tri.material_id
+			if not mat_id in surfaces:
+				surfaces[mat_id] = []
+			surfaces[mat_id].append(tri)
 		
-		if format & rpGEOMETRYTRISTRIP == 0 and morph_t.has_normals == false:
-			st.generate_normals()
-		return st.commit()
+		for surf_id in surfaces:
+			st.begin(Mesh.PRIMITIVE_TRIANGLES)
+			var surface := surfaces[surf_id] as Array[Triangle]
+			for tri in surface:
+				for i in [3,2,1]:
+					if morph_t.has_normals:
+						st.set_normal(morph_t.normals[tri["vertex_%d" % i]])
+					if uvs.size() > 0:
+						st.set_uv(uvs[0][tri["vertex_%d" % i]])
+					
+					st.add_vertex(morph_t.vertices[tri["vertex_%d" % i]])
+				
+				var rwmaterial := material_list.materials[tri.material_id]
+				var material := rwmaterial.material
+				
+				if rwmaterial.is_textured:
+					material.set_meta("texture_name", rwmaterial.texture.texture_name)
+				st.set_material(material)
+			
+			if format & rpGEOMETRYTRISTRIP == 0 and morph_t.has_normals == false:
+				st.generate_normals()
+			
+			if mesh == null:
+				mesh = st.commit()
+			else:
+				st.commit(mesh)
+		
+		return mesh
 
 
 func _init(file: FileAccess):
