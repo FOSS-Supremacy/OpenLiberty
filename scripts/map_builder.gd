@@ -70,7 +70,7 @@ func _read_ipl_line(section: String, tokens: Array[String]):
 			)
 			
 			placement.rotation = Quaternion(
-				tokens[8].to_float(),
+				-tokens[8].to_float(),
 				tokens[9].to_float(),
 				-tokens[10].to_float(),
 				tokens[11].to_float(),
