@@ -37,11 +37,7 @@ func _load_mesh() -> void:
 	for geometry in glist.geometries:
 		_mesh_buf = geometry.mesh
 		for surf_id in _mesh_buf.get_surface_count():
-			var material := _mesh_buf.surface_get_material(surf_id)
-			
-			if _idef.flags & 0x04:
-				material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_HASH
-				material.cull_mode = BaseMaterial3D.CULL_DISABLED
+			var material := _mesh_buf.surface_get_material(surf_id) as StandardMaterial3D
 			
 			if material.has_meta("texture_name"):
 				var txd: RWTextureDict
@@ -56,6 +52,13 @@ func _load_mesh() -> void:
 				for raster in txd.textures:
 					if texture_name.matchn(raster.name):
 						material.albedo_texture = ImageTexture.create_from_image(raster.image)
+						if raster.has_alpha:
+							material.cull_mode = BaseMaterial3D.CULL_DISABLED
+							material.transparency = (
+								BaseMaterial3D.TRANSPARENCY_ALPHA_HASH if _idef.flags & 0x04
+								else BaseMaterial3D.TRANSPARENCY_ALPHA
+							)
+							
 						break
 			
 			_mesh_buf.surface_set_material(surf_id, material)
