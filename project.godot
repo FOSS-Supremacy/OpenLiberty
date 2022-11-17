@@ -10,6 +10,16 @@ config_version=5
 
 _global_script_classes=[{
 "base": "RefCounted",
+"class": &"ItemDef",
+"language": &"GDScript",
+"path": "res://scripts/classes/item_def.gd"
+}, {
+"base": "RefCounted",
+"class": &"ItemPlacement",
+"language": &"GDScript",
+"path": "res://scripts/classes/item_placement.gd"
+}, {
+"base": "RefCounted",
 "class": &"RWChunk",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_chunk.gd"
@@ -58,8 +68,15 @@ _global_script_classes=[{
 "class": &"RWTextureDict",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_texture_dict.gd"
+}, {
+"base": "MeshInstance3D",
+"class": &"StreamedMesh",
+"language": &"GDScript",
+"path": "res://scripts/classes/streamed_mesh.gd"
 }]
 _global_script_class_icons={
+"ItemDef": "",
+"ItemPlacement": "",
 "RWChunk": "",
 "RWClump": "",
 "RWGeometry": "",
@@ -69,7 +86,8 @@ _global_script_class_icons={
 "RWRaster": "",
 "RWString": "",
 "RWTexture": "",
-"RWTextureDict": ""
+"RWTextureDict": "",
+"StreamedMesh": ""
 }
 
 [application]
