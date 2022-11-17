@@ -115,6 +115,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		var geometry := glist.geometries[0] as RWGeometry
 		
 		instance.mesh = geometry.mesh
+		instance.visibility_range_end = item.render_distance
 		instance.position = position
 		instance.scale = scale
 		instance.quaternion = rotation
