@@ -154,6 +154,7 @@ class ItemDef:
 	var render_distance: float
 	var flags: int
 
+
 class ItemPlacement:
 	var id: int
 	var model_name: String
