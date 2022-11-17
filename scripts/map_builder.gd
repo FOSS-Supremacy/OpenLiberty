@@ -113,9 +113,8 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 	_assetfile.seek(AssetLoader.assets[item.model_name.to_lower() + ".dff"].offset)
 	var glist := RWClump.new(_assetfile).geometry_list
 	
-	if glist.geometries.size() > 0:
+	for geometry in glist.geometries:
 		var instance := MeshInstance3D.new()
-		var geometry := glist.geometries[0] as RWGeometry
 		
 		instance.mesh = geometry.mesh
 		instance.visibility_range_end = item.render_distance
