@@ -43,6 +43,7 @@ func _load_mesh() -> void:
 		_mesh_buf = geometry.mesh
 		for surf_id in _mesh_buf.get_surface_count():
 			var material := _mesh_buf.surface_get_material(surf_id) as StandardMaterial3D
+			material.cull_mode = BaseMaterial3D.CULL_DISABLED
 			
 			if material.has_meta("texture_name"):
 				var txd: RWTextureDict
@@ -58,7 +59,6 @@ func _load_mesh() -> void:
 					if texture_name.matchn(raster.name):
 						material.albedo_texture = ImageTexture.create_from_image(raster.image)
 						if raster.has_alpha:
-							material.cull_mode = BaseMaterial3D.CULL_DISABLED
 							material.transparency = (
 								BaseMaterial3D.TRANSPARENCY_ALPHA_HASH if _idef.flags & 0x04
 								else BaseMaterial3D.TRANSPARENCY_ALPHA
