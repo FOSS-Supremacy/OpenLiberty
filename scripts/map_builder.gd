@@ -139,7 +139,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				txd = RWTextureDict.new(_assetfile)
 			
 			for raster in txd.textures:
-				if rwmat.texture.texture_name.string.matchn(raster.name):
+				if rwmat.texture.texture_name.matchn(raster.name):
 					material.albedo_texture = ImageTexture.create_from_image(raster.image)
 					break
 		

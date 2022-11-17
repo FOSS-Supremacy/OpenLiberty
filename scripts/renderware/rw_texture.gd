@@ -2,8 +2,8 @@ class_name RWTexture
 extends RWChunk
 
 
-var texture_name: RWString
-var mask_name: RWString
+var texture_name: String
+var mask_name: String
 
 
 func _init(file: FileAccess):
@@ -11,6 +11,6 @@ func _init(file: FileAccess):
 	assert(type == 0x06)
 	
 	RWChunk.new(file).skip(file)
-	texture_name = RWString.new(file)
-	mask_name = RWString.new(file)
+	texture_name = RWString.new(file).string
+	mask_name = RWString.new(file).string
 	skip(file)
