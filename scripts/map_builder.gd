@@ -127,7 +127,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		var material := rwmat.material
 		
 		if item.flags & 0x04:
-			material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_HASH
 			material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		
 		if rwmat.is_textured:
