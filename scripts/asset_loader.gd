@@ -2,6 +2,7 @@ extends Node
 
 
 var assets: Dictionary
+var mutex := Mutex.new()
 
 
 func _ready() -> void:
