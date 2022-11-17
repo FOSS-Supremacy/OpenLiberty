@@ -133,7 +133,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				txd = RWTextureDict.new(_assetfile)
 			
 			for raster in txd.textures:
-				if material.texture.texture_name.string.to_lower() == raster.name:
+				if material.texture.texture_name.string.matchn(raster.name):
 					instance.material_override.albedo_texture = ImageTexture.create_from_image(raster.image)
 		
 		map.add_child(instance)
