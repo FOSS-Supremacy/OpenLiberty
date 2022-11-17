@@ -1,12 +1,12 @@
 extends Node
 
 
-var objects: Dictionary
-var instances: Array[IPLInstance]
+var items: Dictionary
+var placements: Array[ItemPlacement]
 
 var map: Node3D
 
-@onready var _assetfile := GameManager.get_asset_fileaccess() as FileAccess
+@onready var _assetfile := AssetLoader.open_img()
 
 
 func load_map_data() -> void:
@@ -31,56 +31,56 @@ func _read_ide_line(section: String, tokens: Array[String]):
 	match section:
 		"objs":
 			var id := tokens[0].to_int()
-			var obj := IDEObject.new()
+			var item := ItemDef.new()
 			
-			obj.model_name = tokens[1]
-			obj.txd_name = tokens[2]
-			obj.draw_distance = tokens[3].to_float()
-			obj.flags = tokens[tokens.size() - 1].to_int()
+			item.model_name = tokens[1]
+			item.txd_name = tokens[2]
+			item.render_distance = tokens[3].to_float()
+			item.flags = tokens[tokens.size() - 1].to_int()
 			
-			objects[id] = obj
+			items[id] = item
 		"tobj":
 			# TODO: Timed objects
 			var id := tokens[0].to_int()
-			var obj := IDEObject.new()
+			var item := ItemDef.new()
 			
-			obj.model_name = tokens[1]
-			obj.txd_name = tokens[2]
+			item.model_name = tokens[1]
+			item.txd_name = tokens[2]
 			
-			objects[id] = obj
+			items[id] = item
 
 
 func _read_ipl_line(section: String, tokens: Array[String]):
 	match section:
 		"inst":
-			var instance := IPLInstance.new()
-			instance.id = tokens[0].to_int()
-			instance.model_name = tokens[1].to_lower()
+			var placement := ItemPlacement.new()
+			placement.id = tokens[0].to_int()
+			placement.model_name = tokens[1].to_lower()
 			
-			instance.position = Vector3(
+			placement.position = Vector3(
 				tokens[2].to_float(),
 				tokens[3].to_float(),
 				tokens[4].to_float(),
 			)
 			
-			instance.scale = Vector3(
+			placement.scale = Vector3(
 				tokens[5].to_float(),
 				tokens[6].to_float(),
 				tokens[7].to_float(),
 			)
 			
-			instance.rotation = Quaternion(
+			placement.rotation = Quaternion(
 				tokens[8].to_float(),
 				tokens[9].to_float(),
 				tokens[10].to_float(),
 				tokens[11].to_float(),
 			)
 			
-			instances.append(instance)
+			placements.append(placement)
 
 
 func _read_map_data(path: String, line_handler: Callable) -> void:
-	var file := GameManager.open_file(path.replace("\\", "/"), FileAccess.READ) as FileAccess
+	var file := AssetLoader.open(path.replace("\\", "/"))
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	var section: String
@@ -101,9 +101,13 @@ func clear_map() -> void:
 	map.rotation.x = deg_to_rad(-90.0)
 
 
-func spawn_instance(ipl_inst: IPLInstance):
-	var obj := objects[ipl_inst.id] as IDEObject
-	_assetfile.seek(GameManager.assets[obj.model_name.to_lower() + ".dff"].offset)
+func spawn_placement(ipl: ItemPlacement):
+	spawn(ipl.id, ipl.model_name, ipl.position, ipl.scale, ipl.rotation)
+
+
+func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion):
+	var item := items[id] as ItemDef
+	_assetfile.seek(AssetLoader.assets[item.model_name.to_lower() + ".dff"].offset)
 	var glist := RWClump.new(_assetfile).geometry_list
 	
 	if glist.geometries.size() > 0:
@@ -111,9 +115,9 @@ func spawn_instance(ipl_inst: IPLInstance):
 		var geometry := glist.geometries[0] as RWGeometry
 		
 		instance.mesh = geometry.mesh
-		instance.position = ipl_inst.position
-		instance.scale = ipl_inst.scale
-		instance.quaternion = ipl_inst.rotation
+		instance.position = position
+		instance.scale = scale
+		instance.quaternion = rotation
 		
 		var material := geometry.material_list.materials[0] as RWMaterial
 		instance.material_override = material.material
@@ -121,10 +125,10 @@ func spawn_instance(ipl_inst: IPLInstance):
 		if material.is_textured:
 			var txd: RWTextureDict
 			
-			if obj.txd_name == "generic":
-				txd = RWTextureDict.new(GameManager.open_file("models/generic.txd", FileAccess.READ))
+			if item.txd_name == "generic":
+				txd = RWTextureDict.new(AssetLoader.open("models/generic.txd"))
 			else:
-				_assetfile.seek(GameManager.assets[obj.txd_name.to_lower() + ".txd"].offset)
+				_assetfile.seek(AssetLoader.assets[item.txd_name.to_lower() + ".txd"].offset)
 				txd = RWTextureDict.new(_assetfile)
 			
 			for raster in txd.textures:
@@ -132,3 +136,17 @@ func spawn_instance(ipl_inst: IPLInstance):
 					instance.material_override.albedo_texture = ImageTexture.create_from_image(raster.image)
 		
 		map.add_child(instance)
+
+
+class ItemDef:
+	var model_name: String
+	var txd_name: String
+	var render_distance: float
+	var flags: int
+
+class ItemPlacement:
+	var id: int
+	var model_name: String
+	var position: Vector3
+	var scale: Vector3
+	var rotation: Quaternion

@@ -10,21 +10,6 @@ config_version=5
 
 _global_script_classes=[{
 "base": "RefCounted",
-"class": &"DirEntry",
-"language": &"GDScript",
-"path": "res://scripts/classes/dir_entry.gd"
-}, {
-"base": "RefCounted",
-"class": &"IDEObject",
-"language": &"GDScript",
-"path": "res://scripts/classes/ide_object.gd"
-}, {
-"base": "RefCounted",
-"class": &"IPLInstance",
-"language": &"GDScript",
-"path": "res://scripts/classes/ipl_instance.gd"
-}, {
-"base": "RefCounted",
 "class": &"RWChunk",
 "language": &"GDScript",
 "path": "res://scripts/renderware/rw_chunk.gd"
@@ -75,9 +60,6 @@ _global_script_classes=[{
 "path": "res://scripts/renderware/rw_texture_dict.gd"
 }]
 _global_script_class_icons={
-"DirEntry": "",
-"IDEObject": "",
-"IPLInstance": "",
 "RWChunk": "",
 "RWClump": "",
 "RWGeometry": "",
@@ -101,6 +83,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/game_manager.gd"
 MapBuilder="*res://scripts/map_builder.gd"
+AssetLoader="*res://scripts/asset_loader.gd"
 
 [input]
 
