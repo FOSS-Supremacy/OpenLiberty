@@ -12,6 +12,11 @@ func _init(idef: ItemDef):
 	_idef = idef
 
 
+func _exit_tree():
+	if _thread.is_alive():
+		_thread.wait_to_finish()
+
+
 func _process(delta: float) -> void:
 	if _thread.is_started() == false:
 		var dist := get_viewport().get_camera_3d().global_transform.origin.distance_to(global_transform.origin)
