@@ -148,18 +148,3 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		
 		instance.mesh = mesh
 		map.add_child(instance)
-
-
-class ItemDef:
-	var model_name: String
-	var txd_name: String
-	var render_distance: float
-	var flags: int
-
-
-class ItemPlacement:
-	var id: int
-	var model_name: String
-	var position: Vector3
-	var scale: Vector3
-	var rotation: Quaternion
