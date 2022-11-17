@@ -107,6 +107,9 @@ func spawn_placement(ipl: ItemPlacement):
 
 func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion):
 	var item := items[id] as ItemDef
+	if item.flags & 0x40:
+		return
+	
 	_assetfile.seek(AssetLoader.assets[item.model_name.to_lower() + ".dff"].offset)
 	var glist := RWClump.new(_assetfile).geometry_list
 	
