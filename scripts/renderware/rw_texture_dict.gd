@@ -10,7 +10,7 @@ var textures: Array[RWRaster]
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x16)
+	assert(type == ChunkType.TEXTURE_DICT)
 	
 	RWChunk.new(file)
 	texture_count = file.get_16()

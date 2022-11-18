@@ -8,7 +8,7 @@ var geometries: Array[RWGeometry]
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x1a)
+	assert(type == ChunkType.GEOMETRY_LIST)
 	
 	RWChunk.new(file)
 	geometry_count = file.get_32()

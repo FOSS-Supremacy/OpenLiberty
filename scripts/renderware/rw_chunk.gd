@@ -5,7 +5,19 @@ extends RefCounted
 ## [url]https://gtamods.com/wiki/RenderWare_binary_stream_file[/url]
 
 
-var type: int
+enum ChunkType {
+	STRING = 0x2,
+	TEXTURE = 0x6,
+	MATERIAL = 0x7,
+	MATERIAL_LIST = 0x8,
+	GEOMETRY = 0xf,
+	CLUMP = 0x10,
+	RASTER = 0x15,
+	TEXTURE_DICT = 0x16,
+	GEOMETRY_LIST = 0x1a,
+}
+
+var type: ChunkType
 var size: int
 var library_id: int
 

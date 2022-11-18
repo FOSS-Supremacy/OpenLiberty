@@ -77,7 +77,7 @@ var mesh: ArrayMesh:
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x0f)
+	assert(type == ChunkType.GEOMETRY)
 	
 	RWChunk.new(file)
 	format = file.get_32()

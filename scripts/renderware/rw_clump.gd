@@ -11,7 +11,7 @@ var geometry_list: RWGeometryList
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x10)
+	assert(type == ChunkType.CLUMP)
 	
 	RWChunk.new(file)
 	var atomic_count = file.get_32()

@@ -41,7 +41,7 @@ var image: Image: get = _load_image
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x15)
+	assert(type == ChunkType.RASTER)
 	
 	RWChunk.new(file)
 	platform_id = file.get_32()

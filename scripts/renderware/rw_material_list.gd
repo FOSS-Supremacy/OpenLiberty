@@ -9,7 +9,7 @@ var materials: Array[RWMaterial]
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x08)
+	assert(type == ChunkType.MATERIAL_LIST)
 	
 	RWChunk.new(file)
 	material_count = file.get_32()
