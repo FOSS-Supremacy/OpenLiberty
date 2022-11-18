@@ -56,7 +56,7 @@ func _load_mesh() -> void:
 								BaseMaterial3D.TRANSPARENCY_ALPHA_HASH if _idef.flags & 0x04
 								else BaseMaterial3D.TRANSPARENCY_ALPHA
 							)
-							
+						
 						break
 			
 			_mesh_buf.surface_set_material(surf_id, material)
