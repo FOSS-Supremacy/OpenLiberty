@@ -2,6 +2,7 @@ extends Node
 
 
 var items: Dictionary
+var itemchilds: Array[TDFX]
 var placements: Array[ItemPlacement]
 
 var map: Node3D
@@ -27,14 +28,16 @@ func _ready() -> void:
 						AssetLoader.load_cd_image(tokens[1])
 					_:
 						push_warning("implement %s" % tokens[0])
+	
+	for child in itemchilds:
+		items[child.parent].childs.append(child)
 
 
 func _read_ide_line(section: String, tokens: Array[String]):
+	var item := ItemDef.new()
+	var id := tokens[0].to_int()
 	match section:
 		"objs":
-			var id := tokens[0].to_int()
-			var item := ItemDef.new()
-			
 			item.model_name = tokens[1]
 			item.txd_name = tokens[2]
 			item.render_distance = tokens[4].to_float()
@@ -43,13 +46,31 @@ func _read_ide_line(section: String, tokens: Array[String]):
 			items[id] = item
 		"tobj":
 			# TODO: Timed objects
-			var id := tokens[0].to_int()
-			var item := ItemDef.new()
-			
 			item.model_name = tokens[1]
 			item.txd_name = tokens[2]
 			
 			items[id] = item
+		"2dfx":
+			match tokens[8].to_int():
+				0:
+					var lightdef := TDFXLight.new()
+					lightdef.parent = tokens[0].to_int()
+					
+					lightdef.position = Vector3(
+						tokens[1].to_float(),
+						tokens[2].to_float(),
+						tokens[3].to_float()
+					)
+					
+					lightdef.color = Color(
+						tokens[4].to_float(),
+						tokens[5].to_float(),
+						tokens[6].to_float()
+					)
+					
+					itemchilds.append(lightdef)
+				var type:
+					push_warning("implement 2DFX type %d" % type)
 
 
 func _read_ipl_line(section: String, tokens: Array[String]):
@@ -125,5 +146,18 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		instance.quaternion = rotation
 		
 		result.add_child(instance)
+	
+	for child in item.childs:
+		if child is TDFXLight:
+			continue # Ignored until https://github.com/godotengine/godot/issues/56657 is fixed
+			var light := OmniLight3D.new()
+			
+			light.position = child.position
+			
+			light.light_color = child.color
+			light.omni_range = 5.0
+			light.light_energy = 10.0
+			
+			result.add_child(OmniLight3D.new())
 	
 	return result

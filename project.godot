@@ -73,6 +73,16 @@ _global_script_classes=[{
 "class": &"StreamedMesh",
 "language": &"GDScript",
 "path": "res://scripts/classes/streamed_mesh.gd"
+}, {
+"base": "RefCounted",
+"class": &"TDFX",
+"language": &"GDScript",
+"path": "res://scripts/classes/tdfx.gd"
+}, {
+"base": "TDFX",
+"class": &"TDFXLight",
+"language": &"GDScript",
+"path": "res://scripts/classes/tdfx_light.gd"
 }]
 _global_script_class_icons={
 "ItemDef": "",
@@ -87,7 +97,9 @@ _global_script_class_icons={
 "RWString": "",
 "RWTexture": "",
 "RWTextureDict": "",
-"StreamedMesh": ""
+"StreamedMesh": "",
+"TDFX": "",
+"TDFXLight": ""
 }
 
 [application]
@@ -138,4 +150,5 @@ movement_down={
 
 [rendering]
 
+limits/cluster_builder/max_clustered_elements=2048.0
 anti_aliasing/quality/msaa_3d=1
