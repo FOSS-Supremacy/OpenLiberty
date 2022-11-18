@@ -68,27 +68,82 @@ func _init(file: FileAccess):
 	skip(file)
 
 func _load_image():
-	if image == null:
-		_file.seek(_image_start)
-		image = Image.create(width, height, false, Image.FORMAT_RGBA8)
-		
-		if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
-			if raster_format & FORMAT_EXT_PAL8:
-				var palette := Image.create_from_data(256, 1, false, Image.FORMAT_RGBA8, _file.get_buffer(256 * 4))
-				_file.get_32()
-				for i in width * height:
-					var x := int(i % width)
-					var y := int(i / width)
-					var color := palette.get_pixel(_file.get_8(), 0)
-					image.set_pixel(x, y, color)
-		else:
-			var raster_size := _file.get_32()
-			image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8, _file.get_buffer(raster_size))
-			# Perform color conversion
-			for i in width * height:
-					var x := int(i % width)
-					var y := int(i / width)
-					var old := image.get_pixel(x, y)
-					image.set_pixel(x, y, Color(old.b, old.g, old.r, old.a))
+	_file.seek(_image_start)
+	var result: Image
+	var format: Image.Format
+	var read: int
 	
-	return image
+	match raster_format & 0x0f00:
+		FORMAT_888:
+			format = Image.FORMAT_RGB8
+			read = 3
+		FORMAT_8888:
+			format = Image.FORMAT_RGBA8
+			read = 4
+		FORMAT_565:
+			format = Image.FORMAT_RGB565
+			read = 2
+#		FORMAT_1555:
+#			format = FORMAT_1555
+#			read = 2
+		_:
+			assert(false)
+	
+	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
+		var psize := (16 if raster_format & FORMAT_EXT_PAL4 else 256)
+		var palette := Image.create_from_data(psize, 1, false, format, _unpad(psize, read))
+		
+		result = Image.create(width, height, raster_format & 0x8000, format)
+		_file.get_32()
+		for i in width * height:
+			var x := int(i % width)
+			var y := int(i / width)
+			var color := palette.get_pixel(_file.get_8(), 0)
+			result.set_pixel(x, y, color)
+#	elif format == FORMAT_1555:
+#		result = Image.create(width, height, raster_format & 0x8000, Image.FORMAT_RGBA8)
+#		var unpadded := _unpad(width * height, read)
+#		var data := PackedInt32Array()
+#
+#		for i in unpadded.size() / 2:
+#			var x := int(i % width)
+#			var y := int(i / width)
+#
+#			var pixel := unpadded[i] | unpadded[i + 1] << 16
+#			var a := (pixel & 0x8000) >> 15
+#			var r := (pixel & 0x7c00) >> 10
+#			var g := (pixel & 0x03e0) >> 5
+#			var b := pixel & 0x001f
+#
+#			result.set_pixel(
+#				x, y, Color(
+#					r / 0x1f,
+#					g / 0x1f,
+#					b / 0x1f,
+#					a
+#				)
+#			)
+	else:
+		_file.get_32()
+		result = Image.create_from_data(width, height, false, format, _unpad(width * height, read))
+		
+		# Perform color conversion
+		for i in width * height:
+				var x := int(i % width)
+				var y := int(i / width)
+				var old := result.get_pixel(x, y)
+				result.set_pixel(x, y, Color(old.b, old.g, old.r, old.a))
+	
+	return result
+
+
+func _unpad(length: int, read: int) -> PackedByteArray:
+	var result := PackedByteArray()
+	
+	for i in length:
+		for j in read:
+			result.append(_file.get_8())
+		for j in 4 - read:
+			_file.get_8()
+	
+	return result
