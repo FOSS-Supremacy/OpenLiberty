@@ -103,14 +103,15 @@ func clear_map() -> void:
 	map.rotation.x = deg_to_rad(-90.0)
 
 
-func spawn_placement(ipl: ItemPlacement):
-	spawn(ipl.id, ipl.model_name, ipl.position, ipl.scale, ipl.rotation)
+func spawn_placement(ipl: ItemPlacement) -> Node3D:
+	return spawn(ipl.id, ipl.model_name, ipl.position, ipl.scale, ipl.rotation)
 
 
-func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion):
+func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion) -> Node3D:
+	var result := Node3D.new()
 	var item := items[id] as ItemDef
 	if item.flags & 0x40:
-		return
+		return result
 	
 	var access := AssetLoader.open_asset(model_name + ".dff")
 	var glist := RWClump.new(access).geometry_list
@@ -123,4 +124,6 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		instance.scale = scale
 		instance.quaternion = rotation
 		
-		map.add_child(instance)
+		result.add_child(instance)
+	
+	return result

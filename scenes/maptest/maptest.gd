@@ -1,8 +1,11 @@
 extends Node
 
 
+@onready var world := Node3D.new()
+
+
 func _ready() -> void:
-	MapBuilder.clear_map()
+	world.rotation.x = deg_to_rad(-90.0)
 	
 	var start := Time.get_ticks_msec()
 	var target = MapBuilder.placements.size()
@@ -11,7 +14,7 @@ func _ready() -> void:
 	
 #	add_child(MapBuilder.map)
 	for ipl in MapBuilder.placements:
-		MapBuilder.spawn_placement(ipl)
+		world.add_child(MapBuilder.spawn_placement(ipl))
 		count += 1
 		
 		if Time.get_ticks_msec() - start > (1.0 / 30.0) * 1000:
@@ -19,5 +22,4 @@ func _ready() -> void:
 			print("%f" % (float(count) / float(target)))
 			await get_tree().physics_frame
 	print("Map load completed in %f seconds" % ((Time.get_ticks_msec() - start_t) / 1000))
-	
-	add_child(MapBuilder.map)
+	add_child(world)
