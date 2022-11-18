@@ -130,9 +130,13 @@ func _load_image():
 	else:
 		var data := PackedByteArray()
 		
+		var mip_width := width
+		var mip_height := height
 		for i in num_levels:
 			var raster_size := _file.get_32()
-			data.append_array(_file.get_buffer(raster_size))
+			data.append_array(_unpad(mip_width * mip_height, read))
+			mip_width /= 2
+			mip_height /= 2
 		
 		result = Image.create_from_data(width, height, raster_format & FORMAT_EXT_MIPMAP, format, data)
 		if raster_format & FORMAT_EXT_AUTO_MIPMAP:
