@@ -135,14 +135,8 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				material.cull_mode = BaseMaterial3D.CULL_DISABLED
 			
 			if material.has_meta("texture_name"):
-				var txd: RWTextureDict
+				var txd := RWTextureDict.new(AssetLoader.open_asset(item.txd_name + ".txd"))
 				var texture_name = material.get_meta("texture_name")
-				
-				if item.txd_name == "generic":
-					txd = RWTextureDict.new(AssetLoader.open("models/generic.txd"))
-				else:
-					access = AssetLoader.open_asset(item.txd_name + ".txd")
-					txd = RWTextureDict.new(access)
 				
 				for raster in txd.textures:
 					if texture_name.matchn(raster.name):
