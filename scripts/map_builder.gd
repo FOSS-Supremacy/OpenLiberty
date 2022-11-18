@@ -23,6 +23,8 @@ func _ready() -> void:
 						_read_map_data(tokens[1], _read_ide_line)
 					"IPL":
 						_read_map_data(tokens[1], _read_ipl_line)
+					"CDIMAGE":
+						AssetLoader.load_cd_image(tokens[1])
 					_:
 						push_warning("implement %s" % tokens[0])
 
