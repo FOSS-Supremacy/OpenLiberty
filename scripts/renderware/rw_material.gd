@@ -22,7 +22,7 @@ var diffuse: float
 
 func _init(file: FileAccess):
 	super(file)
-	assert(type == 0x07)
+	assert(type == ChunkType.MATERIAL)
 	
 	RWChunk.new(file)
 	file.get_32()
