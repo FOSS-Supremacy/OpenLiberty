@@ -35,8 +35,7 @@ func _load_mesh() -> void:
 	if _idef.flags & 0x40:
 		return
 	
-	var access := AssetLoader.open_img()
-	access.seek(AssetLoader.assets[_idef.model_name.to_lower() + ".dff"].offset)
+	var access := AssetLoader.open_asset(_idef.model_name + ".dff")
 	var glist := RWClump.new(access).geometry_list
 	
 	for geometry in glist.geometries:
@@ -46,14 +45,8 @@ func _load_mesh() -> void:
 			material.cull_mode = BaseMaterial3D.CULL_DISABLED
 			
 			if material.has_meta("texture_name"):
-				var txd: RWTextureDict
+				var txd := RWTextureDict.new(AssetLoader.open_asset(_idef.txd_name + ".txd"))
 				var texture_name = material.get_meta("texture_name")
-				
-				if _idef.txd_name == "generic":
-					txd = RWTextureDict.new(AssetLoader.open("models/generic.txd"))
-				else:
-					access.seek(AssetLoader.assets[_idef.txd_name.to_lower() + ".txd"].offset)
-					txd = RWTextureDict.new(access)
 				
 				for raster in txd.textures:
 					if texture_name.matchn(raster.name):

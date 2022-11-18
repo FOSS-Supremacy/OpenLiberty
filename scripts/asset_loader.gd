@@ -6,20 +6,24 @@ var mutex := Mutex.new()
 
 
 func _ready() -> void:
-	print("Caching gta3.img directory...")
-	var file := open("models/gta3.dir")
+	load_cd_image("models/gta3.img")
+
+
+func load_cd_image(path: String) -> void:
+	var file := open(path.to_lower().trim_suffix(".img") + ".dir")
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	while not file.eof_reached():
 		var entry := DirEntry.new()
-		entry.offset = file.get_32() * 2048
-		entry.size = file.get_32() * 2048
+		entry.img = path
+		entry.offset = int(file.get_32()) * 2048
+		entry.size = int(file.get_32()) * 2048
 		assets[file.get_buffer(24).get_string_from_ascii().to_lower()] = entry
 
 
 func open(path: String) -> FileAccess:
 	var diraccess := DirAccess.open(GameManager.gta_path)
-	var parts := path.split("/")
+	var parts := path.replace("\\", "/").split("/")
 	
 	for part in parts:
 		if part == parts[parts.size() - 1]:
@@ -35,11 +39,17 @@ func open(path: String) -> FileAccess:
 	return null
 
 
-
-func open_img() -> FileAccess:
-	return open("models/gta3.img")
+func open_asset(name: String) -> FileAccess:
+	if name.to_lower() in assets:
+		var asset = assets[name.to_lower()] as DirEntry
+		var access := open(assets[name.to_lower()].img)
+		access.seek(asset.offset)
+		return access
+	
+	return open("models/" + name)
 
 
 class DirEntry:
+	var img: String
 	var offset: int
 	var size: int

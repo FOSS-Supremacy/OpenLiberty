@@ -6,7 +6,6 @@ var placements: Array[ItemPlacement]
 
 var map: Node3D
 
-@onready var _assetfile := AssetLoader.open_img()
 var _loaded := false
 
 
@@ -81,7 +80,7 @@ func _read_ipl_line(section: String, tokens: Array[String]):
 
 
 func _read_map_data(path: String, line_handler: Callable) -> void:
-	var file := AssetLoader.open(path.replace("\\", "/"))
+	var file := AssetLoader.open(path)
 	assert(file != null, "%d" % FileAccess.get_open_error())
 	
 	var section: String
@@ -111,8 +110,8 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 	if item.flags & 0x40:
 		return
 	
-	_assetfile.seek(AssetLoader.assets[item.model_name.to_lower() + ".dff"].offset)
-	var glist := RWClump.new(_assetfile).geometry_list
+	var access := AssetLoader.open_asset(model_name + ".dff")
+	var glist := RWClump.new(access).geometry_list
 	
 	for geometry in glist.geometries:
 		var instance := StreamedMesh.new(item)
@@ -140,8 +139,8 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				if item.txd_name == "generic":
 					txd = RWTextureDict.new(AssetLoader.open("models/generic.txd"))
 				else:
-					_assetfile.seek(AssetLoader.assets[item.txd_name.to_lower() + ".txd"].offset)
-					txd = RWTextureDict.new(_assetfile)
+					access = AssetLoader.open_asset(item.txd_name + ".txd")
+					txd = RWTextureDict.new(access)
 				
 				for raster in txd.textures:
 					if texture_name.matchn(raster.name):
