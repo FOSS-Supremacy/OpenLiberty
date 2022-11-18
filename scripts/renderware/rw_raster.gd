@@ -74,18 +74,21 @@ func _load_image():
 	var read: int
 	
 	match raster_format & 0x0f00:
-		FORMAT_888:
-			format = Image.FORMAT_RGB8
-			read = 3
-		FORMAT_8888:
-			format = Image.FORMAT_RGBA8
-			read = 4
-		FORMAT_565:
-			format = Image.FORMAT_RGB565
-			read = 2
 #		FORMAT_1555:
 #			format = FORMAT_1555
 #			read = 2
+#		FORMAT_565:
+#			format = Image.FORMAT_RGB565
+#			read = 2
+#		FORMAT_4444:
+#			format = Image.FORMAT_RGBA4444
+#			read = 2
+		FORMAT_8888:
+			format = Image.FORMAT_RGBA8
+			read = 4
+		FORMAT_888:
+			format = Image.FORMAT_RGB8
+			read = 3
 		_:
 			assert(false)
 	
@@ -102,6 +105,7 @@ func _load_image():
 			result.set_pixel(x, y, color)
 #	elif format == FORMAT_1555:
 #		result = Image.create(width, height, raster_format & 0x8000, Image.FORMAT_RGBA8)
+#		_file.get_32()
 #		var unpadded := _unpad(width * height, read)
 #		var data := PackedInt32Array()
 #
@@ -124,8 +128,15 @@ func _load_image():
 #				)
 #			)
 	else:
-		_file.get_32()
-		result = Image.create_from_data(width, height, false, format, _unpad(width * height, read))
+		var data := PackedByteArray()
+		
+		for i in num_levels:
+			var raster_size := _file.get_32()
+			data.append_array(_file.get_buffer(raster_size))
+		
+		result = Image.create_from_data(width, height, raster_format & FORMAT_EXT_MIPMAP, format, data)
+		if raster_format & FORMAT_EXT_AUTO_MIPMAP:
+			image.generate_mipmaps()
 		
 		# Perform color conversion
 		for i in width * height:
