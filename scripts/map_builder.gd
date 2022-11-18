@@ -124,26 +124,3 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 		instance.quaternion = rotation
 		
 		map.add_child(instance)
-		return
-		
-		var mesh := geometry.mesh
-		for surf_id in mesh.get_surface_count():
-			var material := mesh.surface_get_material(surf_id)
-			
-			if item.flags & 0x04:
-				material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_HASH
-				material.cull_mode = BaseMaterial3D.CULL_DISABLED
-			
-			if material.has_meta("texture_name"):
-				var txd := RWTextureDict.new(AssetLoader.open_asset(item.txd_name + ".txd"))
-				var texture_name = material.get_meta("texture_name")
-				
-				for raster in txd.textures:
-					if texture_name.matchn(raster.name):
-						material.albedo_texture = ImageTexture.create_from_image(raster.image)
-						break
-			
-			mesh.surface_set_material(surf_id, material)
-		
-		instance.mesh = mesh
-		map.add_child(instance)
