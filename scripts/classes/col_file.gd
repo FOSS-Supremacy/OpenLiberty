@@ -8,8 +8,7 @@ var model_name: String
 var model_id: int
 var tbounds: TBounds
 
-var spheres: Array[TSphere]
-var boxes: Array[TBox]
+var collisions: Array[TBase]
 
 
 func _init(file: FileAccess):
@@ -20,11 +19,11 @@ func _init(file: FileAccess):
 	tbounds = TBounds.new(file)
 	
 	for i in file.get_32():
-		spheres.append(TSphere.new(file))
+		collisions.append(TSphere.new(file))
 	file.get_32()
 	
 	for i in file.get_32():
-		boxes.append(TBox.new(file))
+		collisions.append(TBox.new(file))
 	
 	pass
 
