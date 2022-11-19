@@ -156,7 +156,7 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 			
 			light.omni_range = child.range
 			light.light_energy = float(child.shadow_intensity) / 20.0
-			light.shadow_enabled = true
+#			light.shadow_enabled = true
 			
 			instance.add_child(light)
 	
