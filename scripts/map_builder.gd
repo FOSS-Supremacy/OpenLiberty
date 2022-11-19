@@ -22,6 +22,8 @@ func _ready() -> void:
 				match tokens[0]:
 					"IDE":
 						_read_map_data(tokens[1], _read_ide_line)
+					"COLFILE":
+						_load_colfile(tokens[2])
 					"IPL":
 						_read_map_data(tokens[1], _read_ipl_line)
 					"CDIMAGE":
@@ -31,6 +33,12 @@ func _ready() -> void:
 	
 	for child in itemchilds:
 		items[child.parent].childs.append(child)
+
+
+func _load_colfile(path: String) -> void:
+	var colfile := ColFile.new(AssetLoader.open(GameManager.gta_path + path))
+	
+	pass
 
 
 func _read_ide_line(section: String, tokens: Array[String]):
