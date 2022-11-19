@@ -9,6 +9,7 @@ var model_id: int
 var tbounds: TBounds
 
 var spheres: Array[TSphere]
+var boxes: Array[TBox]
 
 
 func _init(file: FileAccess):
@@ -20,6 +21,10 @@ func _init(file: FileAccess):
 	
 	for i in file.get_32():
 		spheres.append(TSphere.new(file))
+	file.get_32()
+	
+	for i in file.get_32():
+		boxes.append(TBox.new(file))
 	
 	pass
 
@@ -72,4 +77,16 @@ class TSphere extends TBase:
 		radius = file.get_float()
 		center = read_vector3(file)
 		
+		surface = TSurface.new(file)
+
+
+class TBox extends TBase:
+	var min: Vector3
+	var max: Vector3
+	var surface: TSurface
+	
+	
+	func _init(file: FileAccess):
+		min = read_vector3(file)
+		max = read_vector3(file)
 		surface = TSurface.new(file)
