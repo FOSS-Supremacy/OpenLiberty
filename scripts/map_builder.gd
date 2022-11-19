@@ -51,22 +51,27 @@ func _read_ide_line(section: String, tokens: Array[String]):
 			
 			items[id] = item
 		"2dfx":
+			var parent := tokens[0].to_int()
+			var position := Vector3(
+				tokens[1].to_float(),
+				tokens[2].to_float(),
+				tokens[3].to_float()
+			)
+			var color := Color(
+				tokens[4].to_float() / 255,
+				tokens[5].to_float() / 255,
+				tokens[6].to_float() / 255
+			)
+			
 			match tokens[8].to_int():
 				0:
 					var lightdef := TDFXLight.new()
-					lightdef.parent = tokens[0].to_int()
-					
-					lightdef.position = Vector3(
-						tokens[1].to_float(),
-						tokens[2].to_float(),
-						tokens[3].to_float()
-					)
-					
-					lightdef.color = Color(
-						tokens[4].to_float(),
-						tokens[5].to_float(),
-						tokens[6].to_float()
-					)
+					lightdef.parent = parent
+					lightdef.position = position
+					lightdef.color = color
+					lightdef.render_distance = tokens[11].to_float()
+					lightdef.range = tokens[12].to_float()
+					lightdef.shadow_intensity = tokens[15].to_int()
 					
 					itemchilds.append(lightdef)
 				var type:
@@ -141,15 +146,18 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 	
 	for child in item.childs:
 		if child is TDFXLight:
-			continue # Ignored until https://github.com/godotengine/godot/issues/56657 is fixed
 			var light := OmniLight3D.new()
 			
 			light.position = child.position
-			
 			light.light_color = child.color
-			light.omni_range = 5.0
-			light.light_energy = 10.0
 			
-			result.add_child(OmniLight3D.new())
+			light.distance_fade_enabled = true
+			light.distance_fade_begin = child.render_distance
+			
+			light.omni_range = child.range
+			light.light_energy = float(child.shadow_intensity) / 20.0
+			light.shadow_enabled = true
+			
+			instance.add_child(light)
 	
-	return result
+	return instance

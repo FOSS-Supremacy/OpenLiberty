@@ -2,5 +2,6 @@ class_name TDFXLight
 extends TDFX
 
 
-var color: Color
+var render_distance: float
 var range: float
+var shadow_intensity: int
