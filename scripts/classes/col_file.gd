@@ -9,6 +9,7 @@ var model_id: int
 var tbounds: TBounds
 
 var collisions: Array[TBase]
+var vertices: PackedVector3Array
 
 
 func _init(file: FileAccess):
@@ -25,7 +26,16 @@ func _init(file: FileAccess):
 	for i in file.get_32():
 		collisions.append(TBox.new(file))
 	
-	pass
+	var unsorted := PackedVector3Array()
+	
+	for i in file.get_32():
+		unsorted.append(TVertex.new(file).position)
+	
+	for i in file.get_32():
+		var face := TFace.new(file)
+		vertices.append(unsorted[face.a])
+		vertices.append(unsorted[face.b])
+		vertices.append(unsorted[face.c])
 
 
 class TBase:
@@ -88,4 +98,26 @@ class TBox extends TBase:
 	func _init(file: FileAccess):
 		min = read_vector3(file)
 		max = read_vector3(file)
+		surface = TSurface.new(file)
+
+
+class TVertex extends TBase:
+	var position: Vector3
+	
+	
+	func _init(file: FileAccess):
+		position = read_vector3(file)
+
+
+class TFace extends TBase:
+	var a: int
+	var b: int
+	var c: int
+	var surface: TSurface
+	
+	
+	func _init(file: FileAccess):
+		a = file.get_32()
+		b = file.get_32()
+		c = file.get_32()
 		surface = TSurface.new(file)

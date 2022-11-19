@@ -191,6 +191,14 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 				colshape.position = aabb.get_center()
 			
 			sb.add_child(colshape)
+		
+		if item.colfile.vertices.size() > 0:
+			var colshape := CollisionShape3D.new()
+			var shape := ConcavePolygonShape3D.new()
+			shape.set_faces(item.colfile.vertices)
+			colshape.shape = shape
+			
+			sb.add_child(colshape)
 	
 	instance.add_child(sb)
 	
