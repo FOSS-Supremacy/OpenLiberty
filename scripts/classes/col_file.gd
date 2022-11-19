@@ -8,7 +8,7 @@ var model_name: String
 var model_id: int
 var tbounds: TBounds
 
-var colspheres: Array[TSphere]
+var spheres: Array[TSphere]
 
 
 func _init(file: FileAccess):
@@ -19,12 +19,21 @@ func _init(file: FileAccess):
 	tbounds = TBounds.new(file)
 	
 	for i in file.get_32():
-		colspheres.append(TSphere.new(file))
+		spheres.append(TSphere.new(file))
 	
 	pass
 
 
-class TBounds:
+class TBase:
+	func read_vector3(file: FileAccess) -> Vector3:
+		var result := Vector3()
+		result.x = file.get_float()
+		result.y = file.get_float()
+		result.z = file.get_float()
+		return result
+
+
+class TBounds extends TBase:
 	var radius: float
 	var center: Vector3
 	var min: Vector3
@@ -34,20 +43,12 @@ class TBounds:
 	func _init(file: FileAccess):
 		radius = file.get_float()
 		
-		center.x = file.get_float()
-		center.y = file.get_float()
-		center.z = file.get_float()
-		
-		min.x = file.get_float()
-		min.y = file.get_float()
-		min.z = file.get_float()
-		
-		max.x = file.get_float()
-		max.y = file.get_float()
-		max.z = file.get_float()
+		center = read_vector3(file)
+		min = read_vector3(file)
+		max = read_vector3(file)
 
 
-class TSurface:
+class TSurface extends TBase:
 	var material: int
 	var flag: int
 	var brightness: int
@@ -61,7 +62,7 @@ class TSurface:
 		light = file.get_8()
 
 
-class TSphere:
+class TSphere extends TBase:
 	var radius: float
 	var center: Vector3
 	var surface: TSurface
@@ -69,9 +70,6 @@ class TSphere:
 	
 	func _init(file: FileAccess):
 		radius = file.get_float()
-		
-		center.x = file.get_float()
-		center.y = file.get_float()
-		center.z = file.get_float()
+		center = read_vector3(file)
 		
 		surface = TSurface.new(file)
