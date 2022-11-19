@@ -19,7 +19,7 @@ func _exit_tree():
 
 func _process(delta: float) -> void:
 	if _thread.is_started() == false:
-		var dist := get_viewport().get_camera_3d().global_transform.origin.distance_to(global_transform.origin)
+		var dist := get_viewport().get_camera_3d().global_position.distance_to(global_position)
 		if dist < visibility_range_end and mesh == null:
 			_thread.start(_load_mesh)
 			while _thread.is_alive():
