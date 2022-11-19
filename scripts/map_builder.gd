@@ -129,23 +129,15 @@ func spawn_placement(ipl: ItemPlacement) -> Node3D:
 
 
 func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotation: Quaternion) -> Node3D:
-	var result := Node3D.new()
 	var item := items[id] as ItemDef
 	if item.flags & 0x40:
-		return result
+		return Node3D.new()
 	
-	var access := AssetLoader.open_asset(model_name + ".dff")
-	var glist := RWClump.new(access).geometry_list
-	
-	for geometry in glist.geometries:
-		var instance := StreamedMesh.new(item)
-		
-		instance.visibility_range_end = item.render_distance
-		instance.position = position
-		instance.scale = scale
-		instance.quaternion = rotation
-		
-		result.add_child(instance)
+	var instance := StreamedMesh.new(item)
+	instance.position = position
+	instance.scale = scale
+	instance.quaternion = rotation
+	instance.visibility_range_end = item.render_distance
 	
 	for child in item.childs:
 		if child is TDFXLight:
