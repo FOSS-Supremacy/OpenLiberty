@@ -59,4 +59,9 @@ offset_right = 222.0
 offset_bottom = 28.0
 text = "Map loader test"
 
+[node name="Label" type="Label" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Press space to spawn Suzanne"
+
 [node name="flycam" parent="." instance=ExtResource("3_850h8")]
