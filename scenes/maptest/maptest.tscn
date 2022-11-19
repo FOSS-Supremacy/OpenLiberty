@@ -59,12 +59,4 @@ offset_right = 222.0
 offset_bottom = 28.0
 text = "Map loader test"
 
-[node name="OptionButton" type="OptionButton" parent="GUI/VBoxContainer"]
-layout_mode = 2
-offset_left = 104.0
-offset_top = 35.0
-offset_right = 118.0
-offset_bottom = 55.0
-size_flags_horizontal = 4
-
 [node name="flycam" parent="." instance=ExtResource("3_850h8")]
