@@ -150,5 +150,4 @@ movement_down={
 
 [rendering]
 
-limits/cluster_builder/max_clustered_elements=2048.0
 anti_aliasing/quality/msaa_3d=1
