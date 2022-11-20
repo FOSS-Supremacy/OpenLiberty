@@ -41,22 +41,24 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="top_bar" type="HBoxContainer" parent="GUI/VBoxContainer"]
-layout_mode = 2
 offset_right = 222.0
 offset_bottom = 31.0
 alignment = 1
 
 [node name="to_menu" parent="GUI/VBoxContainer/top_bar" instance=ExtResource("2_butse")]
-layout_mode = 2
 offset_right = 96.0
 offset_bottom = 31.0
 
 [node name="Label" type="Label" parent="GUI/VBoxContainer/top_bar"]
-layout_mode = 2
 offset_left = 100.0
 offset_top = 2.0
 offset_right = 222.0
 offset_bottom = 28.0
 text = "Map loader test"
+
+[node name="Label" type="Label" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Press space to spawn Suzanne"
 
 [node name="flycam" parent="." instance=ExtResource("3_850h8")]

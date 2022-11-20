@@ -4,6 +4,7 @@ extends Node
 var items: Dictionary
 var itemchilds: Array[TDFX]
 var placements: Array[ItemPlacement]
+var collisions: Array[ColFile]
 
 var map: Node3D
 
@@ -22,6 +23,11 @@ func _ready() -> void:
 				match tokens[0]:
 					"IDE":
 						_read_map_data(tokens[1], _read_ide_line)
+					"COLFILE":
+						var colfile := AssetLoader.open(GameManager.gta_path + tokens[2])
+						
+						while colfile.get_position() < colfile.get_length():
+							collisions.append(ColFile.new(colfile))
 					"IPL":
 						_read_map_data(tokens[1], _read_ipl_line)
 					"CDIMAGE":
@@ -31,6 +37,15 @@ func _ready() -> void:
 	
 	for child in itemchilds:
 		items[child.parent].childs.append(child)
+	
+	for colfile in collisions:
+		if colfile.model_id in items:
+			items[colfile.model_id].colfile = colfile
+		else:
+			for k in items:
+				var item := items[k] as ItemDef
+				if item.model_name.matchn(colfile.model_name):
+					items[k].colfile = colfile
 
 
 func _read_ide_line(section: String, tokens: Array[String]):
@@ -160,5 +175,34 @@ func spawn(id: int, model_name: String, position: Vector3, scale: Vector3, rotat
 #			light.shadow_enabled = true
 			
 			instance.add_child(light)
+	
+	var sb := StaticBody3D.new()
+	
+	if item.colfile != null:
+		for collision in item.colfile.collisions:
+			var colshape := CollisionShape3D.new()
+			
+			if collision is ColFile.TBox:
+				var aabb := AABB()
+				aabb.position = collision.min
+				aabb.end = collision.max
+				
+				var shape := BoxShape3D.new()
+				shape.size = aabb.size
+				
+				colshape.shape = shape
+				colshape.position = aabb.get_center()
+			
+			sb.add_child(colshape)
+		
+		if item.colfile.vertices.size() > 0:
+			var colshape := CollisionShape3D.new()
+			var shape := ConcavePolygonShape3D.new()
+			shape.set_faces(item.colfile.vertices)
+			colshape.shape = shape
+			
+			sb.add_child(colshape)
+	
+	instance.add_child(sb)
 	
 	return instance

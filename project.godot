@@ -10,6 +10,11 @@ config_version=5
 
 _global_script_classes=[{
 "base": "RefCounted",
+"class": &"ColFile",
+"language": &"GDScript",
+"path": "res://scripts/classes/col_file.gd"
+}, {
+"base": "RefCounted",
 "class": &"ItemDef",
 "language": &"GDScript",
 "path": "res://scripts/classes/item_def.gd"
@@ -85,6 +90,7 @@ _global_script_classes=[{
 "path": "res://scripts/classes/tdfx_light.gd"
 }]
 _global_script_class_icons={
+"ColFile": "",
 "ItemDef": "",
 "ItemPlacement": "",
 "RWChunk": "",

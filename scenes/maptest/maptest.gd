@@ -2,6 +2,7 @@ extends Node
 
 
 @onready var world := Node3D.new()
+var suzanne := preload("res://prefabs/suzanne.tscn")
 
 
 func _ready() -> void:
@@ -23,3 +24,11 @@ func _ready() -> void:
 			await get_tree().physics_frame
 	print("Map load completed in %f seconds" % ((Time.get_ticks_msec() - start_t) / 1000))
 	add_child(world)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.physical_keycode == KEY_SPACE and event.pressed:
+			var node := suzanne.instantiate() as RigidBody3D
+			add_child(node)
+			node.global_position = get_viewport().get_camera_3d().global_position
