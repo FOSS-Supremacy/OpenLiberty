@@ -24,7 +24,10 @@ func _ready() -> void:
 					"IDE":
 						_read_map_data(tokens[1], _read_ide_line)
 					"COLFILE":
-						collisions.append(ColFile.new(AssetLoader.open(GameManager.gta_path + tokens[2])))
+						var colfile := AssetLoader.open(GameManager.gta_path + tokens[2])
+						
+						while colfile.get_position() < colfile.get_length():
+							collisions.append(ColFile.new(colfile))
 					"IPL":
 						_read_map_data(tokens[1], _read_ipl_line)
 					"CDIMAGE":

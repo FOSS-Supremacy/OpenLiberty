@@ -14,6 +14,8 @@ var vertices: PackedVector3Array
 
 func _init(file: FileAccess):
 	fourcc = file.get_buffer(4).get_string_from_ascii()
+	assert(fourcc == "COLL")
+	
 	file_size = file.get_32()
 	model_name = file.get_buffer(22).get_string_from_ascii()
 	model_id = file.get_16()
