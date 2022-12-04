@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://p70pt84pckv8"]
+
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_umjfi"]
+[ext_resource type="Material" uid="uid://c3cptegacudr8" path="res://materials/worldgrid/worldgrid.tres" id="1_vv5st"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_75lcl"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_eafun"]
+sky_material = SubResource("ProceduralSkyMaterial_75lcl")
+
+[sub_resource type="Environment" id="Environment_w5mge"]
+background_mode = 2
+sky = SubResource("Sky_eafun")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_p2868"]
+size = Vector2(10, 10)
+
+[node name="playertest" type="Node3D"]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -111.0
+offset_right = 111.0
+offset_bottom = 66.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="top_bar" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="to_menu" parent="GUI/VBoxContainer/top_bar" instance=ExtResource("1_umjfi")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/top_bar"]
+layout_mode = 2
+text = "Player model test"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w5mge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.544847, -0.726194, 0.419266, -1.49013e-08, 0.499998, 0.866027, -0.838535, -0.471852, 0.272422, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_p2868")
+surface_material_override/0 = ExtResource("1_vv5st")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.818019, 0.142577, -0.55724, 0, 0.968791, 0.247878, 0.575191, -0.202769, 0.79249, -1.41958, 1.81516, 2.01889)

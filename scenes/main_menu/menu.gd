@@ -9,6 +9,7 @@ const scenes := {
 	"Flycam test": "res://scenes/flycam/flycam.tscn",
 	"DFF Test": "res://scenes/modeltest/modeltest.tscn",
 	"Map loader test": "res://scenes/maptest/maptest.tscn",
+	"Player model test": "res://scenes/playertest/playertest.tscn",
 }
 
 
