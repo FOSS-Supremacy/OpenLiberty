@@ -6,6 +6,7 @@ var atomic_count: int
 var light_count: int
 var camera_count: int
 
+var frame_list: RWFrameList
 var geometry_list: RWGeometryList
 
 
@@ -18,5 +19,6 @@ func _init(file: FileAccess):
 	if version > 0x33000:
 		light_count = file.get_32()
 		camera_count = file.get_32()
-	RWChunk.new(file).skip(file) # Skip frame list
+	
+	frame_list = RWFrameList.new(file)
 	geometry_list = RWGeometryList.new(file)

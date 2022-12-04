@@ -10,6 +10,7 @@ enum ChunkType {
 	TEXTURE = 0x6,
 	MATERIAL = 0x7,
 	MATERIAL_LIST = 0x8,
+	FRAME_LIST = 0xe,
 	GEOMETRY = 0xf,
 	CLUMP = 0x10,
 	RASTER = 0x15,
