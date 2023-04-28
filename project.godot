@@ -8,112 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "RefCounted",
-"class": &"ColFile",
-"language": &"GDScript",
-"path": "res://scripts/classes/col_file.gd"
-}, {
-"base": "RefCounted",
-"class": &"ItemDef",
-"language": &"GDScript",
-"path": "res://scripts/classes/item_def.gd"
-}, {
-"base": "RefCounted",
-"class": &"ItemPlacement",
-"language": &"GDScript",
-"path": "res://scripts/classes/item_placement.gd"
-}, {
-"base": "RefCounted",
-"class": &"RWChunk",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_chunk.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWClump",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_clump.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWFrameList",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_frame_list.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWGeometry",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_geometry.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWGeometryList",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_geometry_list.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWMaterial",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_material.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWMaterialList",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_material_list.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWRaster",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_raster.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWString",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_string.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWTexture",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_texture.gd"
-}, {
-"base": "RWChunk",
-"class": &"RWTextureDict",
-"language": &"GDScript",
-"path": "res://scripts/renderware/rw_texture_dict.gd"
-}, {
-"base": "MeshInstance3D",
-"class": &"StreamedMesh",
-"language": &"GDScript",
-"path": "res://scripts/classes/streamed_mesh.gd"
-}, {
-"base": "RefCounted",
-"class": &"TDFX",
-"language": &"GDScript",
-"path": "res://scripts/classes/tdfx.gd"
-}, {
-"base": "TDFX",
-"class": &"TDFXLight",
-"language": &"GDScript",
-"path": "res://scripts/classes/tdfx_light.gd"
-}]
-_global_script_class_icons={
-"ColFile": "",
-"ItemDef": "",
-"ItemPlacement": "",
-"RWChunk": "",
-"RWClump": "",
-"RWFrameList": "",
-"RWGeometry": "",
-"RWGeometryList": "",
-"RWMaterial": "",
-"RWMaterialList": "",
-"RWRaster": "",
-"RWString": "",
-"RWTexture": "",
-"RWTextureDict": "",
-"StreamedMesh": "",
-"TDFX": "",
-"TDFXLight": ""
-}
-
 [application]
 
 config/name="GTA 3 Godot"
@@ -131,32 +25,32 @@ AssetLoader="*res://scripts/asset_loader.gd"
 
 movement_forward={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 movement_backward={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 movement_left={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 movement_right={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"unicode":100,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"echo":false,"script":null)
 ]
 }
 movement_up={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 movement_down={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 
