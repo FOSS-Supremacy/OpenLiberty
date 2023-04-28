@@ -5,3 +5,6 @@
 gta/*
 !gta/.gdignore
 !gta/README.md
+
+# VSCode workspace settings
+.vscode/
