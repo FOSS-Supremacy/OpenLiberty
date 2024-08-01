@@ -31,7 +31,7 @@ Currently there's two open-source reimplementations of GTA3:
 - [re3](https://github.com/halpz/re3) - It had legal problems due to Rockstar Games code.
 - [OpenRW](https://openrw.org/) - Incomplete and abandoned.
 
-Both projects use the RenderWare version of GTA3, which is old and limited for improvements.
+Both projects use the [RenderWare](https://en.wikipedia.org/wiki/RenderWare) version of GTA3, which is old and limited for improvements.
 
 Our project is more safe to work because we don't use Rockstar Games code, just the GTA3 files that the user needs to add on the project folder.
 
@@ -70,7 +70,7 @@ If you have a suggestion, open an issue with "(Suggestion)" before the title.
 - Download the repository and game assets
 
 ```sh
-git clone https://github.com/FOSS-Supremacy/crawling-agony
+git clone https://github.com/FOSS-Supremacy/re3-gd
 ```
 
 - Download the [Godot Engine](https://godotengine.org/) 4.x version (normal variant, not C#)
