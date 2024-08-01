@@ -47,7 +47,7 @@ var mesh: ArrayMesh:
 		
 		for surf_id in surfaces:
 			st.begin(Mesh.PRIMITIVE_TRIANGLES)
-			var surface := surfaces[surf_id] as Array[Triangle]
+			var surface = surfaces[surf_id] as Array[Triangle]
 			for tri in surface:
 				for i in [3,2,1]:
 					if morph_t.has_normals:
