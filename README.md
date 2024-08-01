@@ -46,7 +46,7 @@ runtime and stream in models and textures as needed.
 Currently there's two open-source reimplementations of GTA3:
 
 - [re3](https://github.com/halpz/re3) - It had legal problems due to Rockstar Games code.
-- [OpenRW](https://openrw.org/) - Incomplete and abandoned.
+- [OpenRW](https://openrw.org/) - Incomplete and not active.
 
 Both projects use the [RenderWare](https://en.wikipedia.org/wiki/RenderWare) version of GTA3, which is old and limited for improvements.
 
