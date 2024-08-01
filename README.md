@@ -62,8 +62,8 @@ Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasU
 
 ## Chat
 
-- [Matrix](https://matrix.to/#/#foss-supremacy:matrix.org)
 - [Discord](https://discord.gg/d9ca4U64H4)
+- [Matrix](https://matrix.to/#/#foss-supremacy:matrix.org)
 
 ## Bugs
 
