@@ -1,9 +1,26 @@
 # GTA 3 in Godot
 
+![Full Map](screenshots/re3-gd1.png)
+
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
+
+## How To Run
+
+### Godot Editor
+
+- Download this repository
+- Paste the GTA3 files inside the `gta` folder of the repository
+- Open the Godot Engine and run the default scene
+
+### Exported Executable
+
+- Download this repository
+- Open the Godot Engine
+- Export the executable
+- Paste the GTA3 files on the same folder of the executable
 
 ## TODOs
 
