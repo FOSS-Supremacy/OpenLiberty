@@ -56,17 +56,14 @@ Beyond legal safety, the RenderWare version used on the GTA3 is old and technica
 
 ## Probable Future
 
-If we successfully import the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
+If we successfully load the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
 
 Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
 
 ## Chat
 
-You can join in our Matrix [here](https://matrix.to/#/#foss-supremacy-join:matrix.org).
-
-(Once you join, request for an invite to the Matrix space)
-
-You can also join in our Discord server [here](https://discord.gg/d9ca4U64H4).
+- [Matrix](https://matrix.to/#/#foss-supremacy:matrix.org)
+- [Discord](https://discord.gg/d9ca4U64H4)
 
 ## Bugs
 
