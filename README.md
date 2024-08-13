@@ -66,6 +66,10 @@ If we successfully load the GTA San Andreas files, we could start a GTA San Andr
 
 Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
 
+## Documentation
+
+The most advanced and complete website for GTA documentation is the GTAMods Wiki, you can read it on [this](https://gtamods.com/wiki/Main_Page) link.
+
 ## Chat
 
 - [Discord](https://discord.gg/d9ca4U64H4)
