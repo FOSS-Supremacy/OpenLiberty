@@ -7,6 +7,12 @@ This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
 
+## What It Not Is?
+
+It's not a 1:1 reimplementation because GTA3 is complex and old, the RenderWare formats needs to be converted to Godot which already is a lot of work.
+
+The story mode is also very complex and time consuming to implement.
+
 ## How To Run
 
 ### Godot Editor
