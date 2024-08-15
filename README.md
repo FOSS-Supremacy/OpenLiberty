@@ -1,6 +1,10 @@
 # GTA 3 in Godot
 
-![Full Map](screenshots/image1.png)
+![Screenshots](screenshots/image1.png)
+![Screenshots](screenshots/image2.png)
+![Screenshots](screenshots/image3.png)
+![Screenshots](screenshots/image4.png)
+![Screenshots](screenshots/image5.png)
 
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
@@ -27,6 +31,13 @@ The story mode is also very complex and time consuming to implement.
 - Open the Godot Engine
 - Export the executable
 - Paste the GTA3 files on the same folder of the executable
+
+## Controls
+
+- Arrow Keys/WASD - Move the player
+- Z - Control the external car lights
+- X - Control the internal car lights
+- Space - Play/Pause music
 
 ## TODOs
 

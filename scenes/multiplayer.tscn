@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://ifh0620nha84"]
 
 [ext_resource type="Script" path="res://scripts/multiplayer.gd" id="1_i6dgd"]
-[ext_resource type="PackedScene" uid="uid://bhnf2ypniaum0" path="res://scenes/car.tscn" id="2_ruqwx"]
+[ext_resource type="PackedScene" uid="uid://ci2k4eganebbs" path="res://scenes/player.tscn" id="2_8rxc6"]
 [ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world.tscn" id="3_gow6c"]
 
 [node name="multiplayer" type="Node3D"]
 script = ExtResource("1_i6dgd")
-player_scene = ExtResource("2_ruqwx")
+player_scene = ExtResource("2_8rxc6")
 
 [node name="world" parent="." instance=ExtResource("3_gow6c")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/car.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("..")
 
 [node name="host" type="Button" parent="."]
