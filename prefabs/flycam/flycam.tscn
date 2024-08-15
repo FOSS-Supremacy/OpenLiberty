@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bt041qrw0l2bm"]
-
-[ext_resource type="Script" path="res://prefabs/flycam/flycam.gd" id="1_ukugh"]
-
-[node name="flycam" type="Camera3D"]
-script = ExtResource("1_ukugh")

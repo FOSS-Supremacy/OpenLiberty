@@ -1,6 +1,6 @@
 # GTA 3 in Godot
 
-![Full Map](screenshots/re3-gd1.png)
+![Full Map](screenshots/image1.png)
 
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
@@ -109,3 +109,8 @@ If you want to support our work, consider a donation, every amount is important.
 ```
 bc1qg9x5vzr4ppkm2ssw5k7ete4lu49wg7t02azkce
 ```
+
+## Credits
+
+We thank [atirut-w](https://github.com/atirut-w) a lot for writting the GTA3 loader and configuring the project scenes, this project wouldn't be possible without his work.
+

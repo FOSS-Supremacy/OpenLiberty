@@ -1,7 +1,6 @@
 class_name RWRaster
 extends RWChunk
 
-
 enum {
 	FORMAT_DEFAULT         = 0x0000,
 	FORMAT_1555            = 0x0100,
@@ -11,7 +10,6 @@ enum {
 	FORMAT_8888            = 0x0500,
 	FORMAT_888             = 0x0600,
 	FORMAT_555             = 0x0A00,
-
 	FORMAT_EXT_AUTO_MIPMAP = 0x1000,
 	FORMAT_EXT_PAL8        = 0x2000,
 	FORMAT_EXT_PAL4        = 0x4000,
@@ -24,7 +22,6 @@ var u_addressing: int
 var v_addressing: int
 var name: String
 var mask_name: String
-
 var raster_format: int
 var has_alpha: bool
 var width: int
@@ -33,24 +30,19 @@ var depth: int
 var num_levels: int
 var raster_type: int
 var compression: int
-
 var _file: FileAccess
 var _image_start: int
 var image: Image: get = _load_image
 
-
 func _init(file: FileAccess):
 	super(file)
 	assert(type == ChunkType.RASTER)
-	
 	RWChunk.new(file)
 	platform_id = file.get_32()
 	filter_mode = file.get_8()
-	
 	var uv_addressing = file.get_8()
 	u_addressing = uv_addressing >> 4
 	v_addressing = uv_addressing & 0xf
-	
 	file.get_16()
 	name = file.get_buffer(32).get_string_from_ascii()
 	mask_name = file.get_buffer(32).get_string_from_ascii()
@@ -62,7 +54,6 @@ func _init(file: FileAccess):
 	num_levels = file.get_8()
 	raster_type = file.get_8()
 	compression = file.get_8()
-	
 	_file = file
 	_image_start = file.get_position()
 	skip(file)
@@ -72,7 +63,6 @@ func _load_image():
 	var result: Image
 	var format: Image.Format
 	var read: int
-	
 	match raster_format & 0x0f00:
 #		FORMAT_1555:
 #			format = FORMAT_1555
@@ -91,11 +81,9 @@ func _load_image():
 			read = 3
 		_:
 			assert(false)
-	
 	if raster_format & (FORMAT_EXT_PAL8 | FORMAT_EXT_PAL4):
 		var psize := (16 if raster_format & FORMAT_EXT_PAL4 else 256)
 		var palette := Image.create_from_data(psize, 1, false, format, _unpad(psize, read))
-		
 		result = Image.create(width, height, raster_format & 0x8000, format)
 		_file.get_32()
 		for i in width * height:
@@ -108,17 +96,14 @@ func _load_image():
 #		_file.get_32()
 #		var unpadded := _unpad(width * height, read)
 #		var data := PackedInt32Array()
-#
 #		for i in unpadded.size() / 2:
 #			var x := int(i % width)
 #			var y := int(i / width)
-#
 #			var pixel := unpadded[i] | unpadded[i + 1] << 16
 #			var a := (pixel & 0x8000) >> 15
 #			var r := (pixel & 0x7c00) >> 10
 #			var g := (pixel & 0x03e0) >> 5
 #			var b := pixel & 0x001f
-#
 #			result.set_pixel(
 #				x, y, Color(
 #					r / 0x1f,
@@ -129,7 +114,6 @@ func _load_image():
 #			)
 	else:
 		var data := PackedByteArray()
-		
 		var mip_width := width
 		var mip_height := height
 		for i in num_levels:
@@ -137,28 +121,22 @@ func _load_image():
 			data.append_array(_unpad(mip_width * mip_height, read))
 			mip_width /= 2
 			mip_height /= 2
-		
 		result = Image.create_from_data(width, height, raster_format & FORMAT_EXT_MIPMAP, format, data)
 		if raster_format & FORMAT_EXT_AUTO_MIPMAP:
 			image.generate_mipmaps()
-		
 		# Perform color conversion
 		for i in width * height:
 				var x := int(i % width)
 				var y := int(i / width)
 				var old := result.get_pixel(x, y)
 				result.set_pixel(x, y, Color(old.b, old.g, old.r, old.a))
-	
 	return result
-
 
 func _unpad(length: int, read: int) -> PackedByteArray:
 	var result := PackedByteArray()
-	
 	for i in length:
 		for j in read:
 			result.append(_file.get_8())
 		for j in 4 - read:
 			_file.get_8()
-	
 	return result

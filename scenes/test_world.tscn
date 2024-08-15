@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnxwox43mmj07"]
+
+[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world.tscn" id="1_cuf35"]
+[ext_resource type="PackedScene" uid="uid://cf6tomram4xup" path="res://scenes/fly_camera.tscn" id="1_urr86"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y1qc1"]
+sky_top_color = Color(0.20109, 0.0758417, 0.790048, 1)
+sky_horizon_color = Color(0.603964, 0.229694, 1, 1)
+
+[sub_resource type="Sky" id="Sky_37lfr"]
+sky_material = SubResource("ProceduralSkyMaterial_y1qc1")
+
+[sub_resource type="Environment" id="Environment_jql02"]
+background_mode = 2
+sky = SubResource("Sky_37lfr")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.00431982, 0.000907986, 0.0422762, 1)
+fog_light_energy = 3.02
+
+[node name="main" type="Node3D"]
+
+[node name="fly_camera" parent="." instance=ExtResource("1_urr86")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jql02")
+
+[node name="world" parent="." instance=ExtResource("1_cuf35")]

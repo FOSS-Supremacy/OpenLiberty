@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://1d8h7r1pvaps"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_s3ncu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eihtl"]
+sky_top_color = Color(0, 0.134644, 0.285916, 1)
+sky_horizon_color = Color(0.463838, 0.635312, 1, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_njxv5"]
+sky_material = SubResource("ProceduralSkyMaterial_eihtl")
+
+[sub_resource type="Environment" id="Environment_7d6in"]
+background_mode = 2
+sky = SubResource("Sky_njxv5")
+tonemap_mode = 2
+fog_light_color = Color(0.133196, 0.133196, 0.133196, 1)
+fog_light_energy = 0.83
+volumetric_fog_density = 0.01
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_s3ncu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7d6in")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 50.0

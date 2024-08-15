@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://c50i7vaus60dl"]
+
+[ext_resource type="Script" path="res://scripts/txd.gd" id="1_4uo24"]
+[ext_resource type="PackedScene" uid="uid://bnpk46c06o8ly" path="res://prefabs/to_menu/to_menu.tscn" id="1_xoe8g"]
+[ext_resource type="Texture2D" uid="uid://n4ajg6343i77" path="res://icon.svg" id="3_y7lf0"]
+
+[node name="txd" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4uo24")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top_bar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="to_menu" parent="VBoxContainer/top_bar" instance=ExtResource("1_xoe8g")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/top_bar"]
+layout_mode = 2
+text = "Texture viewer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Select file"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y7lf0")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_select_file"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/OptionButton" to="." method="_load_image"]

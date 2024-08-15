@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://7kpoyini1lat"]
+
+[ext_resource type="PackedScene" uid="uid://bhnf2ypniaum0" path="res://scenes/car.tscn" id="1_4u8v6"]
+[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world.tscn" id="2_c7g1y"]
+[ext_resource type="PackedScene" uid="uid://ci2k4eganebbs" path="res://scenes/player.tscn" id="3_rn43x"]
+
+[node name="single_player" type="Node3D"]
+
+[node name="world" parent="." instance=ExtResource("2_c7g1y")]
+
+[node name="car" parent="." instance=ExtResource("1_4u8v6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1226, 84, -405)
+
+[node name="player" parent="car" instance=ExtResource("3_rn43x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.823357, 0.121796)

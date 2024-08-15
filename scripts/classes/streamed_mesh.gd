@@ -1,21 +1,16 @@
 class_name StreamedMesh
 extends MeshInstance3D
 
-
 var _idef: ItemDef
 var _thread := Thread.new()
-
 var _mesh_buf: Mesh
-
 
 func _init(idef: ItemDef):
 	_idef = idef
 
-
 func _exit_tree():
 	if _thread.is_alive():
 		_thread.wait_to_finish()
-
 
 func _process(delta: float) -> void:
 	if _thread.is_started() == false:
@@ -29,15 +24,12 @@ func _process(delta: float) -> void:
 		elif dist > visibility_range_end and mesh != null:
 			mesh = null
 
-
 func _load_mesh() -> void:
 	AssetLoader.mutex.lock()
 	if _idef.flags & 0x40:
 		return
-	
 	var access := AssetLoader.open_asset(_idef.model_name + ".dff")
 	var glist := RWClump.new(access).geometry_list
-	
 	for geometry in glist.geometries:
 		_mesh_buf = geometry.mesh
 		for surf_id in _mesh_buf.get_surface_count():
@@ -46,22 +38,16 @@ func _load_mesh() -> void:
 			if _idef.flags & 0x08:
 				material.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 				material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-			
 			if material.has_meta("texture_name"):
 				var txd := RWTextureDict.new(AssetLoader.open_asset(_idef.txd_name + ".txd"))
 				var texture_name = material.get_meta("texture_name")
-				
 				for raster in txd.textures:
 					if texture_name.matchn(raster.name):
 						material.albedo_texture = ImageTexture.create_from_image(raster.image)
 						if raster.has_alpha:
 							material.transparency = (
 								BaseMaterial3D.TRANSPARENCY_ALPHA_HASH if _idef.flags & 0x04 and not _idef.flags & 0x08
-								else BaseMaterial3D.TRANSPARENCY_ALPHA
-							)
-						
+								else BaseMaterial3D.TRANSPARENCY_ALPHA )
 						break
-			
 			_mesh_buf.surface_set_material(surf_id, material)
-	
 	AssetLoader.mutex.unlock()

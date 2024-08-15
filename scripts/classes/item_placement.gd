@@ -1,7 +1,6 @@
 class_name ItemPlacement
 extends RefCounted
 
-
 var id: int
 var model_name: String
 var position: Vector3
