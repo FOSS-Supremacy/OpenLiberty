@@ -7,6 +7,12 @@ This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
 
+## What It Not Is?
+
+It's not a 1:1 reimplementation because GTA3 is complex and old, the RenderWare formats needs to be converted to Godot which already is a lot of work.
+
+The story mode is also very complex and time consuming to implement.
+
 ## How To Run
 
 ### Godot Editor
@@ -59,6 +65,10 @@ Beyond legal safety, the RenderWare version used on the GTA3 is old and technica
 If we successfully load the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
 
 Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
+
+## Documentation
+
+The most advanced and complete website for GTA documentation is the GTAMods Wiki, you can read it on [this](https://gtamods.com/wiki/Main_Page) link.
 
 ## Chat
 
