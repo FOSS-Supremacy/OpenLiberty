@@ -25,3 +25,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			var car_node := car.instantiate()
 			add_child(car_node)
 			car_node.global_position = get_viewport().get_camera_3d().global_position
+
+func _input(event):
+	if Input.is_action_just_pressed("full_screen"):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	#else:
+		#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
