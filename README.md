@@ -11,6 +11,25 @@ It's not a 1:1 reimplementation because GTA3 is complex and old, the RenderWare 
 
 The story mode is also very complex and time consuming to implement.
 
+## Motivation
+
+Currently there's two open-source reimplementations of GTA3:
+
+- [re3](https://github.com/halpz/re3) - It had legal problems due to Rockstar Games code.
+- [OpenRW](https://openrw.org/) - Incomplete and not active.
+
+Both projects use the [RenderWare](https://en.wikipedia.org/wiki/RenderWare) version of GTA3, which is old and limited for improvements.
+
+Our project is more safe to work because we don't use Rockstar Games code, just the GTA3 files that the user needs to add on the project folder.
+
+Beyond legal safety, the RenderWare version used on the GTA3 is old and technically limited for improvements. While the Godot Engine is modern and much more advanced, also easier to make contributions.
+
+## Probable Future
+
+If we successfully load the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
+
+Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
+
 ## Screenshots
 
 ![Screenshot](screenshots/image1.png)
@@ -62,25 +81,6 @@ You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shar
 - [ ] Add the Moon on the sky
 - [ ] Support modding
 - [ ] Multiplayer (WIP, almost working)
-
-## Motivation
-
-Currently there's two open-source reimplementations of GTA3:
-
-- [re3](https://github.com/halpz/re3) - It had legal problems due to Rockstar Games code.
-- [OpenRW](https://openrw.org/) - Incomplete and not active.
-
-Both projects use the [RenderWare](https://en.wikipedia.org/wiki/RenderWare) version of GTA3, which is old and limited for improvements.
-
-Our project is more safe to work because we don't use Rockstar Games code, just the GTA3 files that the user needs to add on the project folder.
-
-Beyond legal safety, the RenderWare version used on the GTA3 is old and technically limited for improvements. While the Godot Engine is modern and much more advanced, also easier to make contributions.
-
-## Probable Future
-
-If we successfully load the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
-
-Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
 
 ## Documentation
 
