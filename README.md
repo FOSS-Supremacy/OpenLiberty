@@ -1,13 +1,5 @@
 # GTA 3 in Godot
 
-![Screenshots](screenshots/image1.png)
-![Screenshots](screenshots/image2.png)
-![Screenshots](screenshots/image3.png)
-![Screenshots](screenshots/image4.png)
-![Screenshots](screenshots/image5.png)
-
-You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shared) link.
-
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
 Currently, this project is able to load the game's map, collision data, etc. at
@@ -18,6 +10,16 @@ runtime and stream in models and textures as needed.
 It's not a 1:1 reimplementation because GTA3 is complex and old, the RenderWare formats needs to be converted to Godot which already is a lot of work.
 
 The story mode is also very complex and time consuming to implement.
+
+## Screenshots
+
+![Screenshot](screenshots/image1.png)
+![Screenshot](screenshots/image2.png)
+![Screenshot](screenshots/image3.png)
+![Screenshot](screenshots/image4.png)
+![Screenshot](screenshots/image5.png)
+
+You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shared) link.
 
 ## How To Run
 
@@ -51,15 +53,15 @@ The story mode is also very complex and time consuming to implement.
 - [ ] Load the NPCs
 - [ ] Load the animations
 - [ ] Add controls on the player
-- [ ] Add controls on vehicles
+- [x] Add controls on vehicles
 - [ ] Configure the weapons
 - [ ] Add Day and Night cycle
-- [ ] Add shadows
+- [x] Add shadows
 - [ ] Add rain
-- [ ] Add the Sun on the sky
+- [x] Add the Sun on the sky
 - [ ] Add the Moon on the sky
 - [ ] Support modding
-- [ ] Multiplayer
+- [ ] Multiplayer (WIP, almost working)
 
 ## Motivation
 
