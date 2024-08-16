@@ -6,6 +6,8 @@
 ![Screenshots](screenshots/image4.png)
 ![Screenshots](screenshots/image5.png)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Z3Cd_NBYUfI?si=-BTkZ1lASeMzeHJ2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
 Currently, this project is able to load the game's map, collision data, etc. at
