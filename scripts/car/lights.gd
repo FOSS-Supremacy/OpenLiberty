@@ -3,7 +3,7 @@ extends Node3D
 @onready var external_lights = [ $left_light, $right_light ]
 @onready var internal_light = $internal_light
 
-func _process(bool):
+func _input(event):
 	if Input.is_action_just_pressed("internal_light"):
 		internal_light.visible = not internal_light.visible
 

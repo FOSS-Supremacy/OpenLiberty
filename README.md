@@ -38,6 +38,7 @@ The story mode is also very complex and time consuming to implement.
 - Z - Control the external car lights
 - X - Control the internal car lights
 - Space - Play/Pause music
+- F - Enable full-screen
 
 ## TODOs
 
