@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvolbv5rswbo4"]
+[gd_scene load_steps=10 format=3 uid="uid://dvolbv5rswbo4"]
 
 [ext_resource type="PackedScene" uid="uid://yo0220jx0v3r" path="res://prefabs/actors/player/obj_player.tscn" id="1_glk4w"]
 [ext_resource type="Texture2D" uid="uid://t08wbyrcvylh" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_u7u28"]
+[ext_resource type="Material" uid="uid://up5atx65jyxf" path="res://assets/materials/prototype/orange.tres" id="3_6s1rt"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2ocut"]
 size = Vector2(1000, 1000)
@@ -40,6 +41,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_smph7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/plane/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_5f4ne")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.63038)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = ExtResource("3_6s1rt")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q6cjc")
