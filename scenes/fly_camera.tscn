@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cf6tomram4xup"]
 
-[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world.tscn" id="1_qnmje"]
+[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world/world.tscn" id="1_qnmje"]
 [ext_resource type="PackedScene" uid="uid://bt041qrw0l2bm" path="res://prefabs/fly_camera/fly_camera.tscn" id="2_5jeq8"]
 
 [node name="main" type="Node3D"]

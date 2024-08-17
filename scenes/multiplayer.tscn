@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/multiplayer.gd" id="1_i6dgd"]
 [ext_resource type="PackedScene" uid="uid://ci2k4eganebbs" path="res://scenes/player.tscn" id="2_8rxc6"]
-[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world.tscn" id="3_gow6c"]
+[ext_resource type="PackedScene" uid="uid://1d8h7r1pvaps" path="res://scenes/world/world.tscn" id="3_gow6c"]
 
 [node name="multiplayer" type="Node3D"]
 script = ExtResource("1_i6dgd")

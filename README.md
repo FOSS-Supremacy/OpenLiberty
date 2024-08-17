@@ -70,9 +70,12 @@ You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shar
 ## Controls
 
 - Arrow Keys/WASD - Move the player
-- Z - Control the external car lights
-- X - Control the internal car lights
+- Z - Control the car headlights
+- X - Control the internal car light
 - Space - Play/Pause music
+- = - Increase the music volume
+- - - Decrease the music volume
+- N - Enable the night
 - F - Enable full-screen
 
 ## TODOs
@@ -136,6 +139,7 @@ git clone https://github.com/FOSS-Supremacy/re3-gd
 - Once ready, send a pull request (if you are adding commits on the PR branch, mark it as draft status)
 - Send the link of your pull requests on the "Pull Requests" channel/room on [Discord](https://discord.gg/tk6Vnxv9Qt) or [Matrix](https://matrix.to/#/!vIwqjDewTZpciZqhEp:matrix.org?via=matrix.org).
 - We don't accept C# code
+- New assets needs to be licensed as Creative Commons
 
 ## Donate
 
@@ -151,4 +155,3 @@ bc1qg9x5vzr4ppkm2ssw5k7ete4lu49wg7t02azkce
 ## Credits
 
 We thank [atirut-w](https://github.com/atirut-w) a lot for writting the GTA3 loader and configuring the project scenes, this project wouldn't be possible without his work.
-
