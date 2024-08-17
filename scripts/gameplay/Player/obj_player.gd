@@ -66,7 +66,7 @@ func movement_controller(delta):
 			mesh.rotation.y = target_rotation
 		
 		# Player Movement
-		if Input.get_action_strength("player_m_run") && Input.get_action_strength("player_m_forward") && CAN_RUN:
+		if Input.get_action_strength("player_run") && Input.get_action_strength("player_forward") && CAN_RUN:
 			velocity.x = lerp(velocity.x, move_dir.x * SPEED_RUN, SPEED_ACCEL * delta)
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_RUN, SPEED_ACCEL * delta)
 		else:
