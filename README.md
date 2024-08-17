@@ -49,6 +49,9 @@ Also because of GDScript, the Godot scripting language allows you to write less 
 ![Screenshot](screenshots/image3.png)
 ![Screenshot](screenshots/image4.png)
 ![Screenshot](screenshots/image5.png)
+![Screenshot](screenshots/image6.png)
+![Screenshot](screenshots/image7.png)
+![Screenshot](screenshots/image8.png)
 
 You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shared) link.
 
