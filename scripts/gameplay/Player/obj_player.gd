@@ -54,7 +54,7 @@ func movement_controller(delta):
 		
 		move_dir = move_dir.rotated(Vector3.UP, cam_pivot.rotation.y)
 		
-		if Input.is_action_just_pressed("player_m_jump") && is_on_floor():
+		if Input.is_action_just_pressed("player_jump") && is_on_floor():
 			velocity.y += JUMP_FORCE
 			
 		# Rotates the mesh in the direction of movement with a smooth transition
