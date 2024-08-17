@@ -396,7 +396,7 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="car" type="VehicleBody3D"]
-mass = 60.0
+mass = 50.0
 gravity_scale = 4.0
 script = ExtResource("1_srwvd")
 
