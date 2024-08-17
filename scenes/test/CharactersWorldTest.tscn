@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvolbv5rswbo4"]
+
+[ext_resource type="PackedScene" uid="uid://yo0220jx0v3r" path="res://prefabs/actors/player/obj_player.tscn" id="1_glk4w"]
+[ext_resource type="Texture2D" uid="uid://t08wbyrcvylh" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_u7u28"]
+[ext_resource type="Material" uid="uid://up5atx65jyxf" path="res://assets/materials/prototype/orange.tres" id="3_6s1rt"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2ocut"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smph7"]
+albedo_texture = ExtResource("2_u7u28")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5f4ne"]
+data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dc885"]
+
+[sub_resource type="Sky" id="Sky_xashb"]
+sky_material = SubResource("ProceduralSkyMaterial_dc885")
+
+[sub_resource type="Environment" id="Environment_q6cjc"]
+background_mode = 2
+sky = SubResource("Sky_xashb")
+
+[node name="CharactersWorldTest" type="Node3D"]
+
+[node name="actors" type="Node" parent="."]
+
+[node name="obj_player" parent="actors" instance=ExtResource("1_glk4w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="map" type="Node" parent="."]
+
+[node name="plane" type="MeshInstance3D" parent="map"]
+mesh = SubResource("PlaneMesh_2ocut")
+surface_material_override/0 = SubResource("StandardMaterial3D_smph7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="map/plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/plane/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_5f4ne")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.63038)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = ExtResource("3_6s1rt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q6cjc")
