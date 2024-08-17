@@ -4,8 +4,8 @@ var move_dir = Vector3.ZERO
 var motion = Vector3.ZERO
 
 # <--------------------------->
-@onready var mesh = $mesh
-@onready var cam_pivot: Node3D = $cameraPivot
+@onready var mesh = $mesh # Player Model
+@onready var cam_pivot: Node3D = $cameraPivot 
 @onready var spring_arm_3d: SpringArm3D = $cameraPivot/SpringArm
 
 # <--------------------------->
@@ -15,12 +15,14 @@ var motion = Vector3.ZERO
 @export_group("Player")
 @export var SPEED_WALK = 4
 @export var SPEED_RUN = 6
+@export var JUMP_FORCE = 5
 var SPEED_ACCEL = 30
 
 @export_group("Flags")
 @export var CAN_MOVE:bool = true
 @export var CAN_RUN = true
-@export var GRAVITY_ON:bool = false
+@export var GRAVITY_ON:bool = true
+@export var SpringLenght:int = 2 # Distance from camera to player
 
 
 var rotation_speed = 10.0 # for player rotation.
@@ -35,10 +37,13 @@ func _input(event: InputEvent) -> void:
 		spring_arm_3d.rotate_x(-event.relative.y * sensitivity/2)
 		spring_arm_3d.rotation.x = clamp(spring_arm_3d.rotation.x, -PI/3, PI/5)
 
-func _physics_process(delta: float) -> void:
-	movement_behavior(delta)
+func _process(delta: float) -> void:
+	spring_arm_3d.spring_length = SpringLenght
 	
-func movement_behavior(delta):
+func _physics_process(delta: float) -> void:
+	movement_controller(delta)
+	
+func movement_controller(delta):
 	if CAN_MOVE:
 		# Direction of movement based on player direction
 		move_dir = Vector3(
@@ -49,6 +54,9 @@ func movement_behavior(delta):
 		
 		move_dir = move_dir.rotated(Vector3.UP, cam_pivot.rotation.y)
 		
+		if Input.is_action_just_pressed("player_m_jump") && is_on_floor():
+			velocity.y += JUMP_FORCE
+			
 		# Rotates the mesh in the direction of movement with a smooth transition
 		if move_dir.length() > 0.1:
 			var target_rotation = mesh.global_transform.basis.get_euler().y
@@ -66,7 +74,7 @@ func movement_behavior(delta):
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_WALK, SPEED_ACCEL * delta)
 				
 		move_and_slide()
-
+		
 		# Applie Gravity
 		if GRAVITY_ON and not is_on_floor():
 			velocity.y -= gravity * delta
