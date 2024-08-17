@@ -1,4 +1,4 @@
-# GTA 3 in Godot
+# re3-gd - GTA 3 in Godot
 
 This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
 
@@ -30,7 +30,9 @@ Beyond legal safety, the RenderWare version used on the GTA3 is old and technica
 
 ## Probable Future
 
-If we successfully load the GTA San Andreas files, we could start a GTA San Andreas reimplementation on the Godot engine.
+If we successfully load most GTA3 formats, we could start a GTA San Andreas reimplementation on the Godot engine.
+
+Why? because the GTA San Andreas formats are an evolution of the GTA3 formats, thus part of the GTA3 format converter code can be reused.
 
 Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
 
