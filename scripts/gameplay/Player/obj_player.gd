@@ -54,7 +54,7 @@ func movement_controller(delta):
 		
 		move_dir = move_dir.rotated(Vector3.UP, cam_pivot.rotation.y)
 		
-		if Input.is_action_just_pressed("player_m_jump") && is_on_floor():
+		if Input.is_action_just_pressed("player_jump") && is_on_floor():
 			velocity.y += JUMP_FORCE
 			
 		# Rotates the mesh in the direction of movement with a smooth transition
@@ -66,7 +66,7 @@ func movement_controller(delta):
 			mesh.rotation.y = target_rotation
 		
 		# Player Movement
-		if Input.get_action_strength("player_m_run") && Input.get_action_strength("player_m_forward") && CAN_RUN:
+		if Input.get_action_strength("player_run") && Input.get_action_strength("player_forward") && CAN_RUN:
 			velocity.x = lerp(velocity.x, move_dir.x * SPEED_RUN, SPEED_ACCEL * delta)
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_RUN, SPEED_ACCEL * delta)
 		else:

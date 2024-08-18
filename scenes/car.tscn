@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=4 uid="uid://bhnf2ypniaum0"]
 
 [ext_resource type="Script" path="res://scripts/car/car.gd" id="1_srwvd"]
-[ext_resource type="Texture2D" uid="uid://68wfpqbugcdf" path="res://test_car/car1_001_COLOR_BASIC.png" id="2_airkg"]
+[ext_resource type="Texture2D" uid="uid://68wfpqbugcdf" path="res://mods/cars/car1_001_COLOR_BASIC.png" id="2_airkg"]
 [ext_resource type="Script" path="res://scripts/car/lights.gd" id="3_32e0k"]
 [ext_resource type="Script" path="res://scripts/car/music.gd" id="5_uun7x"]
 
@@ -396,7 +396,7 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="car" type="VehicleBody3D"]
-mass = 60.0
+mass = 50.0
 gravity_scale = 4.0
 script = ExtResource("1_srwvd")
 
