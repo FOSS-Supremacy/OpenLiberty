@@ -1,8 +1,14 @@
 extends CharacterBody3D
+class_name Player
 
 var move_dir = Vector3.ZERO
 var motion = Vector3.ZERO
 
+@export var state:PlayerState
+enum PlayerState {
+	ENABLE,
+	DISABLE
+}
 # <--------------------------->
 @onready var mesh = $mesh # Player Model
 @onready var cam_pivot: Node3D = $cameraPivot 
@@ -41,8 +47,20 @@ func _process(delta: float) -> void:
 	spring_arm_3d.spring_length = SpringLenght
 	
 func _physics_process(delta: float) -> void:
+	state_controller()
 	movement_controller(delta)
-	
+
+func state_controller():
+	match state:
+		PlayerState.ENABLE:
+			#$collision.disabled = false
+			#mesh.visible = true
+			pass
+		PlayerState.DISABLE:
+			#$collision.disabled = true
+			#mesh.visible = false
+			pass
+			
 func movement_controller(delta):
 	if CAN_MOVE:
 		# Direction of movement based on player direction
