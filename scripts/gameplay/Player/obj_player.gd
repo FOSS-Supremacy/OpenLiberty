@@ -65,7 +65,7 @@ func movement_controller(delta):
 	if CAN_MOVE:
 		# Direction of movement based on player direction
 		move_dir = Vector3(
-			Input.get_action_strength("player_m_right") - Input.get_action_strength("player_m_left"),
+			Input.get_action_strength("player_right") - Input.get_action_strength("player_left"),
 			0.0,
 			Input.get_action_strength("player_m_backward") - Input.get_action_strength("player_m_forward")
 		).normalized()
