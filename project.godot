@@ -11,19 +11,13 @@ config_version=5
 [application]
 
 config/name="re3-gd"
-run/main_scene="res://scenes/single_player.tscn"
+run/main_scene="res://scenes/test/CharactersWorldTest.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [audio]
 
 driver/enable_input=true
-
-[autoload]
-
-GameManager="*res://scripts/game_manager.gd"
-MapBuilder="*res://scripts/map_builder.gd"
-AssetLoader="*res://scripts/asset_loader.gd"
 
 [filesystem]
 
@@ -151,8 +145,9 @@ player_jump={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
 ]
 }
+btn_interact_car={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+]
+}
 
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
