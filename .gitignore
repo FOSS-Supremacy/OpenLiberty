@@ -13,7 +13,6 @@ gta/*
 .import/
 export.cfg
 export_presets.cfg
-project.godot
 
 # Imported translations (automatically generated from CSV files)
 *.translation
