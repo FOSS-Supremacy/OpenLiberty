@@ -41,7 +41,7 @@ func _physics_process(delta):
 			player.global_transform.origin = $ExitMarked.global_transform.origin
 
 #/////////////////////// ///////////////////////
-#/////////////// Mecanica de dirigir. Recomendo que toda atualização na maneira como o jogador dirige seja feita aqui.
+#/////////////// Driving mechanics. I recommend that any update to the way the player drives be done here.
 #/////////////////////// ///////////////////////
 func DriverController(delta):
 	if state == VehicleState.PLAYER_DRIVING:
@@ -54,7 +54,7 @@ func DriverController(delta):
 			engine_force = 0
 
 #/////////////////////// ///////////////////////
-#/////////////// Controlador do Estado do carro.
+#/////////////// Car State Controller.
 #/////////////////////// ///////////////////////
 func StateController():
 	if state == VehicleState.PLAYER_DRIVING:
@@ -68,7 +68,7 @@ func StateController():
 		driver.hide()
 
 #/////////////////////// ///////////////////////
-#/////////////// Desativado.
+#/////////////// Disabled.
 #/////////////////////// ///////////////////////
 #func NewPlayer(NewPosition): # Instancia um novo player.
 	#var PlayerTSCN = preload("res://prefabs/actors/player/obj_player.tscn")
