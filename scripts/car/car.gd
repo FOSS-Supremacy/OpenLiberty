@@ -1,5 +1,10 @@
 extends VehicleBody3D
 
+enum CharacterState {
+	PLAYER_DRIVING,
+	NPC_DRIVING,
+	STOPPED
+}
 const MAX_STEER = 0.8
 const ENGINE_POWER = 300
 
