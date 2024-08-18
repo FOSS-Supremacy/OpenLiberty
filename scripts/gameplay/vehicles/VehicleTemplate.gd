@@ -30,7 +30,7 @@ func _physics_process(delta):
 	else:
 		player_can_interact = false
 		
-	if Input.is_action_just_pressed("btn_interact_car") and player != null:
+	if Input.is_action_just_pressed("enter_car") and player != null:
 		if state == VehicleState.STOPPED:
 			if player_can_interact:
 				state = VehicleState.PLAYER_DRIVING
