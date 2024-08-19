@@ -1,4 +1,4 @@
-# re3-gd - GTA 3 in Godot
+# OpenLiberty - GTA 3 in Godot
 
 This project aims to reimplement the GTA 3 on the Godot Engine.
 
