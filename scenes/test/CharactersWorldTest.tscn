@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bpy61iddtbrdu"]
 
-[ext_resource type="PackedScene" uid="uid://yo0220jx0v3r" path="res://prefabs/actors/player/obj_player.tscn" id="1_glk4w"]
+[ext_resource type="PackedScene" uid="uid://cr2ersq7g6q6f" path="res://prefabs/actors/player/ThirdPersonPlayer.tscn" id="1_lnyc1"]
 [ext_resource type="PackedScene" uid="uid://d2u8vbkvktl7g" path="res://prefabs/vehicles/VehicleTemplate.tscn" id="2_np362"]
 [ext_resource type="Texture2D" uid="uid://t08wbyrcvylh" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_u7u28"]
 [ext_resource type="Material" uid="uid://up5atx65jyxf" path="res://assets/materials/prototype/orange.tres" id="3_6s1rt"]
@@ -29,8 +29,7 @@ sky = SubResource("Sky_xashb")
 
 [node name="actors" type="Node" parent="."]
 
-[node name="obj_player" parent="actors" instance=ExtResource("1_glk4w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Player" parent="actors" instance=ExtResource("1_lnyc1")]
 
 [node name="Vehicle" type="Node" parent="."]
 
@@ -59,4 +58,5 @@ environment = SubResource("Environment_q6cjc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.800888, 0.598814, 0, -0.598814, 0.800888, 0, 4.4221, 0)
+visible = false
 shadow_enabled = true

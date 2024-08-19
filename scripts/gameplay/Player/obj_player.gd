@@ -1,5 +1,5 @@
 extends CharacterBody3D
-class_name Player
+#class_name Player
 
 var move_dir = Vector3.ZERO
 var motion = Vector3.ZERO
@@ -37,11 +37,11 @@ var rotation_speed = 10.0 # for player rotation.
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		cam_pivot.rotate_y(-event.relative.x * sensitivity/2)
-		spring_arm_3d.rotate_x(-event.relative.y * sensitivity/2)
-		spring_arm_3d.rotation.x = clamp(spring_arm_3d.rotation.x, -PI/3, PI/5)
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventMouseMotion:
+		#cam_pivot.rotate_y(-event.relative.x * sensitivity/2)
+		#spring_arm_3d.rotate_x(-event.relative.y * sensitivity/2)
+		#spring_arm_3d.rotation.x = clamp(spring_arm_3d.rotation.x, -PI/3, PI/5)
 
 func _process(delta: float) -> void:
 	spring_arm_3d.spring_length = SpringLenght

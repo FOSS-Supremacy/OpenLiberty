@@ -298,6 +298,8 @@ bones/24/scale = Vector3(1, 1, 1)
 mesh = SubResource("ArrayMesh_7xqwr")
 skin = SubResource("Skin_kcspo")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="mesh/MaleArm"]
+
 [node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_eidr1")
 
