@@ -1,9 +1,11 @@
-# re3-gd - GTA 3 in Godot
+# OpenLiberty - GTA 3 in Godot
 
-This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
+This project aims to reimplement the GTA 3 on the Godot Engine.
 
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
+
+**This repository doesn't contain GTA3 code or files**
 
 ## What It Not Is?
 
@@ -34,7 +36,7 @@ If we successfully load most GTA3 formats, we could start a GTA San Andreas reim
 
 Why? because the GTA San Andreas formats are an evolution of the GTA3 formats, thus part of the GTA3 format converter code can be reused.
 
-Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
+Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source and proprietary.
 
 ## Why Godot?
 
@@ -136,13 +138,14 @@ git clone https://github.com/FOSS-Supremacy/re3-gd
 
 ## How To Contribute
 
-- Give a start to this repository, it will increase our chances to receive contributions.
+- Give a star to this repository, it will increase our chances to receive contributions.
 - Download the [Godot Engine](https://godotengine.org/) 4.x version (normal variant, not C#)
 - Verify the open issues and select some item to work on
 - Once ready, send a pull request (if you are adding commits on the PR branch, mark it as draft status)
 - Send the link of your pull requests on the "Pull Requests" channel/room on [Discord](https://discord.gg/tk6Vnxv9Qt) or [Matrix](https://matrix.to/#/!vIwqjDewTZpciZqhEp:matrix.org?via=matrix.org).
 - We don't accept C# code
 - New assets needs to be licensed as Creative Commons
+- **Don't distribute or send GTA3 files here, all PRs containing this will be closed, if the contributor do it again he/she will be banned from the repository**
 
 ## Donate
 

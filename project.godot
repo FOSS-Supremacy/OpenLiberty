@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="re3-gd"
+config/name="OpenLiberty"
 run/main_scene="res://scenes/single_player.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
