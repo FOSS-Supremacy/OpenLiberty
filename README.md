@@ -138,7 +138,7 @@ git clone https://github.com/FOSS-Supremacy/re3-gd
 
 ## How To Contribute
 
-- Give a start to this repository, it will increase our chances to receive contributions.
+- Give a star to this repository, it will increase our chances to receive contributions.
 - Download the [Godot Engine](https://godotengine.org/) 4.x version (normal variant, not C#)
 - Verify the open issues and select some item to work on
 - Once ready, send a pull request (if you are adding commits on the PR branch, mark it as draft status)
