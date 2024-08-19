@@ -5,6 +5,8 @@ This project aims to reimplement the GTA 3 on the Godot Engine.
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
 
+**This repository doesn't contain GTA3 code or files**
+
 ## What It Not Is?
 
 It's not a 1:1 reimplementation because GTA3 is complex and old, the RenderWare formats needs to be converted to Godot which already is a lot of work.
@@ -143,6 +145,7 @@ git clone https://github.com/FOSS-Supremacy/re3-gd
 - Send the link of your pull requests on the "Pull Requests" channel/room on [Discord](https://discord.gg/tk6Vnxv9Qt) or [Matrix](https://matrix.to/#/!vIwqjDewTZpciZqhEp:matrix.org?via=matrix.org).
 - We don't accept C# code
 - New assets needs to be licensed as Creative Commons
+- **Don't distribute or send GTA3 files here, all PRs containing this will be closed, if the contributor do it again he/she will be banned from the repository**
 
 ## Donate
 
