@@ -493,8 +493,10 @@ shadow_mesh = SubResource("ArrayMesh_xnix1")
 
 [node name="VehicleTemplate" type="VehicleBody3D"]
 script = ExtResource("1_xfu4b")
+state = null
 MAX_STEER = 1.0
 ENGINE_POWER = 100
+DECELERATION_RATE = null
 
 [node name="Car" type="Node3D" parent="."]
 
