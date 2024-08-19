@@ -1,6 +1,6 @@
 # re3-gd - GTA 3 in Godot
 
-This project aims to reimplement the Grand Theft Auto 3 on the Godot Engine.
+This project aims to reimplement the GTA 3 on the Godot Engine.
 
 Currently, this project is able to load the game's map, collision data, etc. at
 runtime and stream in models and textures as needed.
