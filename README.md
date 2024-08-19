@@ -34,7 +34,7 @@ If we successfully load most GTA3 formats, we could start a GTA San Andreas reim
 
 Why? because the GTA San Andreas formats are an evolution of the GTA3 formats, thus part of the GTA3 format converter code can be reused.
 
-Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source.
+Similar to what the [San Andreas Unity](https://github.com/in0finite/SanAndreasUnity) project did, but the Unity engine is closed-source and proprietary.
 
 ## Why Godot?
 
