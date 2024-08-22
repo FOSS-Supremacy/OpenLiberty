@@ -5,7 +5,9 @@
 [node name="VehicleCameraController" type="Node3D"]
 script = ExtResource("1_p1l74")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Pivot"]
 spring_length = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Pivot/SpringArm3D"]
