@@ -9,7 +9,7 @@ class_name VehicleEngine
 
 @export_group("Engine Settings")
 @export var engine_power = 100.0 ## Potência Máxima do Motor
-@export var max_rpm = 50 ## Este valor pode ser usado como base para o primeiro valor da array 'gears'
+#@export var max_rpm = 50 ## Este valor pode ser usado como base para o primeiro valor da array 'gears'
 @export var engine_brake = 50 ## Define a força de frenagem aplicada automaticamente quando o jogador não está acelerando.
 
 var current_rpm: int = 0
@@ -36,8 +36,8 @@ var changing_gear: bool = false
 var current_speed: int
 
 # Entrada do jogador.
-var throttle_input: float = Input.get_action_strength("car_run") - Input.get_action_strength("car_break")
-var brake_input: float = Input.get_action_strength("car_break")
+var throttle_input
+var brake_input
 
 func _ready() -> void:
 	last_gear_change_time = Time.get_ticks_msec()
@@ -82,7 +82,6 @@ func GearController():
 			if (Time.get_ticks_msec() - last_gear_change_time) / 1000.0 > shift_speed:
 				apply_gear()
 				current_gear += 1
-				print("Marcha aumentada para: ", current_gear)
 				last_gear_change_time = Time.get_ticks_msec()
 	else:
 		# Diminui a marcha
@@ -90,7 +89,6 @@ func GearController():
 			changing_gear = true
 			apply_gear()
 			current_gear -= 1
-			print("Marcha diminuída para: ", current_gear)
 			last_gear_change_time = Time.get_ticks_msec()
 
 func apply_gear():
