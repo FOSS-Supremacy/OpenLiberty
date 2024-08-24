@@ -46,7 +46,6 @@ func _process(delta):
 	
 	if not FreeCamera:
 		if is_reversing():  # If you are reversing, the camera rotates in reverse, prioritizing the front of the car.
-	#	<-- Desativado por motivos de bugs muito estranhos --> NÂO TIRE O COMENTARIO DESSA BOMBA
 			target_rotation = reverse_rotation
 			car_is_moving = true
 		elif Vehicle.linear_velocity.length() > 2: # If you are going forward, the camera prioritizes the rear of the car.
@@ -73,8 +72,11 @@ func _process(delta):
 # Checks if the car is reversing.
 # Still doesn't work very well.
 func is_reversing() -> bool:
-	var test = Vehicle.linear_velocity.dot(Vehicle.global_transform.basis.z)
-	if test < 0:
-		return true
+	if Vehicle.linear_velocity.length() > 2:
+		var test = Vehicle.linear_velocity.dot(Vehicle.global_transform.basis.z)
+		if test < 0:
+			return true
+		else:
+			return false
 	else:
 		return false
