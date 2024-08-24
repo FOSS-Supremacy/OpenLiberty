@@ -1,20 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpy61iddtbrdu"]
+[gd_scene load_steps=12 format=3 uid="uid://bpy61iddtbrdu"]
 
 [ext_resource type="PackedScene" uid="uid://cr2ersq7g6q6f" path="res://prefabs/actors/player/ThirdPersonPlayer.tscn" id="1_lnyc1"]
 [ext_resource type="PackedScene" uid="uid://d2u8vbkvktl7g" path="res://prefabs/vehicles/VehicleTemplate.tscn" id="2_np362"]
-[ext_resource type="Texture2D" uid="uid://t08wbyrcvylh" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_u7u28"]
+[ext_resource type="Texture2D" uid="uid://t08wbyrcvylh" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="3_0yg0l"]
 [ext_resource type="Material" uid="uid://up5atx65jyxf" path="res://assets/materials/prototype/orange.tres" id="3_6s1rt"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_2ocut"]
-size = Vector2(1000, 1000)
+[sub_resource type="PlaneMesh" id="PlaneMesh_lq02y"]
+size = Vector2(10000, 10000)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smph7"]
-albedo_texture = ExtResource("2_u7u28")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dl5pt"]
+albedo_texture = ExtResource("3_0yg0l")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5f4ne"]
-data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bdrje"]
+data = PackedVector3Array(5000, 0, 5000, -5000, 0, 5000, 5000, 0, -5000, -5000, 0, 5000, -5000, 0, -5000, 5000, 0, -5000)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dc885"]
 
@@ -25,38 +25,90 @@ sky_material = SubResource("ProceduralSkyMaterial_dc885")
 background_mode = 2
 sky = SubResource("Sky_xashb")
 
+[sub_resource type="Compositor" id="Compositor_26g4g"]
+compositor_effects = Array[CompositorEffect]([null])
+
 [node name="CharactersWorldTest" type="Node3D"]
 
 [node name="actors" type="Node" parent="."]
 
-[node name="Player" parent="actors" instance=ExtResource("1_lnyc1")]
+[node name="ThirdPersonPlayer" parent="actors" instance=ExtResource("1_lnyc1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.7795)
 
 [node name="Vehicle" type="Node" parent="."]
 
 [node name="VehicleTemplate" parent="Vehicle" instance=ExtResource("2_np362")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -6.40396)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30.3968)
 
 [node name="map" type="Node" parent="."]
 
-[node name="plane" type="MeshInstance3D" parent="map"]
-mesh = SubResource("PlaneMesh_2ocut")
-surface_material_override/0 = SubResource("StandardMaterial3D_smph7")
+[node name="ground" type="MeshInstance3D" parent="map"]
+mesh = SubResource("PlaneMesh_lq02y")
+surface_material_override/0 = SubResource("StandardMaterial3D_dl5pt")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="map/plane"]
+[node name="StaticBody3D" type="StaticBody3D" parent="map/ground"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/plane/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_5f4ne")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_bdrje")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.63038)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.744, -0.202576, -26.2349)
 use_collision = true
-size = Vector3(3, 3, 3)
+size = Vector3(1, 0.594849, 5.20898)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.6763, -0.202576, -26.2349)
+use_collision = true
+size = Vector3(1, 0.594849, 5.20898)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.7148, -0.202576, -26.2349)
+use_collision = true
+size = Vector3(1, 0.594849, 5.20898)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.1024, -0.202576, -26.2349)
+use_collision = true
+size = Vector3(1, 0.594849, 5.20898)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.8049, 8.32433, -20.4119)
+use_collision = true
+size = Vector3(15.1157, 17.6487, 16.855)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 0.486656, -0.873594, 0, 0.873594, 0.486656, 0, 18.3001, 33.8081)
+use_collision = true
+size = Vector3(10, 85.093, 1)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 0.132879, -0.991132, 0, 0.991132, 0.132879, -57.0276, 0.254764, 3.1183)
+use_collision = true
+size = Vector3(10, 14.8321, 1)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -57.028, 1.245, 17.87)
+use_collision = true
+size = Vector3(10, 14.8321, 1)
+material = ExtResource("3_6s1rt")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 38.945, 113.275)
+use_collision = true
+size = Vector3(10, 85.093, 1)
 material = ExtResource("3_6s1rt")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q6cjc")
+compositor = SubResource("Compositor_26g4g")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.800888, 0.598814, 0, -0.598814, 0.800888, 0, 4.4221, 0)
-visible = false
 shadow_enabled = true
