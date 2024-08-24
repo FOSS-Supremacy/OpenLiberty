@@ -4,6 +4,7 @@
 
 [node name="VehicleCameraController" type="Node3D"]
 script = ExtResource("1_p1l74")
+max_steering_rotation = 15.0
 
 [node name="Pivot" type="Node3D" parent="."]
 
