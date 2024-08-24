@@ -493,8 +493,10 @@ shadow_mesh = SubResource("ArrayMesh_xnix1")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3m0qi"]
 points = PackedVector3Array(0.721164, 0.45284, 1.60312, 0.675552, 0.757563, 1.53889, 0.642368, 0.753237, 1.5457, 0.318995, 0.742245, 1.54984, -0.721305, 0.45284, 1.60312, 0.721164, 0.394843, 1.60045, 0.721164, 0.45284, 1.40126, 0.687414, 0.804219, -0.873257, 0.675552, 0.874962, 0.808734, 0.675552, 0.787965, 1.5158, 0.675552, 0.763877, 1.53534, -0.642509, 0.753237, 1.5457, -0.319136, 0.742245, 1.54984, -0.721305, 0.394843, 1.60045, -0.675694, 0.757563, 1.53889, -0.675694, 0.763877, 1.53534, -0.675694, 0.787965, 1.5158, -0.675694, 0.874962, 0.808734, -0.687555, 0.804219, -0.873257, -0.721305, 0.45284, 1.40126, 0.721164, 0.323164, 1.58743, 0.721164, 0.323164, 1.42553, 0.710573, 0.307261, -1.1491, 0.708596, 0.448163, -1.4205, 0.687414, 0.804219, -1.06564, 0.520927, 1.38221, -0.286055, 0.520927, 1.38209, 0.39497, 0.675552, 0.874728, -1.31188, 0.520927, 1.38221, -0.807256, -0.721305, 0.323164, 1.58743, -0.521068, 1.38209, 0.39497, -0.521068, 1.38221, -0.286055, -0.521068, 1.38221, -0.807256, -0.675694, 0.874728, -1.31188, -0.687555, 0.804219, -1.06564, -0.721305, 0.323164, 1.42553, -0.708737, 0.448163, -1.4205, -0.710714, 0.307261, -1.1491, 0.675552, 0.260138, 1.50101, 0.686708, 0.246457, 1.42405, 0.696452, 0.246691, 1.38143, 0.696452, 0.208688, 0.758716, 0.696452, 0.209624, -0.476363, 0.708596, 0.307261, -1.38676, 0.708596, 0.377654, -1.4205, 0.162534, 0.681792, -1.406, 0.680777, 0.694771, -1.40186, 0.675552, 0.750664, -1.39742, 0.0225938, 0.946641, -1.25358, 0.0225938, 0.984643, -1.21747, 0.500027, 0.977978, -1.21569, -0.696593, 0.208688, 0.758716, -0.696593, 0.246691, 1.38143, -0.686849, 0.246457, 1.42405, -0.675694, 0.260138, 1.50101, -0.0227349, 0.984643, -1.21747, -0.500169, 0.977978, -1.21569, -0.0227349, 0.946641, -1.25358, -0.675694, 0.750664, -1.39742, -0.696593, 0.209624, -0.476363, -0.680918, 0.694771, -1.40186, -0.162675, 0.681792, -1.406, -0.708737, 0.377654, -1.4205, -0.708737, 0.307261, -1.38676, 0.563713, 0.200854, 1.12956, 0.563713, 0.18764, 1.02805, 0.655642, 0.18764, -0.826198, 0.696452, 0.254291, -1.08044, 0.675552, 0.254291, -1.31543, -0.655783, 0.18764, -0.826198, -0.563855, 0.18764, 1.02805, -0.563855, 0.200854, 1.12956, -0.696593, 0.254291, -1.08044, -0.675694, 0.254291, -1.31543)
 
-[node name="VehicleTemplate" type="VehicleBody3D"]
+[node name="VehicleTemplate" type="VehicleBody3D" node_paths=PackedStringArray("VehicleEnginePath", "VehicleSteeringPath")]
 script = ExtResource("1_xfu4b")
+VehicleEnginePath = NodePath("VehicleNodes/VehicleEngine")
+VehicleSteeringPath = NodePath("VehicleNodes/VehicleSteering")
 
 [node name="CarView" type="Node3D" parent="."]
 
@@ -504,13 +506,11 @@ script = ExtResource("1_h24mh")
 [node name="right_light" type="SpotLight3D" parent="CarView/lights"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.510644, 0.66487, 1.6175)
 light_energy = 16.0
-shadow_enabled = true
 spot_range = 50.0
 
 [node name="left_light" type="SpotLight3D" parent="CarView/lights"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.505118, 0.66487, 1.6175)
 light_energy = 16.0
-shadow_enabled = true
 spot_range = 50.0
 
 [node name="internal_light" type="OmniLight3D" parent="CarView/lights"]
@@ -750,17 +750,18 @@ skin = SubResource("Skin_kcspo")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
 shape = SubResource("SphereShape3D_tsk17")
 
-[node name="VehicleCameraController" parent="." node_paths=PackedStringArray("Vehicle") instance=ExtResource("5_k4wtr")]
+[node name="VehicleCameraController" parent="." node_paths=PackedStringArray("Vehicle", "VehicleEngineNode") instance=ExtResource("5_k4wtr")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.705353, 0)
 Vehicle = NodePath("..")
+VehicleEngineNode = NodePath("../VehicleNodes/VehicleEngine")
 
 [node name="front_left_wheel" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.472146, 0.266109, 1.07063)
 use_as_steering = true
 wheel_roll_influence = 0.01
-wheel_radius = 0.28
+wheel_radius = 0.27
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.4
+wheel_friction_slip = 1.2
 suspension_travel = 5.0
 suspension_stiffness = 50.0
 suspension_max_force = 10000.0
@@ -773,9 +774,9 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.472146, 0.266109, 1.07063)
 use_as_steering = true
 wheel_roll_influence = 0.01
-wheel_radius = 0.28
+wheel_radius = 0.27
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.4
+wheel_friction_slip = 1.2
 suspension_travel = 5.0
 suspension_stiffness = 50.0
 suspension_max_force = 10000.0
@@ -786,11 +787,12 @@ skeleton = NodePath("")
 
 [node name="back_left_wheel" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.573323, 0.266109, -0.783897)
+engine_force = 458.11
 use_as_traction = true
 wheel_roll_influence = 0.01
-wheel_radius = 0.28
+wheel_radius = 0.27
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.1
+wheel_friction_slip = 1.2
 suspension_travel = 5.0
 suspension_stiffness = 50.0
 suspension_max_force = 10000.0
@@ -801,11 +803,10 @@ skeleton = NodePath("")
 
 [node name="back_right_wheel" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573323, 0.266109, -0.783897)
+engine_force = 458.11
 use_as_traction = true
-wheel_roll_influence = 0.01
-wheel_radius = 0.28
+wheel_radius = 0.27
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.1
 suspension_travel = 5.0
 suspension_stiffness = 50.0
 suspension_max_force = 10000.0
@@ -849,15 +850,19 @@ layout_mode = 2
 [node name="VehicleEngine" type="Node" parent="VehicleNodes" node_paths=PackedStringArray("Vehicle", "CurrentSpeed", "CurrentGear", "CurrentRPM")]
 script = ExtResource("5_jc703")
 Vehicle = NodePath("../..")
+SPEED_REVERSE_GEAR = 20
 gears = Array[int]([0, 50, 120, 250])
-brake_force = 50
 CurrentSpeed = NodePath("../../CarInterface/VBoxContainer/CarSpeed")
 CurrentGear = NodePath("../../CarInterface/VBoxContainer/CurrentGear")
 CurrentRPM = NodePath("../../CarInterface/VBoxContainer/CurrentRPM")
 
-[node name="VehicleSteering" type="Node" parent="VehicleNodes" node_paths=PackedStringArray("Vehicle")]
+[node name="VehicleSteering" type="Node" parent="VehicleNodes" node_paths=PackedStringArray("Vehicle", "FrontLeftWheel", "FrontRightWheel", "BackLeftWheel", "BackRightWheel")]
 script = ExtResource("6_6e4ib")
 Vehicle = NodePath("../..")
+FrontLeftWheel = NodePath("../../front_left_wheel")
+FrontRightWheel = NodePath("../../front_right_wheel")
+BackLeftWheel = NodePath("../../back_left_wheel")
+BackRightWheel = NodePath("../../back_right_wheel")
 
 [connection signal="body_entered" from="InteractArea" to="." method="PlayerEnteredInteractArea"]
 [connection signal="body_exited" from="InteractArea" to="." method="PlayerExitedInteractArea"]
