@@ -1,32 +1,35 @@
+# Still with some errors in question of reversing the vehicle and the brake.
+
 extends Node
 class_name VehicleEngine
 
 @export var Vehicle: VehicleBody3D
 
 @export_group("Speed Settings")
-@export var MAX_SPEED = 100
-@export var MIN_SPEED_REVERSE_GEAR = 10 
+@export var SPEED_REVERSE_GEAR = 10 ## Sets the maximum speed of the vehicle in reverse.
+
+var vehicle_reversing = false
 
 @export_group("Engine Settings")
-@export var engine_power = 100.0 ## Potência Máxima do Motor
+@export var engine_power = 100.0 ## Maximum Engine Power
 #@export var max_rpm = 50 ## Este valor pode ser usado como base para o primeiro valor da array 'gears'
-@export var engine_brake = 50 ## Define a força de frenagem aplicada automaticamente quando o jogador não está acelerando.
+#@export var engine_brake = 50 ## Sets the braking force automatically applied when the player is not accelerating.
 
 var current_rpm: int = 0
 var engine_force = 0.0
 
 @export_group("Broadcast Settings")
-@export var gears: Array[int] ## Array consta o numero de marchas disponiveis no veiculo. Cada marcha você armazena o valor do RPM maximo para a troca da marcha.
-@export var shift_speed = 0.5 ## O tempo que leva para trocar de marcha, em segundos.
-@export var auto_gearbox: bool = true ## Troca automática de marchas.
+@export var gears: Array[int] ## Array contains the number of gears available in the vehicle. For each gear, you store the maximum RPM value for changing gear.
+@export var shift_speed = 0.5 ## The time it takes to change gears, in seconds. ( Not sure if it works. )
+#@export var auto_gearbox: bool = true ## Troca automática de marchas.
 
 var current_gear: int = 0
 var last_gear_change_time: float = 0.0
 var changing_gear: bool = false
 
 @export_group("Braking Settings")
-@export var brake_force = 0  ## Define a força aplicada aos freios. Afeta a eficiência da frenagem.
-@export var handbrake_force = 0  ## Define a força aplicada pelo freio de mão, geralmente usada para travar as rodas traseiras.
+@export var brake_force = 10  ## Sets the force applied to the brakes. Affects braking efficiency.
+@export var handbrake_force = 0  ## Sets the force applied by the handbrake, generally used to lock the rear wheels.
 
 @export_group("Debug")
 @export var CurrentSpeed: Label
@@ -34,6 +37,7 @@ var changing_gear: bool = false
 @export var CurrentRPM: Label
 
 var current_speed: int
+var forward_velocity
 
 # Entrada do jogador.
 var throttle_input
@@ -51,21 +55,26 @@ func EngineController():
 	EngineForce()
 	GearController()
 	
+	# RPM System
 	current_rpm = (Vehicle.linear_velocity.length() * 60) / (2 * PI)
 	current_rpm = min(current_rpm, gears[current_gear])
 	
-	# Calcula a força do motor
+	# Calculates motor power
 	engine_force = throttle_input * engine_power
 
-	# Aplica a força de frenagem do motor se o veículo estiver desacelerando
-	if brake_input > 0.0:
-		engine_force -= engine_brake * brake_input
+	# Applies engine braking force if the vehicle is decelerating
+	if brake_input > 0.1:
+		engine_force -= brake_force / 2
 	
 	var total_brake_force: float = brake_force * brake_input + handbrake_force
-	Vehicle.brake_force = total_brake_force
+	#Vehicle.brake = brake_input * brake_force
+	
+	forward_velocity = Vehicle.linear_velocity.dot(Vehicle.global_transform.basis.z)
 
 func EngineForce():
 	if current_rpm >= gears[current_gear]:
+		Vehicle.engine_force = 0
+	elif forward_velocity < 0 and current_speed >= SPEED_REVERSE_GEAR:
 		Vehicle.engine_force = 0
 	else:
 		Vehicle.engine_force = engine_force
@@ -75,7 +84,7 @@ func EngineBrake():
 		Vehicle.engine_force = engine_force * 0.5
 
 func GearController():
-	# Aumenta a marcha
+	# +1 gear
 	if throttle_input:
 		if current_rpm >= gears[current_gear] and current_gear < gears.size() - 1:
 			changing_gear = true
@@ -84,7 +93,7 @@ func GearController():
 				current_gear += 1
 				last_gear_change_time = Time.get_ticks_msec()
 	else:
-		# Diminui a marcha
+		# -1 gear
 		if current_rpm < gears[current_gear] * 0.8 and current_gear > 0 and (Time.get_ticks_msec() - last_gear_change_time) / 1000.0 > shift_speed:
 			changing_gear = true
 			apply_gear()
@@ -94,6 +103,7 @@ func GearController():
 func apply_gear():
 	changing_gear = false
 
+# For Debug
 func VehicleDebug():
 	if CurrentSpeed != null:
 		current_speed = Vehicle.linear_velocity.length() * 3.6
