@@ -115,8 +115,8 @@ You can watch the demo video on [this](https://youtu.be/Z3Cd_NBYUfI?feature=shar
 
 ### Project asset resources
 
-- [ ] Convert the GTA collision parser into a `CollisionFile : Resource`.
-- [ ] Add a project-level `.col` `ResourceFormatLoader` with validated parsing and case-insensitive model lookup.
+- [x] Convert the GTA collision parser into a `CollisionData : Resource`.
+- [x] Add a project-level `.col` `ResourceFormatLoader` with validated parsing and case-insensitive model lookup.
 - [ ] Add a `CollisionInstance : StaticBody3D` that builds box, sphere, and triangle collision shapes from a collision model.
 - [ ] Replace `MapData` collision construction with `CollisionInstance` nodes.
 - [ ] Add focused test scenes for COL loading and collision geometry.

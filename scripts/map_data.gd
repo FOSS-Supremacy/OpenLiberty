@@ -6,7 +6,7 @@ const LOD_VISIBILITY_BEGIN: float = 300.0
 
 var objects: Dictionary[int, ItemDefinition.ObjectDef] = { }
 var instances: Array[ItemPlacement.Instance] = []
-var collisions: Dictionary[String, CollisionFile.CollisionModel] = { }
+var collisions: Dictionary[String, CollisionData.CollisionModel] = { }
 var texture_dictionaries: Dictionary[String, RWTextureDict] = { }
 ## Maps LOD model names (lowercase) to their base ObjectDef, built at IDE parse
 ## time by replacing the first three characters of each base name with "LOD".
@@ -50,10 +50,12 @@ static func open(path: String) -> MapData:
 					return null
 				data.instances.append_array(placements.instances)
 			"COLFILE":
-				var col := CollisionFile.open(NoCaseFS.resolve(GameManager.gta_path.path_join(
-						tokens[2].replace("\\", "/")
-					)))
+				var col_path := NoCaseFS.resolve(GameManager.gta_path.path_join(
+					tokens[2].replace("\\", "/")
+				))
+				var col := ResourceLoader.load(col_path, "CollisionData", ResourceLoader.CACHE_MODE_REUSE) as CollisionData
 				if col == null:
+					push_error("Could not load collision data: %s" % col_path)
 					return null
 				data.collisions.merge(col.models)
 			_:
@@ -97,7 +99,7 @@ func instantiate() -> Node3D:
 					atomic.visibility_range_begin = base.draw_distances[0]
 			continue
 
-		var model: CollisionFile.CollisionModel = collisions.get(object.model_name.to_lower(), null)
+		var model: CollisionData.CollisionModel = collisions.get(object.model_name.to_lower(), null)
 		if model != null:
 			_spawn_collision(node, model)
 
@@ -162,21 +164,21 @@ func _spawn_light(parent: Node3D, light: ItemDefinition.Light2DFX) -> void:
 	parent.add_child(node)
 
 
-func _spawn_collision(parent: Node3D, model: CollisionFile.CollisionModel) -> void:
+func _spawn_collision(parent: Node3D, model: CollisionData.CollisionModel) -> void:
 	var body := StaticBody3D.new()
 	parent.add_child(body)
 
 	for box in model.boxes:
 		var aabb := AABB()
 		aabb.position = Vector3(
-			min(box.min.x, box.max.x),
-			min(box.min.y, box.max.y),
-			min(box.min.z, box.max.z),
+			min(box.minimum.x, box.maximum.x),
+			min(box.minimum.y, box.maximum.y),
+			min(box.minimum.z, box.maximum.z),
 		)
 		aabb.end = Vector3(
-			max(box.min.x, box.max.x),
-			max(box.min.y, box.max.y),
-			max(box.min.z, box.max.z),
+			max(box.minimum.x, box.maximum.x),
+			max(box.minimum.y, box.maximum.y),
+			max(box.minimum.z, box.maximum.z),
 		)
 		if aabb.size.x <= 0 or aabb.size.y <= 0 or aabb.size.z <= 0:
 			continue
