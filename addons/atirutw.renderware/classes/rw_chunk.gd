@@ -423,24 +423,43 @@ func get_children() -> Array[RWChunk]:
 	var children: Array[RWChunk] = []
 
 	while stream.get_available_bytes() >= 12:
+		var child_header_position := stream.get_position()
 		var type := stream.get_32()
 		var size := stream.get_32()
 		var stamp := stream.get_32()
 
-		if stream.get_available_bytes() < size:
-			push_error(
-				"Child chunk size (%d) exceeds remaining bytes: %d"
-				% [size, stream.get_available_bytes()]
+		var child_size := size
+		if stream.get_available_bytes() < child_size:
+			push_warning(
+				(
+					"Child chunk in parent 0x%08X at offset %d (child index %d): type 0x%08X, size %d, stamp 0x%08X, exceeds remaining payload %d of %d; clamping"
+				)
+				% [
+					self.type,
+					child_header_position,
+					children.size(),
+					type,
+					child_size,
+					stamp,
+					stream.get_available_bytes(),
+					_data.size(),
+				]
 			)
-			return children
+			child_size = stream.get_available_bytes()
 
 		var child := RWChunk.new()
 		child.type = type
 		child.version = _unpack_version(stamp)
 		child.build = _unpack_build(stamp)
-		child._data = _data.slice(stream.get_position(), stream.get_position() + size)
+		child._data = _data.slice(stream.get_position(), stream.get_position() + child_size)
 		children.append(child)
-		stream.seek(stream.get_position() + size)
+		stream.seek(stream.get_position() + child_size)
+
+	if stream.get_available_bytes() > 0:
+		push_warning(
+			"Parent chunk 0x%08X has %d trailing bytes after %d child chunks"
+			% [self.type, stream.get_available_bytes(), children.size()]
+		)
 
 	return children
 
