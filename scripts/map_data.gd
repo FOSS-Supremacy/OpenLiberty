@@ -2,6 +2,7 @@ class_name MapData
 extends RefCounted
 
 const STATIC_LIGHTING_LAYER: int = 1 << 1
+const LOD_VISIBILITY_BEGIN: float = 300.0
 
 var objects: Dictionary[int, ItemDefinition.ObjectDef] = { }
 var instances: Array[ItemPlacement.Instance] = []
@@ -86,12 +87,13 @@ func instantiate() -> Node3D:
 			for atomic in node.atomics:
 				atomic.visibility_range_end = object.draw_distances[0]
 				if object.is_big_building and not object.is_lod:
-					atomic.visibility_range_begin = 300.0
+					atomic.visibility_range_begin = LOD_VISIBILITY_BEGIN
 
 		if object.is_lod:
 			var base: ItemDefinition.ObjectDef = lod_map.get(object.model_name.to_lower(), null)
-			if base != null:
-				for atomic in node.atomics:
+			for atomic in node.atomics:
+				atomic.visibility_range_begin = LOD_VISIBILITY_BEGIN
+				if base != null:
 					atomic.visibility_range_begin = base.draw_distances[0]
 			continue
 
