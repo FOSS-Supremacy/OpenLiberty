@@ -6,7 +6,7 @@ const LOD_VISIBILITY_BEGIN: float = 300.0
 
 var objects: Dictionary[int, ItemDefinition.ObjectDef] = { }
 var instances: Array[ItemPlacement.Instance] = []
-var collisions: Dictionary[String, CollisionData.CollisionModel] = { }
+var collisions: Dictionary[String, CollisionModel] = { }
 var texture_dictionaries: Dictionary[String, RWTextureDict] = { }
 ## Maps LOD model names (lowercase) to their base ObjectDef, built at IDE parse
 ## time by replacing the first three characters of each base name with "LOD".
@@ -99,9 +99,11 @@ func instantiate() -> Node3D:
 					atomic.visibility_range_begin = base.draw_distances[0]
 			continue
 
-		var model: CollisionData.CollisionModel = collisions.get(object.model_name.to_lower(), null)
+		var model: CollisionModel = collisions.get(object.model_name.to_lower(), null)
 		if model != null:
-			_spawn_collision(node, model)
+			var collision := CollisionInstance.new()
+			collision.collision_model = model
+			node.add_child(collision)
 
 		for light in object.lights:
 			_spawn_light(node, light)
@@ -162,36 +164,3 @@ func _spawn_light(parent: Node3D, light: ItemDefinition.Light2DFX) -> void:
 	node.shadow_enabled = true
 	node.light_cull_mask &= ~STATIC_LIGHTING_LAYER
 	parent.add_child(node)
-
-
-func _spawn_collision(parent: Node3D, model: CollisionData.CollisionModel) -> void:
-	var body := StaticBody3D.new()
-	parent.add_child(body)
-
-	for box in model.boxes:
-		var aabb := AABB()
-		aabb.position = Vector3(
-			min(box.minimum.x, box.maximum.x),
-			min(box.minimum.y, box.maximum.y),
-			min(box.minimum.z, box.maximum.z),
-		)
-		aabb.end = Vector3(
-			max(box.minimum.x, box.maximum.x),
-			max(box.minimum.y, box.maximum.y),
-			max(box.minimum.z, box.maximum.z),
-		)
-		if aabb.size.x <= 0 or aabb.size.y <= 0 or aabb.size.z <= 0:
-			continue
-		var shape := BoxShape3D.new()
-		shape.size = aabb.size
-		var colshape := CollisionShape3D.new()
-		colshape.shape = shape
-		colshape.position = aabb.get_center()
-		body.add_child(colshape)
-
-	if model.mesh_faces.size() > 0:
-		var shape := ConcavePolygonShape3D.new()
-		shape.set_faces(model.mesh_faces)
-		var colshape := CollisionShape3D.new()
-		colshape.shape = shape
-		body.add_child(colshape)

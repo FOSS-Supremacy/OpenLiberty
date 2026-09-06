@@ -30,7 +30,7 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	return data
 
 
-func _read_model(file: FileAccess) -> CollisionData.CollisionModel:
+func _read_model(file: FileAccess) -> CollisionModel:
 	if file.get_length() - file.get_position() < MODEL_HEADER_SIZE:
 		return null
 
@@ -47,7 +47,7 @@ func _read_model(file: FileAccess) -> CollisionData.CollisionModel:
 		push_error("Collision model extends past the end of the file")
 		return null
 
-	var model := CollisionData.CollisionModel.new()
+	var model := CollisionModel.new()
 	model.name = _read_name(file, 22)
 	if model.name.is_empty():
 		push_error("Collision model has an invalid name")
@@ -61,7 +61,7 @@ func _read_model(file: FileAccess) -> CollisionData.CollisionModel:
 	if sphere_count < 0:
 		return null
 	for i in sphere_count:
-		var sphere := CollisionData.CollisionSphere.new()
+		var sphere := CollisionModel.CollisionSphere.new()
 		sphere.radius = file.get_float()
 		sphere.center = _read_vector3(file)
 		sphere.surface = _read_surface(file)
@@ -76,7 +76,7 @@ func _read_model(file: FileAccess) -> CollisionData.CollisionModel:
 	if box_count < 0:
 		return null
 	for i in box_count:
-		var box := CollisionData.CollisionBox.new()
+		var box := CollisionModel.CollisionBox.new()
 		box.minimum = _read_vector3(file)
 		box.maximum = _read_vector3(file)
 		box.surface = _read_surface(file)
@@ -93,7 +93,7 @@ func _read_model(file: FileAccess) -> CollisionData.CollisionModel:
 	if face_count < 0:
 		return null
 	for i in face_count:
-		var face := CollisionData.CollisionFace.new()
+		var face := CollisionModel.CollisionFace.new()
 		face.a = file.get_32()
 		face.b = file.get_32()
 		face.c = file.get_32()
@@ -139,8 +139,8 @@ func _read_vector3(file: FileAccess) -> Vector3:
 	return Vector3(file.get_float(), file.get_float(), file.get_float())
 
 
-func _read_bounds(file: FileAccess) -> CollisionData.CollisionBounds:
-	var bounds := CollisionData.CollisionBounds.new()
+func _read_bounds(file: FileAccess) -> CollisionModel.CollisionBounds:
+	var bounds := CollisionModel.CollisionBounds.new()
 	bounds.radius = file.get_float()
 	bounds.center = _read_vector3(file)
 	bounds.minimum = _read_vector3(file)
@@ -148,8 +148,8 @@ func _read_bounds(file: FileAccess) -> CollisionData.CollisionBounds:
 	return bounds
 
 
-func _read_surface(file: FileAccess) -> CollisionData.CollisionSurface:
-	var surface := CollisionData.CollisionSurface.new()
+func _read_surface(file: FileAccess) -> CollisionModel.CollisionSurface:
+	var surface := CollisionModel.CollisionSurface.new()
 	surface.material = file.get_8() & 0xff
 	surface.flag = file.get_8() & 0xff
 	surface.brightness = file.get_8() & 0xff
